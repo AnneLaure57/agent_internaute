@@ -16,6 +16,15 @@ Behaviours
 * Recherche par critères
 * J'envoie une notif pour voir quelle oeuvre, la noter etc...
 
+**Internaute**
+
+* Conception de l’interface graphique permettant d’interagir avec les distributeurs.
+* Un profil avec des préférences pour chaque type de media, un temps de visionnage moyen et un budget mensuel.
+* Maximiser sa satisfaction en téléchargant/streamant des contenus qui lui plaisent.
+* Interaction avec les distributeurs pour obtenir ces contenus et avec le système de recommandation pour obtenir les évaluations de ces contenus, des distributeurs et des producteurs. 
+* Il peut également noter lui-même ces contenus, des distributeurs et des producteurs.
+
+
 ## Trello :
 
 [https://trello.com/b/bsh2egHk/projet-ia](https://trello.com/b/bsh2egHk/projet-ia)
