@@ -24,6 +24,24 @@ Behaviours
 * Interaction avec les distributeurs pour obtenir ces contenus et avec le système de recommandation pour obtenir les évaluations de ces contenus, des distributeurs et des producteurs. 
 * Il peut également noter lui-même ces contenus, des distributeurs et des producteurs.
 
+**TODO**
+
+* Création de la base du projet
+
+* Récupération de la base d'Antoine
+
+* Créer l'agent avec ses préférences
+
+* Création des échanges (avec Mock)
+	* Agent e-reputation
+	* Agents distributeurs
+
+* Choix des stratégies achats/choix initiaux
+
+* Calcul de la satisfaction globale
+
+* Calcul satisfaction par raooirt à un distributeur
+
 
 ## Trello :
 
