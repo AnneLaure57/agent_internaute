@@ -1,9 +1,7 @@
-# agent_internaute
+# M2_Agents_assistants_intelligents
 
 # Objectifs
 stratégie de l’agent + interface graphique pour chercher une œuvre ou remplir le profil de préférences.
-
-ON EST DANS LA MERDE !
 
 Claire :
 Intégration webservice.
@@ -17,9 +15,6 @@ Behaviours
 * Recherche par titre
 * Recherche par critères
 * J'envoie une notif pour voir quelle oeuvre, la noter etc...
-
-
-# M2_Agents_assistants_intelligents
 
 ## Trello :
 
