@@ -1,5 +1,8 @@
 # agent_internaute
 
+# Objectifs
+stratégie de l’agent + interface graphique pour chercher une œuvre ou remplir le profil de préférences.
+
 ON EST DANS LA MERDE !
 
 Claire :
@@ -15,5 +18,4 @@ Behaviours
 * Recherche par critères
 * J'envoie une notif pour voir quelle oeuvre, la noter etc...
 
-Adel : ZZZZzzzzZZZZ
-[lien vers une sombre vidéo](https://drive.google.com/file/d/1sxSeM_x9mRGw0ZooElNBUVBIs0t90IV6/preview)
+
