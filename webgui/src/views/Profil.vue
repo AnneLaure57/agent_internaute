@@ -44,17 +44,17 @@
       </v-card-actions>
     </v-card>
 
-    <!-- Films -->
+    <!-- Films et séries -->
     <v-card width="80%" class="ma-6 pa-3">
       <v-card-title>Films</v-card-title>
 
       <v-card-text>
         <h4>Genres préférés</h4>
-        <div v-if="movies_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
+        <div v-if="genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
         <div class="d-flex flex-wrap">
           <v-checkbox
-            v-model="movies_prefered_genres[genre]"
-            v-for="genre in movies_genres"
+            v-model="video_prefered_genres[genre]"
+            v-for="genre in video_genres"
             :key="genre"
             :label="genre"
             style="min-width: 200px;"
@@ -64,12 +64,14 @@
         <h4>Réalisateurs préférés</h4>
         <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
           <div class="mr-10" style="max-width: 400px;">
-            <v-autocomplete hide-details prepend-inner-icon="mdi-plus" label="Ajouter nouveau"> </v-autocomplete>
+            <v-autocomplete hide-details prepend-inner-icon="mdi-plus" label="Ajouter nouveau">
+
+            </v-autocomplete>
           </div>
 
           <div class="ml-10">
             <v-chip
-              v-for="director in movies_prefered_directors"
+              v-for="director in video_prefered_directors"
               :key="director"
               class="mx-2"
               color="primary"
@@ -90,7 +92,7 @@
 
           <div class="ml-10">
             <v-chip
-              v-for="actor in movies_prefered_actors"
+              v-for="actor in video_prefered_actors"
               :key="actor"
               class="mx-2"
               color="primary"
@@ -109,72 +111,6 @@
       </v-card-actions>
     </v-card>
 
-    <!-- Séries -->
-    <v-card width="80%" class="ma-6 pa-3">
-      <v-card-title>Séries</v-card-title>
-
-      <v-card-text>
-        <h4>Genres préférés</h4>
-        <div v-if="tv_shows_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
-        <div class="d-flex flex-wrap">
-          <v-checkbox
-            v-model="tv_shows_prefered_genres[genre]"
-            v-for="genre in tv_shows_genres"
-            :key="genre"
-            :label="genre"
-            style="min-width: 200px;"
-          ></v-checkbox>
-        </div>
-
-        <h4>Réalisateurs préférés</h4>
-        <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-          <div class="mr-10" style="max-width: 400px;">
-            <v-autocomplete hide-details prepend-inner-icon="mdi-plus" label="Ajouter nouveau"> </v-autocomplete>
-          </div>
-
-          <div class="ml-10">
-            <v-chip
-              v-for="director in tv_shows_prefered_directors"
-              :key="director"
-              class="mx-2"
-              color="primary"
-              outlined
-              close
-              @click:close="deletePreferedMovieDirector(director)"
-            >
-              {{ director }}
-            </v-chip>
-          </div>
-        </div>
-
-        <h4>Acteurs préférés</h4>
-        <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-          <div class="mr-10" style="max-width: 400px;">
-            <v-autocomplete hide-details prepend-inner-icon="mdi-plus" label="Ajouter nouveau"> </v-autocomplete>
-          </div>
-
-          <div class="ml-10">
-            <v-chip
-              v-for="actor in tv_shows_prefered_actors"
-              :key="actor"
-              class="mx-2"
-              color="primary"
-              outlined
-              close
-              @click:close="deletePreferedTvShowActor(actor)"
-            >
-              {{ director }}
-            </v-chip>
-          </div>
-        </div>
-      </v-card-text>
-
-      <v-card-actions class="d-flex justify-space-between">
-        <v-spacer></v-spacer>
-        <v-btn text color="primary">Sauvegarder</v-btn>
-      </v-card-actions>
-    </v-card>
-
     <!-- Musique -->
     <v-card width="80%" class="ma-6 pa-3">
       <v-card-title>Musique</v-card-title>
@@ -184,7 +120,7 @@
         <div v-if="musics_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
         <div class="d-flex flex-wrap">
           <v-checkbox
-            v-model="musics_prefered_genres[genre]"
+            v-model="prefered_genres[genre]"
             v-for="genre in musics_genres"
             :key="genre"
             :label="genre"
@@ -200,7 +136,7 @@
 
           <div class="ml-10">
             <v-chip
-              v-for="artist in musics_prefered_artists"
+              v-for="artist in prefered_artists"
               :key="artist"
               class="mx-2"
               color="primary"
@@ -238,37 +174,25 @@ export default {
       sex: "whoknows",
       budget: 40,
       time: 60,
-      movies_genres: ["action", "horreur", "romance", "science fiction", "suspense"],
-      movies_prefered_genres: {
+      video_genres: ["action", "horreur", "romance", "science fiction", "suspense"],
+      prefered_video_genres: {
         action: true,
         horreur: false,
         romance: false,
         "science fiction": true,
         suspense: false,
       },
-      movies_directors: ["Quentin Tarantino"],
-      movies_prefered_directors: ["Quentin Tarantino"],
-      movies_actors: [],
-      movies_prefered_actors: [],
-      tv_shows_genres: ["action", "comédie", "romance", "science fiction"],
-      tv_shows_prefered_genres: {
-        action: true,
-        horreur: false,
-        romance: false,
-        "science fiction": true,
-        suspense: false,
-      },
-      tv_shows_directors: [],
-      tv_shows_prefered_directors: [],
-      tv_shows_actors: [],
-      tv_shows_prefered_actors: [],
+      directors: ["Quentin Tarantino"],
+      prefered_directors: ["Quentin Tarantino"],
+      actors: [],
+      prefered_actors: [],
       musics_genres: ["acid", "club", "metal", "pop", "reggae"],
       musics_prefered_genres: {
         acid: false,
         reggae: true,
       },
-      musics_artists: [],
-      musics_prefered_artists: ["Lorie"],
+      artists: [],
+      prefered_artists: ["Lorie"],
     };
   },
 
@@ -281,38 +205,26 @@ export default {
       });
     },
 
-    addPreferedMovieDirector(director) {
-      this.$axios.post("/movies_directors/preferred", director).then((response) => {
+    addPreferedDirector(director) {
+      this.$axios.post("/directors/preferred", director).then((response) => {
         this.results = response.body;
       });
     },
 
-    deletePreferedMovieDirector(director) {
-      this.$axios.delete("/movies_directors/preferred", director).then((response) => {
-        this.results = response.body;
-      });
-    },
-
-    addPreferedMovieActor(actor) {
-      this.$axios.post("/movies_directors/preferred", actor).then((response) => {
-        this.results = response.body;
-      });
-    },
-
-    deletePreferedMovieActor(actor) {
-      this.$axios.delete("/movies_directors/preferred", actor).then((response) => {
+    deletePreferedActor(actor) {
+      this.$axios.delete("/directors/preferred", actor).then((response) => {
         this.results = response.body;
       });
     },
 
     addPreferedMusicArtist(artist) {
-      this.$axios.post("/movies_directors/preferred", artist).then((response) => {
+      this.$axios.post("/directors/preferred", artist).then((response) => {
         this.results = response.body;
       });
     },
 
     deletePreferedMusicArtist(artist) {
-      this.$axios.delete("/movies_directors/preferred", artist).then((response) => {
+      this.$axios.delete("/directors/preferred", artist).then((response) => {
         this.results = response.body;
       });
     },

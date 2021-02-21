@@ -1,6 +1,7 @@
-package agent;
+package fr.miage.sid.agentinternaute.agent;
 
-import entity.Profil;
+import java.util.UUID;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -11,7 +12,7 @@ import jade.lang.acl.ACLMessage;
 
 public class AgentInternaute extends Agent {
 
-	private Profil internaute;
+	private String name;
 	private String service = "internaute";
 	private AID aid = new AID();
 
@@ -20,15 +21,15 @@ public class AgentInternaute extends Agent {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
 		if (args.length > 0) {
-			internaute.setName((String) args[0]); // Nom de l'internaute en paramètre de la ligne de commande
+			this.name = (String) args[0]; // Nom de l'internaute en paramètre de la ligne de commande
 		} else {
-			internaute.setName("Bob");
+			this.name = "Bob_" + UUID.randomUUID();
 		}
 
 		// On s'enregistre auprès du DF
 		this.registerService();
 
-		System.out.println("Bonjour. Bienvenue sur " + this.getLocalName() + " " + internaute.getName());
+		System.out.println("Bonjour. Bienvenue sur " + this.getLocalName() + " " + this.name);
 	}
 
 	/*
@@ -76,11 +77,11 @@ public class AgentInternaute extends Agent {
 	 */
 	private void registerService() {
 		DFAgentDescription dfd = new DFAgentDescription();
-		dfd.setName(this.getAID());
+		dfd.setName(this.aid);
 
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(service);
-		sd.setName(internaute.getName());
+		sd.setType(this.service);
+		sd.setName(this.name);
 
 		dfd.addServices(sd);
 		try {

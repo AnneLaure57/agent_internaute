@@ -1,13 +1,12 @@
-package entity;
+package fr.miage.sid.agentinternaute.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,14 +16,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Oeuvre {
+public class History {
 
-	@Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
-	private String title;
-	
-	@Temporal(TemporalType.DATE)
-	private Date releaseDate;
+    
+    private Date addDate;
+    
+    private Float rating;
+    
+    private Media media;
+    
 }
