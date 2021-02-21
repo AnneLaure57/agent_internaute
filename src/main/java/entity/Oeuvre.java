@@ -23,8 +23,8 @@ public class Oeuvre {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String titre;
+	private String title;
 	
 	@Temporal(TemporalType.DATE)
-	private Date dateSortie;
+	private Date releaseDate;
 }

@@ -1,6 +1,5 @@
 package entity;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,37 +22,28 @@ import lombok.NoArgsConstructor;
 public class Profil {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	private String nom;
-	
-	private String sexe;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_naissance")
-	private Date dateNaissance;
-	
-	private Duration tempsConsoMoyen;
-	
-	private Integer budgetMax;
-	
-	private boolean telechargementPrefereFilm;
-	
-	private boolean telechargementPrefereSeries;
-	
-	private boolean telechargementPrefereMusique;
-	
-	private boolean telechargementPrefereJeux;
-	
-	private ArrayList<String> genresPreferesFilms;
-	
-	private ArrayList<String> genresPreferesSeries;
-	
-	private ArrayList<String> genresPreferesMusique;
-	
-	private ArrayList<String> genresPreferesJeux;
-	
-	private ArrayList<Artiste> artistesPreferes;
-	
+
+	private String name;
+
+	private String sex;
+
+	private Integer age;
+
+	private Integer averageConsumptionTime;
+
+	private Integer maxBudget;
+
+	private ArrayList<Director> preferedMoviesDirectors;
+	private ArrayList<Actor> preferedMoviesActors;
+	private ArrayList<String> preferedMoviesGenres;
+
+	private ArrayList<String> preferedTvShowsGenres;
+	private ArrayList<Director> preferedTvShowsDirectors;
+	private ArrayList<Actor> preferedTvShowsActors;
+
+	private ArrayList<String> preferedMusicsGenres;
+	private ArrayList<Artist> preferedMusicsArtists;
+
 }

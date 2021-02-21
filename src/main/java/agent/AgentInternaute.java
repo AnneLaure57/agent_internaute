@@ -20,15 +20,15 @@ public class AgentInternaute extends Agent {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
 		if (args.length > 0) {
-			internaute.setNom((String) args[0]); // Nom de l'internaute en paramètre de la ligne de commande
+			internaute.setName((String) args[0]); // Nom de l'internaute en paramètre de la ligne de commande
 		} else {
-			internaute.setNom("Bob");
+			internaute.setName("Bob");
 		}
 
 		// On s'enregistre auprès du DF
 		this.registerService();
 
-		System.out.println("Bonjour. Bienvenue sur " + this.getLocalName() + " " + internaute.getNom());
+		System.out.println("Bonjour. Bienvenue sur " + this.getLocalName() + " " + internaute.getName());
 	}
 
 	/*
@@ -80,7 +80,7 @@ public class AgentInternaute extends Agent {
 
 		ServiceDescription sd = new ServiceDescription();
 		sd.setType(service);
-		sd.setName(internaute.getNom());
+		sd.setName(internaute.getName());
 
 		dfd.addServices(sd);
 		try {
