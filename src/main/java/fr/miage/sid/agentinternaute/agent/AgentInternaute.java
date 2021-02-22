@@ -91,6 +91,15 @@ public class AgentInternaute extends Agent {
 			ex.printStackTrace();
 		}
 	}
+	
+	/*
+	 * Envoi message pour la recherche
+	 * 
+	 * param : Agent Client, String message -> contenu du message, AID receiver et le mot clé recherche
+	 */
+	private void sendMessageResearch(Agent myAgent, String mess, AID id, String recherche) {
+		// TODO
+	}
 
 	/*
 	 * Déférérencement dans l'annuaire
