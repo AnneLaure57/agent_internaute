@@ -124,4 +124,58 @@ public class AgentInternaute extends Agent {
 		}
 		return null;
 	}
+	
+	/*
+	 * Préparer achat oeuvre
+	 */
+	private void checkOrder(ACLMessage messageClient) {
+		
+	}
+	
+	/*
+	 * Rechercher un média
+	 * TODO : change String to List
+	 */
+	private void searchMedia(String recherche) {
+		
+	}
+	
+	/*
+	 * Attendre Réponse Recherche
+	 */
+	private void getResponseSearch() {
+		
+	}
+	
+	/*
+	 * Recevoir la liste des médias proposés par les distributeurs
+	 * Faire intervenir les behaviours dedans
+	 */
+	private void getListMedias() {
+		//TODO AL : put here switch case with different behaviour
+	}
+	
+	/*
+	 * Envoyer la commande (accept_proposal)
+	 * 
+	 */
+	private void sendOrder(ACLMessage messageClient) {
+		
+	}
+	
+	/*
+	 * Prix commande/média
+	 * 
+	 */
+	private void getPriceOrder() {
+		
+	}
+	
+	/*
+	 * Prix commande/média
+	 * 
+	 */
+	private void buyMedia() {
+		
+	}
 }
