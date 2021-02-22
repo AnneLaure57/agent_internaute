@@ -34,3 +34,6 @@ build/
 
 ### Javascript ###
 /node_modules/
+/APDescription.txt
+/MTPs-Main-Container.txt
+/database.mv.db

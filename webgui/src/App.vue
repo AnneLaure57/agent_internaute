@@ -2,17 +2,17 @@
   <v-app>
     <!-- App bar -->
     <v-app-bar app flat clipped-left dark color="black">
-      <v-toolbar-title class="link ml-6" :to="{ name: 'rechercher' }">
+      <v-toolbar-title class="link ml-6" @click="goToHome()">
         <span>Agent internaute</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-menu offset-y bottom>
+      <v-menu offset-y bottom v-if="profile">
         <template v-slot:activator="{ on }">
           <div v-on="on" class="link mr-12">
             <span>
-              {{ login ? login : "Anonymous" }}
+              {{ profile && profile.name ? profile.name : "Anonymous" }}
             </span>
             <v-avatar class color="primary" size="30px">
               <v-icon color="white">mdi-account</v-icon>
@@ -59,31 +59,39 @@
 </template>
 
 <style>
-
 .link {
   cursor: pointer;
 }
-
 </style>
 
 <script>
+import { mapState } from "vuex";
 /* eslint-disable no-console */
 export default {
   name: "App",
 
   data() {
     return {
-      login: null,
+      //
     };
   },
 
+  computed: {
+    ...mapState(["profile"]),
+  },
+
   mounted() {
-    ///
+    if(this.profile == null) this.$router.push({ name: "login" });
   },
 
   methods: {
+    goToHome() {
+      this.$router.push({ name: "rechercher" });
+    },
+
     logout() {
-      localStorage.clear();
+      this.$store.commit("setProfile", null);
+      this.$router.push({ name: "login" });
     },
   },
 };

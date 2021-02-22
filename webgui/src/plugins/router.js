@@ -1,12 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue'
 import Rechercher from '@/views/Rechercher.vue'
 import Profil from '@/views/Profil.vue'
 import Historique from '@/views/Historique.vue'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    {
+        path: "/login",
+        component: Login,
+        name: "login"
+    },
+    {
+        path: "/register",
+        component: Register,
+        name: "register"
+    },
+    {
         path: "/rechercher",
         component: Rechercher,
         name: "rechercher"
@@ -23,7 +36,7 @@ const routes = [{
     },
     {
         path: "*",
-        redirect: "/rechercher"
+        redirect: "/login"
     }
 ]
 

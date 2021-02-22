@@ -1,7 +1,10 @@
 package fr.miage.sid.agentinternaute.agent;
 
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -11,8 +14,11 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 
 public class AgentInternaute extends Agent {
+	
+	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
 	private String name;
+	private ProfileService profileService;
 	private String service = "internaute";
 	private AID aid = new AID();
 
@@ -24,12 +30,12 @@ public class AgentInternaute extends Agent {
 			this.name = (String) args[0]; // Nom de l'internaute en paramètre de la ligne de commande
 		} else {
 			this.name = "Bob_" + UUID.randomUUID();
-		}
+		}		
 
 		// On s'enregistre auprès du DF
 		this.registerService();
 
-		System.out.println("Bonjour. Bienvenue sur " + this.getLocalName() + " " + this.name);
+		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 	}
 
 	/*
@@ -49,35 +55,13 @@ public class AgentInternaute extends Agent {
 			return null;
 		}
 	}
-	
-	/*
-	 * Recherche d'un agent e-reputation
-	 */
-	public DFAgentDescription getAgentReputation() {
-		DFAgentDescription[] results = searchAgents("reputation");
-		if (results != null && results.length > 0) {
-			return results[0];
-		}
-		return null;
-	}
-
-	/*
-	 * Recherche des agents distributeurs
-	 */
-	public DFAgentDescription[] getAgentsDistributeurs() {
-		DFAgentDescription[] results = searchAgents("distributeur");
-		if (results != null && results.length > 0) {
-			return results;
-		}
-		return null;
-	}
 
 	/*
 	 * Enregistrement auprès du Directory Facilitator
 	 */
 	private void registerService() {
 		DFAgentDescription dfd = new DFAgentDescription();
-		dfd.setName(this.aid);
+		dfd.setName(getAID());
 
 		ServiceDescription sd = new ServiceDescription();
 		sd.setType(this.service);
@@ -109,13 +93,35 @@ public class AgentInternaute extends Agent {
 	}
 
 	/*
-	 * 
+	 * Déférérencement dans l'annuaire
 	 */
-	protected void takeDown() {
-		try {
-			DFService.deregister(this);
-		} catch (FIPAException fe) {
-			fe.printStackTrace();
+//	protected void takeDown() {
+//		try {
+//			DFService.deregister(this);
+//		} catch (FIPAException fe) {
+//			fe.printStackTrace();
+//		}
+//	}	
+	
+	/*
+	 * Recherche d'un agent e-reputation
+	 */
+	public DFAgentDescription getAgentReputation() {
+		DFAgentDescription[] results = searchAgents("reputation");
+		if (results != null && results.length > 0) {
+			return results[0];
 		}
+		return null;
+	}
+
+	/*
+	 * Recherche des agents distributeurs
+	 */
+	public DFAgentDescription[] getAgentsDistributeurs() {
+		DFAgentDescription[] results = searchAgents("distributeur");
+		if (results != null && results.length > 0) {
+			return results;
+		}
+		return null;
 	}
 }

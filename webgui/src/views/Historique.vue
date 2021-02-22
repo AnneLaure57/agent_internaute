@@ -40,6 +40,7 @@
 <style scoped></style>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Historique",
 
@@ -50,9 +51,13 @@ export default {
       ],
     };
   },
+  
+  computed: {
+    ...mapState(["profile"]),
+  },
 
   mounted() {
-    //
+    if(this.profile == null) this.$router.push({ name: "login" });
   },
 
   methods: {

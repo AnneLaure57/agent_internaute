@@ -3,7 +3,7 @@ package fr.miage.sid.agentinternaute.agent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.controller.HistoryController;
+import fr.miage.sid.agentinternaute.api.HistoryController;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.AgentContainer;
@@ -51,14 +51,14 @@ public final class JadeAgentContainer {
 
 	public void createNewAgentInternaute(String name) {
 		try {
-			if (this.agentContainer.getAgent(name, false) == null) {
+//			if (this.agentContainer.getPlatformController().getAgent(name) == null) {
 				Object[] arguments = { name };
 				AgentController agent = this.agentContainer.createNewAgent(name,
 						"fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
 				agent.start();
-			} else {
-				LOGGER.log(Level.WARNING, "Agent " + name + " already exists");
-			}
+//			} else {
+//				LOGGER.log(Level.WARNING, "Agent " + name + " already exists");
+//			}
 		} catch (ControllerException e) {
 			e.printStackTrace();
 			LOGGER.log(Level.SEVERE, "Couldn't create agent " + name);

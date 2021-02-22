@@ -50,7 +50,7 @@
 
       <v-card-text>
         <h4>Genres préférés</h4>
-        <div v-if="genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
+        <div v-if="video_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
         <div class="d-flex flex-wrap">
           <v-checkbox
             v-model="video_prefered_genres[genre]"
@@ -120,8 +120,8 @@
         <div v-if="musics_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
         <div class="d-flex flex-wrap">
           <v-checkbox
-            v-model="prefered_genres[genre]"
-            v-for="genre in musics_genres"
+            v-model="prefered_music_genres[genre]"
+            v-for="genre in music_genres"
             :key="genre"
             :label="genre"
             style="min-width: 200px;"
@@ -165,6 +165,7 @@ div {
 </style>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Profil",
 
@@ -186,8 +187,8 @@ export default {
       prefered_directors: ["Quentin Tarantino"],
       actors: [],
       prefered_actors: [],
-      musics_genres: ["acid", "club", "metal", "pop", "reggae"],
-      musics_prefered_genres: {
+      music_genres: ["acid", "club", "metal", "pop", "reggae"],
+      prefered_music_genres: {
         acid: false,
         reggae: true,
       },
@@ -196,15 +197,15 @@ export default {
     };
   },
 
-  mounted() {},
+  computed: {
+    ...mapState(["profile"]),
+  },
+
+  mounted() {
+    if(this.profile == null) this.$router.push({ name: "login" });
+  },
 
   methods: {
-    search() {
-      this.$axios.get("/profil").then((response) => {
-        this.results = response.body;
-      });
-    },
-
     addPreferedDirector(director) {
       this.$axios.post("/directors/preferred", director).then((response) => {
         this.results = response.body;

@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.controller;
+package fr.miage.sid.agentinternaute.api;
 
 import java.net.URI;
 import java.util.Optional;
@@ -9,15 +9,18 @@ import javax.transaction.Transactional;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -26,16 +29,29 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Profile.class)
 @RequiredArgsConstructor
-public class ProfileController {
+@CrossOrigin 
+public class ProfilController {
 
-	private static final Logger LOGGER = Logger.getLogger(ProfileController.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(ProfilController.class.getName());
 
 	private final ProfileService service;
 
-	@GetMapping(value = "/{name}")
-	public ResponseEntity<?> getProfile(@PathVariable String name) {
+	@GetMapping
+	public ResponseEntity<?> getProfileByName(@RequestParam(value = "name", required = true) String name) {
+		JadeAgentContainer.getInstance().createNewAgentInternaute(name);
 		return Optional.ofNullable(service.getProfileByName(name)).filter(Optional::isPresent)
 				.map(p -> ResponseEntity.ok(p.get())).orElse(ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<?> getProfileById(@PathVariable Integer id) {
+		Optional<Profile> profile = service.getProfileById(id);
+		if(profile.isPresent()) {
+			JadeAgentContainer.getInstance().createNewAgentInternaute(profile.get().getName());
+			return ResponseEntity.ok(profile.get());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@PostMapping
@@ -46,14 +62,19 @@ public class ProfileController {
 		if (profileOptional.isPresent())
 			return ResponseEntity.status(209).body("Profile already exists");
 		else {
-			Profile savedStudent = service.createOrUpdateProfile(profile);
+			Profile savedProfile = service.createOrUpdateProfile(profile);
+			
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(savedStudent.getId()).toUri();
-			return ResponseEntity.status(201).location(location).body("Profile created");
+					.buildAndExpand(savedProfile.getId()).toUri();
+			
+			JadeAgentContainer.getInstance().createNewAgentInternaute(savedProfile.getName());
+			
+			return ResponseEntity.status(201).location(location).body(savedProfile);
 		}
 	}
 
 	@PutMapping(value = "/{id}")
+	@Transactional
 	public ResponseEntity<?> updateProfile(@RequestBody Profile profile, @PathVariable int id) {
 		Optional<Profile> profileOptional = service.getProfileById(id);
 
@@ -62,10 +83,11 @@ public class ProfileController {
 
 		profile.setId(id);
 
-		Profile savedStudent = service.createOrUpdateProfile(profile);
+		Profile savedProfile = service.createOrUpdateProfile(profile);
+		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedStudent.getId()).toUri();
+				.buildAndExpand(savedProfile.getId()).toUri();
 
-		return ResponseEntity.status(200).location(location).body("Profile updated");
+		return ResponseEntity.status(200).location(location).body(savedProfile);
 	}
 }

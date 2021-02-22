@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Rechercher",
 
@@ -72,11 +73,17 @@ export default {
     };
   },
 
-  mounted() {},
+  computed: {
+    ...mapState(["profile"]),
+  },
+
+  mounted() {
+    if(this.profile == null) this.$router.push({ name: "login" });
+  },
 
   methods: {
     search() {
-      this.$http.get("/search").then((response) => {
+      this.$axios.get("/search").then((response) => {
         this.results = response.body;
       });
     },

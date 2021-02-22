@@ -1,9 +1,10 @@
-package fr.miage.sid.agentinternaute.controller;
+package fr.miage.sid.agentinternaute.api;
 
 import java.util.logging.Logger;
 
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/history", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(History.class)
 @RequiredArgsConstructor
+@CrossOrigin 
 public class HistoryController {
 
 	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());

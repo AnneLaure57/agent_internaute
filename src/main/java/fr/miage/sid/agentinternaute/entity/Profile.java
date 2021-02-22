@@ -1,12 +1,17 @@
 package fr.miage.sid.agentinternaute.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +41,10 @@ public class Profile {
 	private Integer currentExpenses;
 	
 	private Integer maxBudget;
+	
+	@OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<History> moviesWatched;
 
 	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Integer maxBudget) {
 		super();
@@ -44,15 +53,17 @@ public class Profile {
 		this.age = age;
 		this.averageConsumptionTime = averageConsumptionTime;
 		this.maxBudget = maxBudget;
+		this.preferedVideoGenres = new ArrayList<String>();
+		this.preferedDirectors = new ArrayList<String>();
+		this.preferedActors = new ArrayList<String>();
+		this.preferedMusicsGenres = new ArrayList<String>();
+		this.preferedMusicsArtists = new ArrayList<String>();
 	}
-	private ArrayList<Person> preferedMoviesDirectors;
-	private ArrayList<Person> preferedMoviesActors;
-	private ArrayList<String> preferedMoviesGenres;
 
-	private ArrayList<String> preferedTvShowsGenres;
-	private ArrayList<Person> preferedTvShowsDirectors;
-	private ArrayList<Person> preferedTvShowsActors;
+	private ArrayList<String> preferedVideoGenres;
+	private ArrayList<String> preferedDirectors;
+	private ArrayList<String> preferedActors;
 
 	private ArrayList<String> preferedMusicsGenres;
-	private ArrayList<Person> preferedMusicsArtists;
+	private ArrayList<String> preferedMusicsArtists;
 }
