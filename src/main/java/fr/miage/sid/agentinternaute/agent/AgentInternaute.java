@@ -102,7 +102,7 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Envoi préférences profil, type, titre
 	 */
-	private void sendProfileAndTypeAndMovieTitle(Profile profil, String type, String title, AID id) {
+	private void sendProfileAndTypeAndTitle(Profile profil, String type, String title, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
 			aclMessage.addReceiver(id);
