@@ -33,8 +33,9 @@ build/
 .vscode/
 
 ### Javascript ###
-/node_modules/
-/package-lock.json
-/APDescription.txt
-/MTPs-Main-Container.txt
-/database.mv.db
+node_modules/
+package-lock.json
+APDescription.txt
+MTPs-Main-Container.txt
+database.mv.db
+/database.lock.db
