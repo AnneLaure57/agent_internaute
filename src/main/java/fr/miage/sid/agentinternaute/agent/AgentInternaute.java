@@ -118,18 +118,13 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Envoi préférences profil, type, titre
 	 */
-	private void sendProfileAndTypeAndTitle(Profile profil, String type, String title, AID id) {
+	private void sendProfileAndTypeAndTitle(JSONObject messageJSON, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
 			aclMessage.addReceiver(id);
 			
-			// regrouper en 1
-			String profile = String.valueOf(profil);
-			
-			// En String
-			String message = "{ \"profile\" :" +profile + ", { \"type\" : "  + type + ", { \"titre\" :" + title + "}";
-			// En JSON
-			//JSONObject obj = (JSONObject) JsonParser.parse(message).getAsJsonObject();
+			// convert JSON --> String
+			String message = messageJSON.toString();
 			
 			aclMessage.setContent(message);
 			super.send(aclMessage);
