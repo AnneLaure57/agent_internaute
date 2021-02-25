@@ -46,6 +46,13 @@ public class Profile {
 	@JsonIgnore
 	private List<History> moviesWatched;
 
+	private ArrayList<String> preferedVideoGenres;
+	private ArrayList<String> preferedDirectors;
+	private ArrayList<String> preferedActors;
+
+	private ArrayList<String> preferedMusicGenres;
+	private ArrayList<String> preferedMusicArtists;
+
 	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Integer maxBudget) {
 		super();
 		this.name = name;
@@ -56,14 +63,7 @@ public class Profile {
 		this.preferedVideoGenres = new ArrayList<String>();
 		this.preferedDirectors = new ArrayList<String>();
 		this.preferedActors = new ArrayList<String>();
-		this.preferedMusicsGenres = new ArrayList<String>();
-		this.preferedMusicsArtists = new ArrayList<String>();
+		this.preferedMusicGenres = new ArrayList<String>();
+		this.preferedMusicArtists = new ArrayList<String>();
 	}
-
-	private ArrayList<String> preferedVideoGenres;
-	private ArrayList<String> preferedDirectors;
-	private ArrayList<String> preferedActors;
-
-	private ArrayList<String> preferedMusicsGenres;
-	private ArrayList<String> preferedMusicsArtists;
 }

@@ -30,10 +30,8 @@ public class History {
     
     private Float rating;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="movie_id", referencedColumnName="id")
 	@JsonIgnore
-    private Movie movie;
+    private String movieId;
     
     @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="profile_id", referencedColumnName="id")

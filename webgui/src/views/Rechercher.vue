@@ -3,23 +3,34 @@
     style="width: 100%; height: 100%; background-color: #efefef;"
     class="d-flex flex-column align-center justify-space-between flex-grow-1"
   >
-    <v-card width="80%" class="ma-10">
-      <v-card-title>Rechercher</v-card-title>
-      <v-card-text class="d-flex">
+  <div class="d-flex ma-5 justify-space-between" style="width: 80%" >
+    <v-card width="45%">
+      <v-card-title>Rechercher un titre spécifique</v-card-title>
+      <v-card-text class="d-flex flex-wrap">
         <v-text-field
-          class="mr-12"
+          class="mr-8"
           v-model="searchfield"
           placeholder="Saisissez un ou plusieurs mots-clés"
           append-outer-icon="mdi-magnify"
           @click:append-outer="search"
         ></v-text-field>
-        <v-checkbox v-model="all" label="Tout" class="mx-6"></v-checkbox>
-        <v-checkbox v-model="movies" label="Films" class="mx-6"></v-checkbox>
-        <v-checkbox v-model="tv_shows" label="Séries" class="mx-6"></v-checkbox>
-        <v-checkbox v-model="musics" label="Musique" class="mx-6"></v-checkbox>
+        <v-checkbox v-model="movies" label="Films" class="mx-4"></v-checkbox>
+        <v-checkbox v-model="tv_shows" label="Séries" class="mx-4"></v-checkbox>
+        <v-checkbox v-model="musics" label="Musique" class="mx-4"></v-checkbox>
       </v-card-text>
       <v-card-actions></v-card-actions>
     </v-card>
+
+    <div class="d-flex align-center justify-center"><span class="title">ou</span></div>
+
+    <v-card width="45%">
+      <v-card-title>Rechercher par filtre</v-card-title>
+      <v-card-text class="d-flex">
+        <!-- toto -->
+      </v-card-text>
+      <v-card-actions></v-card-actions>
+    </v-card>
+  </div>
 
     <div style="width: 80%" class="d-flex ma-5">
       <h2 v-if="results.length > 0">Résultats</h2>
@@ -61,7 +72,6 @@ export default {
   data() {
     return {
       searchfield: "",
-      all: true,
       movies: false,
       tv_shows: false,
       musics: false,

@@ -53,7 +53,7 @@
         <div v-if="video_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
         <div class="d-flex flex-wrap">
           <v-checkbox
-            v-model="video_prefered_genres[genre]"
+            v-model="prefered_video_genres[genre]"
             v-for="genre in video_genres"
             :key="genre"
             :label="genre"
@@ -71,7 +71,7 @@
 
           <div class="ml-10">
             <v-chip
-              v-for="director in video_prefered_directors"
+              v-for="director in prefered_directors"
               :key="director"
               class="mx-2"
               color="primary"
@@ -117,7 +117,7 @@
 
       <v-card-text>
         <h4>Genres préférés</h4>
-        <div v-if="musics_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
+        <div v-if="music_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
         <div class="d-flex flex-wrap">
           <v-checkbox
             v-model="prefered_music_genres[genre]"
