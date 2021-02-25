@@ -2,7 +2,6 @@ package fr.miage.sid.agentinternaute.service;
 
 import java.util.Optional;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.entity.Profile;

@@ -4,21 +4,15 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.springframework.boot.json.JsonParser;
-
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
-import net.minidev.json.JSONObject;
-
-import com.google.gson.JsonObject;
 
 public class AgentInternaute extends Agent {
 	
@@ -82,9 +76,31 @@ public class AgentInternaute extends Agent {
 			doDelete();
 		}
 	}
+	
+	/*
+	 * Recherche d'un agent e-reputation
+	 */
+	public DFAgentDescription getAgentReputation() {
+		DFAgentDescription[] results = searchAgents("reputation");
+		if (results != null && results.length > 0) {
+			return results[0];
+		}
+		return null;
+	}
 
 	/*
-	 * Envoi d'un message, à passer sous forme de JSON ???
+	 * Recherche des agents distributeurs
+	 */
+	public DFAgentDescription[] getAgentsDistributeurs() {
+		DFAgentDescription[] results = searchAgents("distributeur");
+		if (results != null && results.length > 0) {
+			return results;
+		}
+		return null;
+	}
+
+	/*
+	 * Envoi d'un message, à former en JSON et à envoyer en String
 	 */
 	private void sendMessage(String mess, AID id) {
 		try {
@@ -141,28 +157,6 @@ public class AgentInternaute extends Agent {
 //			fe.printStackTrace();
 //		}
 //	}	
-	
-	/*
-	 * Recherche d'un agent e-reputation
-	 */
-	public DFAgentDescription getAgentReputation() {
-		DFAgentDescription[] results = searchAgents("reputation");
-		if (results != null && results.length > 0) {
-			return results[0];
-		}
-		return null;
-	}
-
-	/*
-	 * Recherche des agents distributeurs
-	 */
-	public DFAgentDescription[] getAgentsDistributeurs() {
-		DFAgentDescription[] results = searchAgents("distributeur");
-		if (results != null && results.length > 0) {
-			return results;
-		}
-		return null;
-	}
 	
 	/*
 	 * Préparer achat oeuvre

@@ -206,6 +206,7 @@ export default {
   },
 
   methods: {
+
     addPreferedDirector(director) {
       this.$axios.post("/directors/preferred", director).then((response) => {
         this.results = response.body;

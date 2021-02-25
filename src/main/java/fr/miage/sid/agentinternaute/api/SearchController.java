@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.miage.sid.agentinternaute.service.ProfileService;
-import jade.core.AID;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import fr.miage.sid.agentinternaute.service.SearchService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,7 +18,7 @@ public class SearchController {
 	
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
-	private final SearchController service;
+	private final SearchService service;
 
 
 }
