@@ -4,14 +4,21 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.boot.json.JsonParser;
+
+import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
+import net.minidev.json.JSONObject;
+
+import com.google.gson.JsonObject;
 
 public class AgentInternaute extends Agent {
 	
@@ -86,6 +93,29 @@ public class AgentInternaute extends Agent {
 
 			aclMessage.setContent(mess);
 
+			super.send(aclMessage);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	/*
+	 * Envoi préférences profil, type, titre
+	 */
+	private void sendProfileAndTypeAndMovieTitle(Profile profil, String type, String title, AID id) {
+		try {
+			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
+			aclMessage.addReceiver(id);
+			
+			// regrouper en 1
+			String profile = String.valueOf(profil);
+			
+			// En String
+			String message = "{ \"profile\" :" +profile + ", { \"type\" : "  + type + ", { \"titre\" :" + title + "}";
+			// En JSON
+			//JSONObject obj = (JSONObject) JsonParser.parse(message).getAsJsonObject();
+			
+			aclMessage.setContent(message);
 			super.send(aclMessage);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -187,4 +217,10 @@ public class AgentInternaute extends Agent {
 	private void buyMedia() {
 		
 	}
+	
+	// Put agent clean-up operations here
+	 /*protected void takeDown() {
+		 // Printout a dismissal message
+		 System.out.println("l'agent " +getAID().getName()+" s'est arrêté.");
+	 }*/
 }
