@@ -8,6 +8,7 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -24,12 +25,18 @@ public class AgentInternaute extends Agent {
 	private String service = "internaute";
 	private AID aid = new AID();
 
-	@Override
 	protected void setup() {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
 		if (args.length > 0) {
 			this.name = (String) args[0]; // Nom de l'internaute en paramètre de la ligne de commande
+			
+			addBehaviour(new TickerBehaviour(this, 60000) {
+				protected void onTick() {
+					/********** WITHOUT BEHAVIOUR *****/
+					System.out.println("Coucou");
+				}
+			} );
 		} else {
 			this.name = "Bob_" + UUID.randomUUID();
 		}		
@@ -146,13 +153,15 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Déférérencement dans l'annuaire
 	 */
-//	protected void takeDown() {
-//		try {
-//			DFService.deregister(this);
-//		} catch (FIPAException fe) {
-//			fe.printStackTrace();
-//		}
-//	}	
+	protected void takeDown() {
+		try {
+			// Printout a dismissal message
+			System.out.println("l'agent " +getAID().getName()+ " s'est arrêté.");
+			DFService.deregister(this);
+		} catch (FIPAException fe) {
+			fe.printStackTrace();
+		}
+	}	
 	
 	/*
 	 * Préparer achat oeuvre
@@ -208,9 +217,4 @@ public class AgentInternaute extends Agent {
 		
 	}
 	
-	// Put agent clean-up operations here
-	 /*protected void takeDown() {
-		 // Printout a dismissal message
-		 System.out.println("l'agent " +getAID().getName()+" s'est arrêté.");
-	 }*/
 }
