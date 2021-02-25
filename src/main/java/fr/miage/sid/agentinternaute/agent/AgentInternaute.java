@@ -13,6 +13,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
+import net.minidev.json.JSONObject;
 
 public class AgentInternaute extends Agent {
 	
