@@ -34,7 +34,7 @@ public class AgentInternaute extends Agent {
 			addBehaviour(new TickerBehaviour(this, 60000) {
 				protected void onTick() {
 					/********** WITHOUT BEHAVIOUR *****/
-					System.out.println("Coucou");
+					System.out.println("Coucou, je suis up");
 				}
 			} );
 		} else {
