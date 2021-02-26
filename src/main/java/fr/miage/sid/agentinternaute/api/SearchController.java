@@ -19,6 +19,7 @@ public class SearchController {
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
 	private final SearchService service;
-
+	
+	//TODO here send profile + type + title
 
 }

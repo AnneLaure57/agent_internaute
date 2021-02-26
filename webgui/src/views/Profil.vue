@@ -131,6 +131,29 @@
             </v-chip>
           </div>
         </div>
+
+        <h4>Préférences offres</h4>
+        <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+          <div class="mr-10" style="max-width: 400px;" id="app">
+            <!-- Switch -->
+            <div style="max-width: 100px;"  >
+              <v-sheet
+              >
+                <v-switch
+                  v-model="prefAb"
+                  flat
+                  :label="`${prefAb.toString()}`"
+                ></v-switch>
+                <v-switch
+                  v-model="prefDo"
+                  flat
+                  :label="`${prefDo.toString()}`"
+                ></v-switch>
+              </v-sheet>
+            </div>
+          </div>
+        </div>
+          
       </v-card-text>
       <v-card-actions class="d-flex justify-space-between">
         <v-spacer></v-spacer>
@@ -182,6 +205,28 @@
             </v-chip>
           </div>
         </div>
+
+        <h4>Préférences offres</h4>
+        <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+          <div class="mr-10" id="app">
+            <!-- Switch -->
+            <div style="max-width: 100px;"  >
+              <v-sheet
+              >
+                <v-switch
+                  v-model="prefAbM"
+                  flat
+                  :label="`${prefAbM.toString()}`"
+                ></v-switch>
+                <v-switch
+                  v-model="prefDoM"
+                  flat
+                  :label="`${prefDoM.toString()}`"
+                ></v-switch>
+              </v-sheet>
+            </div>
+          </div>
+        </div>
       </v-card-text>
 
       <v-card-actions class="d-flex justify-space-between">
@@ -203,6 +248,7 @@ import { mapState } from "vuex";
 export default {
   name: "Profil",
 
+
   data() {
     return {
       video_genres: [],
@@ -210,6 +256,10 @@ export default {
       actors: [],
       music_genres: [],
       artists: [],
+      prefAb: ['Abonnement'],
+      prefDo: ['Téléchargement'],
+      prefAbM: ['Abonnement'],
+      prefDoM: ['Téléchargement']
     };
   },
 
