@@ -263,7 +263,10 @@ export default {
     if (this.profile == null) this.$router.push({ name: "login" });
     else {
       this.getAllArtists();
+      this.getAllDirectors();
+      this.getAllActors();
       this.getAllMusicGenres();
+      this.getAllVideoGenres();
     }
   },
 
