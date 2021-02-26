@@ -29,14 +29,14 @@ public class CommonDBController {
 
 	@GetMapping(value = "/actors")
 	public ResponseEntity<?> getActors() {
-		List<String> actors = service.getActors();
+		JSONArray actors = service.getActors();
 		return ResponseEntity.status(200).body(actors);
 		
 	}
 	
 	@GetMapping(value = "/directors")
 	public ResponseEntity<?> getDirectors() {
-		List<String> directors = service.getDirectors();
+		JSONArray directors = service.getDirectors();
 		return ResponseEntity.status(200).body(directors);
 	}
 	
@@ -48,7 +48,7 @@ public class CommonDBController {
 	
 	@GetMapping(value = "/video_genres")
 	public ResponseEntity<?> getVideoGenres() {
-		List<String> video_genres = service.getVideoGenres();
+		JSONArray video_genres = service.getVideoGenres();
 		return ResponseEntity.status(200).body(video_genres);
 	}
 	

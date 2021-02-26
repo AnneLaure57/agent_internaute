@@ -49,30 +49,32 @@ public class CommonDBService {
 	}
 	
 	/*
-	 * 
+	 * Récupération des acteurs
 	 */
-	public List<String> getActors() {
-
+	public JSONArray getActors() {
+		JSONArray actors = new JSONArray();
 		try {
 			makeJDBCConnection();
 			
-			String statement = "SELECT * FROM acteurs";
+			String statement = "SELECT * FROM WHERE id IN (SELECT id_personne FROM acteurs) ORDER BY nom";
 
 			PreparedStatementBdd = ConnectionBDD.prepareStatement(statement);
 			PreparedStatementBdd.execute();
 			ResultSet rs = PreparedStatementBdd.getResultSet();
-
+			
+			JSONObject acteur;
 			while (rs.next()) {
-				int idFilm = rs.getInt("id_film");
-				String originalTitle = rs.getString("title");
-				String titre = rs.getString("titre");
-				String resume = rs.getString("resume");
+				acteur = new JSONObject();
+				acteur.put("id", rs.getInt("id"));
+				acteur.put("last_name", rs.getString("nom"));
+				acteur.put("first_name", rs.getString("prenom"));
+				actors.put(acteur);
 			}
 
 			PreparedStatementBdd.close();
 			ConnectionBDD.close();
 			
-			return null;
+			return actors;
 
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "MySQL query Failed!");
@@ -82,30 +84,32 @@ public class CommonDBService {
 	}
 	
 	/*
-	 * 
+	 * Récupération des réalisateurs
 	 */
-	public List<String> getDirectors() {
-
+	public JSONArray getDirectors() {
+		JSONArray directors = new JSONArray();
 		try {
 			makeJDBCConnection();
 			
-			String statement = "SELECT * FROM director";
+			String statement = "SELECT * FROM personne WHERE id IN (SELECT id_personne FROM realisateurs) ORDER BY nom";
 
 			PreparedStatementBdd = ConnectionBDD.prepareStatement(statement);
 			PreparedStatementBdd.execute();
 			ResultSet rs = PreparedStatementBdd.getResultSet();
-
+			JSONObject realisateur;
+			
 			while (rs.next()) {
-				int idFilm = rs.getInt("id_film");
-				String originalTitle = rs.getString("title");
-				String titre = rs.getString("titre");
-				String resume = rs.getString("resume");
+				realisateur = new JSONObject();
+				realisateur.put("id", rs.getInt("id"));
+				realisateur.put("last_name", rs.getString("nom"));
+				realisateur.put("first_name", rs.getString("prenom"));
+				directors.put(realisateur);
 			}
 
 			PreparedStatementBdd.close();
 			ConnectionBDD.close();
 			
-			return null;
+			return directors;
 
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "MySQL query Failed!");
@@ -115,7 +119,7 @@ public class CommonDBService {
 	}
 	
 	/*
-	 * 
+	 * Récupération des artistes de musiques
 	 */
 	public JSONArray getArtists() {
 		JSONArray artists = new JSONArray();
@@ -127,10 +131,13 @@ public class CommonDBService {
 			PreparedStatementBdd = ConnectionBDD.prepareStatement(statement);
 			PreparedStatementBdd.execute();
 			ResultSet rs = PreparedStatementBdd.getResultSet();
-
+			JSONObject artist;
+			
 			while (rs.next()) {
-				String name = rs.getString("name");
-				artists.put(new JSONObject("name", name));
+				artist = new JSONObject();
+				artist.put("id", rs.getInt("id"));
+				artist.put("name", rs.getString("name"));
+				artists.put(artist);
 			}
 
 			PreparedStatementBdd.close();
@@ -146,30 +153,31 @@ public class CommonDBService {
 	}
 	
 	/*
-	 * 
+	 * Récupération des genres des films (/série)
 	 */
-	public List<String> getVideoGenres() {
-
+	public JSONArray getVideoGenres() {
+		JSONArray genres = new JSONArray();
 		try {
 			makeJDBCConnection();
 			
-			String statement = "SELECT * FROM genre";
+			String statement = "SELECT * FROM genre ORDER BY nom";
 
 			PreparedStatementBdd = ConnectionBDD.prepareStatement(statement);
 			PreparedStatementBdd.execute();
 			ResultSet rs = PreparedStatementBdd.getResultSet();
-
+			JSONObject genre;
+			
 			while (rs.next()) {
-				int idFilm = rs.getInt("id_film");
-				String originalTitle = rs.getString("title");
-				String titre = rs.getString("titre");
-				String resume = rs.getString("resume");
+				genre = new JSONObject();
+				genre.put("id", rs.getInt("id"));
+				genre.put("name", rs.getString("nom"));
+				genres.put(genre);
 			}
 
 			PreparedStatementBdd.close();
 			ConnectionBDD.close();
 			
-			return null;
+			return genres;
 
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "MySQL query Failed!");
@@ -179,7 +187,7 @@ public class CommonDBService {
 	}
 	
 	/*
-	 * 
+	 * Récupération de genre de musiques  
 	 */
 	public JSONArray getMusicGenres() {
 		try {
@@ -192,10 +200,13 @@ public class CommonDBService {
 			PreparedStatementBdd = ConnectionBDD.prepareStatement(statement);
 			PreparedStatementBdd.execute();
 			ResultSet rs = PreparedStatementBdd.getResultSet();
-
+			JSONObject genre;
+			
 			while (rs.next()) {
-				String name = rs.getString("name");
-				genres.put(name);
+				genre = new JSONObject();
+				genre.put("id", rs.getInt("id"));
+				genre.put("name", rs.getString("nom"));
+				genres.put(genre);
 			}
 
 			PreparedStatementBdd.close();
