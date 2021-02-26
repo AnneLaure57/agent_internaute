@@ -26,7 +26,7 @@ public class Purchase {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
     
-    private Date data;
+    private Date date;
     
     private Double rating;
     
