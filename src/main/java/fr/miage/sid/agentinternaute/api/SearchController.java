@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +24,7 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.SearchService;
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONArray;
 
 @RestController
 @RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,26 +39,26 @@ public class SearchController {
 	private final ProfileService profilService;
 	
 	//TODO here send profile + type + title
-	
-	@PostMapping
+	// without nom, age, sexe, les preferredTrucs (pas le temps ni le budget, c'est pas leur affaires).
+	@GetMapping
 	@Transactional
 	public ResponseEntity<?> searchArt(@RequestBody String title, Boolean type, Profile profile) {
 		Optional<Profile> profileOptional = profilService.getProfileByName(profile.getName());
-		return null;
 
-		/*if (profileOptional.isPresent())
+		if (profileOptional.isPresent())
 			return ResponseEntity.status(209).body("Profile already exists");
 		else {
-			Profile savedProfile = service.createOrUpdateProfile(profile);
+			// set the fields to not send to distributeur
+			// DO NOT save the new profile
+			profile.setAverageConsumptionTime(null);
+			profile.setCurrentConsumptionTime(null);
+			profile.setCurrentExpenses(0);
 			
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(savedProfile.getId()).toUri();
+			//convert String -> JSON Array
+			JSONArray array = new JSONArray();
 			
-			JadeAgentContainer.getInstance().createNewAgentInternaute(savedProfile.getName());
-			
-			return ResponseEntity.status(201).location(location).body(savedProfile);
-		}*/
+			// Not retturn profil but message from distribteur here/request
+			return ResponseEntity.status(201).body(profile);
+		}
 	}
-
-
 }
