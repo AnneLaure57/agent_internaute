@@ -20,7 +20,7 @@
 		<java.version>11</java.version>
 	</properties>
 
-	<dependencies>s
+	<dependencies>
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
