@@ -21,14 +21,6 @@
 	</properties>
 
 	<dependencies>
-<<<<<<< HEAD
-=======
-	    <dependency>
-	    	<groupId>com.google.code.gson</groupId>
-	    	<artifactId>gson</artifactId>
-	    	<version>2.8.5</version>
-		</dependency>
->>>>>>> d7b177832e0c652d2b9604324c392260c907ef3c
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
