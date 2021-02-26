@@ -43,7 +43,7 @@ public class CommonDBController {
 	@GetMapping(value = "/artists")
 	public ResponseEntity<?> getArtists() {
 		JSONArray artists = service.getArtists();
-		return ResponseEntity.status(200).body(artists.toString());
+		return ResponseEntity.status(200).body(artists);
 	}
 	
 	@GetMapping(value = "/video_genres")
@@ -55,7 +55,8 @@ public class CommonDBController {
 	@GetMapping(value = "/music_genres")
 	public ResponseEntity<?> getMusicGenres() {
 		JSONArray music_genres = service.getMusicGenres();
-		System.out.println(music_genres.toString());
+//		System.out.println("---------------Genre de musique----------------");
+//		System.out.println(music_genres.toString());
 		return ResponseEntity.status(200).body(music_genres.toString());
 	}
 }
