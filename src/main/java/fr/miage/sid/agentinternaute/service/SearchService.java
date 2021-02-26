@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SearchService {
+	
 //	private final ProfileRepository repo;
 //
 //	public Iterable<Profile> findPaged(int page, int size) {
@@ -17,4 +18,6 @@ public class SearchService {
 //
 //		return repo.findAll(PageRequest.of(page, size)).getContent();
 //	}
+	
+	
 }
