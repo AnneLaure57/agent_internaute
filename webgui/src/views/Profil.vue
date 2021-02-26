@@ -270,7 +270,7 @@ export default {
   mounted() {
     if (this.profile == null) this.$router.push({ name: "login" });
     else {
-      //this.getAllArtists();
+      this.getAllArtists();
       this.getAllMusicGenres();
     }
   },

@@ -1,6 +1,5 @@
 package fr.miage.sid.agentinternaute.api;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
@@ -12,13 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.miage.sid.agentinternaute.entity.History;
+import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.service.CommonDBService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(value = "/db", produces = MediaType.APPLICATION_JSON_VALUE)
-@ExposesResourceFor(History.class)
+@ExposesResourceFor(Purchase.class)
 @RequiredArgsConstructor
 @CrossOrigin 
 public class CommonDBController {
@@ -31,7 +30,6 @@ public class CommonDBController {
 	public ResponseEntity<?> getActors() {
 		JSONArray actors = service.getActors();
 		return ResponseEntity.status(200).body(actors);
-		
 	}
 	
 	@GetMapping(value = "/directors")
