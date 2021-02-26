@@ -3,7 +3,7 @@ package fr.miage.sid.agentinternaute.api;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.miage.sid.agentinternaute.entity.History;
 import fr.miage.sid.agentinternaute.service.CommonDBService;
 import lombok.RequiredArgsConstructor;
-import net.minidev.json.JSONArray;
 
 @RestController
 @RequestMapping(value = "/db", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import net.minidev.json.JSONArray;
 
 @Service
 @RequiredArgsConstructor
@@ -130,7 +130,7 @@ public class CommonDBService {
 
 			while (rs.next()) {
 				String name = rs.getString("name");
-				artists.add(new JSONObject("name", name));
+				artists.put(new JSONObject("name", name));
 			}
 
 			PreparedStatementBdd.close();
@@ -195,7 +195,7 @@ public class CommonDBService {
 
 			while (rs.next()) {
 				String name = rs.getString("name");
-				genres.add(name);
+				genres.put(name);
 			}
 
 			PreparedStatementBdd.close();

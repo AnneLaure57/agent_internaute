@@ -4,7 +4,6 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
