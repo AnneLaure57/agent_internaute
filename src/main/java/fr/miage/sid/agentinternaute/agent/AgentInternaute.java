@@ -29,16 +29,16 @@ public class AgentInternaute extends Agent {
 		Object[] args = getArguments();
 		if (args.length > 0) {
 			this.name = (String) args[0]; // Nom de l'internaute en paramètre de la ligne de commande
-			
-			addBehaviour(new TickerBehaviour(this, 60000) {
-				protected void onTick() {
-					/********** WITHOUT BEHAVIOUR *****/
-					System.out.println("Coucou, je suis up");
-				}
-			} );
 		} else {
 			this.name = "Bob_" + UUID.randomUUID();
-		}		
+		}	
+		
+		addBehaviour(new TickerBehaviour(this, 60000) {
+			protected void onTick() {
+				/********** WITHOUT BEHAVIOUR *****/
+				System.out.println("Coucou, je suis up");
+			}
+		} );
 
 		// On s'enregistre auprès du DF
 		this.registerService();
