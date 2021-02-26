@@ -20,22 +20,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class History {
+public class Purchase {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
     
-    private Date addDate;
+    private Date data;
     
-    private Float rating;
+    private Double rating;
     
-	@JsonIgnore
-    private String movieId;
+    private String itemId;
+	
+    private String itemTitle;
     
     @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="profile_id", referencedColumnName="id")
 	@JsonIgnore
     private Profile profile;
-    
 }

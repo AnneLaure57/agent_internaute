@@ -140,12 +140,9 @@
               <v-sheet
               >
                 <v-switch
-                  v-model="prefAb"
-                  flat
-                  :label="`${prefAb.toString()}`"
-                ></v-switch>
-                <v-switch
                   v-model="prefDo"
+                  color="primary"
+                  inset
                   flat
                   :label="`${prefDo.toString()}`"
                 ></v-switch>
@@ -214,13 +211,10 @@
               <v-sheet
               >
                 <v-switch
-                  v-model="prefAbM"
-                  flat
-                  :label="`${prefAbM.toString()}`"
-                ></v-switch>
-                <v-switch
                   v-model="prefDoM"
                   flat
+                  color="primary"
+                  inset
                   :label="`${prefDoM.toString()}`"
                 ></v-switch>
               </v-sheet>
@@ -256,9 +250,7 @@ export default {
       actors: [],
       music_genres: [],
       artists: [],
-      prefAb: ['Abonnement'],
       prefDo: ['Téléchargement'],
-      prefAbM: ['Abonnement'],
       prefDoM: ['Téléchargement']
     };
   },

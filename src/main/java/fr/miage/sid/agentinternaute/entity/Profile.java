@@ -44,7 +44,7 @@ public class Profile {
 	
 	@OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<History> moviesWatched;
+	private List<Purchase> moviesWatched;
 
 	private ArrayList<String> preferedVideoGenres;
 	private ArrayList<String> preferedDirectors;
