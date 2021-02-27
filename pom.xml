@@ -85,6 +85,7 @@
 	</properties>
 
 	<dependencies>
+		<!-- JADE -->
 		<dependency>
 		    <groupId>com.tilab.jade</groupId>
 		    <artifactId>jade</artifactId>
