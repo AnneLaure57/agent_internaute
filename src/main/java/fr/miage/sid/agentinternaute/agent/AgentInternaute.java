@@ -33,6 +33,8 @@ public class AgentInternaute extends Agent {
 	@SuppressWarnings("unused")
 	private AID aid = new AID();
 
+	// TODO
+	@SuppressWarnings("serial")
 	protected void setup() {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
@@ -47,16 +49,14 @@ public class AgentInternaute extends Agent {
 		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		addBehaviour(new TickerBehaviour(this, 60000) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 9192646164357857629L;
-
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
-				System.out.println("Coucou, je suis up depuis ");
+				long tStart = System.currentTimeMillis();
+				System.out.println("Coucou, je suis up depuis " + tStart);
+				
 			}
 		} );
+	
 	}
 
 	/*
