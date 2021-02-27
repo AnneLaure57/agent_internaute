@@ -41,7 +41,7 @@ public class Purchase {
 	@JsonIgnore
     private Profile profile;
 
-	public Purchase( Double rating, String itemId, String itemTitle, Profile profile) {
+	public Purchase(Double rating, String itemId, String itemTitle, Profile profile) {
 		super();
 		this.date = new Date();
 		this.rating = rating;
@@ -49,7 +49,4 @@ public class Purchase {
 		this.itemTitle = itemTitle;
 		this.profile = profile;
 	}
-    
-    
-    
 }

@@ -16,16 +16,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PurchaseService {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
-	
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private final PurchaseRepository repo;
 	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
-
 	public Optional<Purchase> getPurchaseById(int id, String profileId) {
 		LOGGER.info("Get purchase by ID " + id);
 		return repo.findByIdAndProfileId(id, profileId);
@@ -42,7 +36,7 @@ public class PurchaseService {
 	}
 
 	public Purchase createOrUpdatePurchase(Purchase p) {
-		Purchase purchase = new Purchase( p.getRating(), p.getItemId(), p.getItemTitle(), p.getProfile());
+		Purchase purchase = new Purchase(p.getRating(), p.getItemId(), p.getItemTitle(), p.getProfile());
 		repo.save(purchase);
 		return purchase;
 	}
@@ -53,8 +47,4 @@ public class PurchaseService {
 
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
-
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
-	/* ========================================= Main ================================================== */ /*=========================================*/
 }

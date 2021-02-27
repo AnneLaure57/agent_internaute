@@ -15,7 +15,7 @@
       </v-btn>
     </div>
 
-    <v-card style="width:80%" class="d-flex flex-column ma-3 pa-3">
+    <v-card style="width:80%" class="d-flex flex-column ma-3 pa-4">
       <!-- Général -->
       <div>
         <v-card-title>Réglages</v-card-title>
@@ -81,53 +81,91 @@
 
             <h4 class="mt-8">Réalisateurs préférés</h4>
             <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-              <div class="mr-10" style="max-width: 400px;">
+              <div class="mr-10">
                 <v-autocomplete
+                  label="Ajouter nouveau"
+                  v-model="selected_directors"
+                  :items="directors"
+                  item-text="name"
+                  multiple
                   hide-details
                   prepend-inner-icon="mdi-plus"
-                  label="Ajouter nouveau"
+                  return-object
                 >
+                  <template v-slot:selection="{ item, index }">
+                    <span class="mr-1" :key="item.id" v-if="index === 0">
+                      {{ item.name }}
+                    </span>
+                    <span v-if="index === 1" class="grey--text caption"
+                      >(+{{ selected_directors.length - 1 }} autres)</span
+                    >
+                  </template>
                 </v-autocomplete>
               </div>
 
               <div class="ml-10">
-                <v-chip
-                  v-for="director in profile.preferedDirectors"
-                  :key="director"
-                  class="mx-2"
-                  color="primary"
-                  outlined
-                  close
-                  @click:close="deletePreferedMovieDirector(director)"
-                >
-                  {{ director }}
-                </v-chip>
+                <v-chip-group>
+                  <v-chip
+                    v-for="director in selected_directors"
+                    :key="director.id"
+                    class="mx-2"
+                    color="primary"
+                    outlined
+                    close
+                    @click:close="
+                      selected_directors = selected_directors.filter(
+                        (item) => item.id != director.id
+                      )
+                    "
+                  >
+                    {{ director.name }}
+                  </v-chip>
+                </v-chip-group>
               </div>
             </div>
 
             <h4 class="mt-8">Acteurs préférés</h4>
             <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-              <div class="mr-10" style="max-width: 400px;">
+              <div class="mr-10">
                 <v-autocomplete
+                  label="Ajouter nouveau"
+                  v-model="selected_actors"
+                  :items="actors"
+                  item-text="name"
+                  multiple
                   hide-details
                   prepend-inner-icon="mdi-plus"
-                  label="Ajouter nouveau"
+                  return-object
                 >
+                  <template v-slot:selection="{ item, index }">
+                    <span class="mr-1" :key="item.id" v-if="index === 0">
+                      {{ item.name }}
+                    </span>
+                    <span v-if="index === 1" class="grey--text caption"
+                      >(+{{ selected_actors.length - 1 }} autres)</span
+                    >
+                  </template>
                 </v-autocomplete>
               </div>
 
               <div class="ml-10">
-                <v-chip
-                  v-for="actor in profile.preferedActors"
-                  :key="actor"
-                  class="mx-2"
-                  color="primary"
-                  outlined
-                  close
-                  @click:close="deletePreferedMovieActor(actor)"
-                >
-                  {{ director }}
-                </v-chip>
+                <v-chip-group>
+                  <v-chip
+                    v-for="actor in selected_actors"
+                    :key="actor.id"
+                    class="mx-2"
+                    color="primary"
+                    outlined
+                    close
+                    @click:close="
+                      selected_actors = selected_actors.filter(
+                        (item) => item.id != actor.id
+                      )
+                    "
+                  >
+                    {{ actor.name }}
+                  </v-chip>
+                </v-chip-group>
               </div>
             </div>
 
@@ -174,29 +212,22 @@
 
             <h4 class="mt-8">Artistes préférés</h4>
             <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-              <div class="mr-10" style="max-width: 400px;">
-
+              <div class="mr-10">
                 <v-autocomplete
                   label="Ajouter nouveau"
                   v-model="selected_artists"
                   :items="artists"
                   item-text="name"
-                  item-value="id"
                   multiple
                   hide-details
                   prepend-inner-icon="mdi-plus"
+                  return-object
                 >
                   <template v-slot:selection="{ item, index }">
-                    <span
-                      class="mr-1"
-                      :key="item"
-                      v-if="index === 0"
-                    >
+                    <span class="mr-1" :key="item.id" v-if="index === 0">
                       {{ item.name }}
                     </span>
-                    <span
-                      v-if="index === 1"
-                      class="grey--text caption"
+                    <span v-if="index === 1" class="grey--text caption"
                       >(+{{ selected_artists.length - 1 }} autres)</span
                     >
                   </template>
@@ -204,17 +235,23 @@
               </div>
 
               <div class="ml-10">
-                <v-chip
-                  v-for="artist in selected_artists"
-                  :key="artist.name"
-                  class="mx-2"
-                  color="primary"
-                  outlined
-                  close
-                  @click:close="deletePreferedMusicArtist(artist)"
-                >
-                  {{ artist }}
-                </v-chip>
+                <v-chip-group>
+                  <v-chip
+                    v-for="artist in selected_artists"
+                    :key="artist.id"
+                    class="mx-2"
+                    color="primary"
+                    outlined
+                    close
+                    @click:close="
+                      selected_artists = selected_artists.filter(
+                        (item) => item.id != artist.id
+                      )
+                    "
+                  >
+                    {{ artist.name }}
+                  </v-chip>
+                </v-chip-group>
               </div>
             </div>
 
@@ -275,7 +312,9 @@ export default {
   data() {
     return {
       video_genres: [],
+      selected_directors: [],
       directors: [],
+      selected_actors: [],
       actors: [],
       music_genres: [],
       selected_artists: [],
@@ -308,13 +347,17 @@ export default {
     },
 
     savePrefs() {
-      console.log(this.profile);
+      this.profile.preferedMusicArtists = this.selected_artists.map(
+        (obj) => obj.id
+      );
+
       this.profile.preferedVideoGenres = this.video_genres
         .filter((obj) => obj.selected)
         .map((obj) => obj.id);
       this.profile.preferedMusicGenres = this.music_genres
         .filter((obj) => obj.selected)
         .map((obj) => obj.id);
+
       this.$axios.put("/profil/" + this.profile.id, this.profile).then(
         (response) => {
           if (response.status == 200) {
@@ -351,11 +394,9 @@ export default {
     getAllArtists() {
       this.$axios.get("/db/artists").then((response) => {
         this.artists = response.data;
-        this.artists.forEach(
-          (artist) =>
-           this.selected_artists = this.profile.artists.includes(
-              artist.id
-            ))
+        this.selected_artists = this.artists.filter((obj) =>
+          this.profile.preferedMusicArtists.includes(obj.id)
+        );
       });
     },
 

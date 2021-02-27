@@ -17,16 +17,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CommonDBService {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(CommonDBService.class.getName());
-	
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
-	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
-	
 	private Connection makeJDBCConnection() {
 
 		try {
@@ -56,7 +48,6 @@ public class CommonDBService {
 	 * Récupération des acteurs
 	 */
 	public JSONArray getActors() {
-		@SuppressWarnings("unused")
 		JSONArray actors = new JSONArray();
 		try {
 			Connection db = makeJDBCConnection();
@@ -71,8 +62,7 @@ public class CommonDBService {
 			while (rsa.next()) {
 				acteur = new JSONObject();
 				acteur.put("id", rsa.getInt("id"));
-				acteur.put("last_name", rsa.getString("nom"));
-				acteur.put("first_name", rsa.getString("prenom"));
+				acteur.put("name", rsa.getString("nom") + " " + rsa.getString("prenom"));
 				actors.put(acteur);
 			}
 
@@ -92,7 +82,6 @@ public class CommonDBService {
 	 * Récupération des réalisateurs
 	 */
 	public JSONArray getDirectors() {
-		@SuppressWarnings("unused")
 		JSONArray directors = new JSONArray();
 		try {
 			Connection db = makeJDBCConnection();
@@ -107,8 +96,7 @@ public class CommonDBService {
 			while (rsd.next()) {
 				realisateur = new JSONObject();
 				realisateur.put("id", rsd.getInt("id"));
-				realisateur.put("last_name", rsd.getString("nom"));
-				realisateur.put("first_name", rsd.getString("prenom"));
+				realisateur.put("name", rsd.getString("nom") + " " + rsd.getString("prenom"));
 				directors.put(realisateur);
 			}
 
@@ -128,7 +116,6 @@ public class CommonDBService {
 	 * Récupération des artistes de musiques
 	 */
 	public JSONArray getArtists() {
-		@SuppressWarnings("unused")
 		JSONArray artists = new JSONArray();
 		try {
 			Connection db = makeJDBCConnection();
