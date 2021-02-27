@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -41,9 +42,16 @@ public class SearchController {
 	//TODO here send profile + type + title
 	// without nom, age, sexe, les preferredTrucs (pas le temps ni le budget, c'est pas leur affaires).
 	@GetMapping
-	@Transactional
-	public ResponseEntity<?> searchArt(@RequestBody String title) {
-		return null;
+	public ResponseEntity<?> searchArt(@RequestParam(value="title", required=false) String title, @RequestParam(value="type") String type) {
 		
+		if (title != null && type != null) {
+			
+			// TODO return list of results and not title
+			return ResponseEntity.status(200).body(title);
+		} else {
+			
+			//Send message distributeurs and get similars results
+			return ResponseEntity.status(404).body("mot clé inconnu");
+		}
 	}
 }
