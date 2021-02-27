@@ -26,8 +26,12 @@ public class SearchController {
 
 	private final SearchService service;
 
+	// TODO : fix warnings
+	@SuppressWarnings("unused")
 	private final ProfileService profilService;
 
+	// TODO : fix warnings
+	@SuppressWarnings("unused")
 	@PostMapping
 	public ResponseEntity<?> search(@RequestBody SearchDTO newSearch) {
 		LOGGER.info("GET on /search");
