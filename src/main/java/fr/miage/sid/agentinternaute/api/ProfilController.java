@@ -31,10 +31,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin 
 public class ProfilController {
-
+	/* ========================================= Global ================================================ */ /*=========================================*/
+	
 	private static final Logger LOGGER = Logger.getLogger(ProfilController.class.getName());
 
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final ProfileService service;
+
+	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
+	
+    /* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	@GetMapping
 	public ResponseEntity<?> getProfileByName(@RequestParam(value = "name", required = true) String name) {
@@ -94,4 +101,8 @@ public class ProfilController {
 
 		return ResponseEntity.status(200).location(location).body(savedProfile);
 	}
+	
+	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
+
+	/* ========================================= Main ================================================== */ /*=========================================*/
 }
