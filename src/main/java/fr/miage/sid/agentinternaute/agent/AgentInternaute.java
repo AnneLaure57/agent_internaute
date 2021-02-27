@@ -123,9 +123,13 @@ public class AgentInternaute extends Agent {
 	}
 	
 	/*
+	 *  Rechercher une oeuvre ???
+	 */
+
+	/*
 	 * Envoi préférences profil, type, titre
 	 */
-	private void sendProfileAndTypeAndTitle(JSONObject messageJSON, AID id) {
+	private void sendSearchInformations(JSONObject messageJSON, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
 			aclMessage.addReceiver(id);
@@ -169,13 +173,6 @@ public class AgentInternaute extends Agent {
 		
 	}
 	
-	/*
-	 * Rechercher un média
-	 * TODO : change String to List
-	 */
-	private void searchMedia(String recherche) {
-		
-	}
 	
 	/*
 	 * Attendre Réponse Recherche
