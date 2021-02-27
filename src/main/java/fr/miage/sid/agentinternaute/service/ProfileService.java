@@ -25,14 +25,17 @@ public class ProfileService {
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	public Optional<Profile> getProfileById(int id) {
+		LOGGER.info("Create profile by ID " + id);
 		return repo.findById(id);
 	}
 
 	public Optional<Profile> getProfileByName(String name) {
+		LOGGER.info("Create profile by name " + name);
 		return repo.findByName(name);
 	}
 
 	public Profile createProfile(Profile profile) {
+		LOGGER.info("Create profile for " + profile.getName());
 		Profile newProfile = new Profile(profile.getName(), profile.getSex(), profile.getAge(),
 				profile.getAverageConsumptionTime(), profile.getMaxBudget());
 		repo.save(newProfile);
@@ -40,6 +43,7 @@ public class ProfileService {
 	}
 
 	public Profile updateProfile(Profile profile) {
+		LOGGER.info("Update profile for " + profile.getName());
 		repo.save(profile);
 		return profile;
 	}
