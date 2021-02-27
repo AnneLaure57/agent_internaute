@@ -1,5 +1,8 @@
 package fr.miage.sid.agentinternaute.service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.json.JSONObject;
@@ -15,7 +18,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SearchService {
+	/* ========================================= Global ================================================ */ /*=========================================*/
+
+	private final static String MOVIES = "movies", MUSICS = "musics", TV_SHOWS = "tv_shows";
 	
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final ProfileRepository repo;
 	
 	private HashMap<String, String> searchMap;
@@ -39,9 +47,11 @@ public class SearchService {
 		this.searchMap.put("age", Integer.toString(profil.getAge()));
 		this.searchMap.put("sex", profil.getSex());
 		
-		this.searchMap.put("movies", Boolean.toString(movies));
-		this.searchMap.put("musics", Boolean.toString(musics));
-		this.searchMap.put("tv_shows", Boolean.toString(tv_shows));
+		ArrayList<String> checkTypes = new ArrayList<String>();
+		if (movies) checkTypes.add(MOVIES);
+		if (musics)	checkTypes.add(MUSICS);
+		if (tv_shows) checkTypes.add(TV_SHOWS);
+		this.searchMap.put("movies", Arrays.toString(checkTypes.toArray()));
 		
 		// TODO => OPTIMISE get preferences list => actors, directors, musics etc.
 		this.searchMap.put("preferences_actors", profil.getPreferedActors().toString());
