@@ -29,12 +29,12 @@ public class SearchService {
 	}
 	
 	public void search(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profil) {
-		//put in JSON Object
+		// put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		this.searchMap = new HashMap<String, String>();
 		this.searchMap.put("title", title);
 		
-		//tv_shows, musics etc.
+		// tv_shows, musics etc.
 		this.searchMap.put("name", profil.getName());
 		this.searchMap.put("age", Integer.toString(profil.getAge()));
 		this.searchMap.put("sex", profil.getSex());
@@ -43,7 +43,7 @@ public class SearchService {
 		this.searchMap.put("musics", Boolean.toString(musics));
 		this.searchMap.put("tv_shows", Boolean.toString(tv_shows));
 		
-		//TODO => OPTIMISE get preferences list => actors, directors, musics etc.
+		// TODO => OPTIMISE get preferences list => actors, directors, musics etc.
 		this.searchMap.put("preferences_actors", profil.getPreferedActors().toString());
 		this.searchMap.put("preferences_directors", profil.getPreferedDirectors().toString());
 		this.searchMap.put("preferences_musics_artists", profil.getPreferedMusicArtists().toString());
@@ -53,15 +53,15 @@ public class SearchService {
 		JSONObject searchInformations = new JSONObject(searchMap);
 		
 		try {
-			//On envoie tout à nos agents distributeurs sous JSON Object
+			// On envoie tout à nos agents distributeurs sous JSON Object
             AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
             agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
             agentContainer.getAgent("distributeur").putO2AObject(this, false);
             
-            //TODO How send to distrib with function with function sendMessageJSON in agentInternaute
+            // TODO How send to distrib with function with function sendMessageJSON in agentInternaute
         } catch (Exception e) {
             e.printStackTrace();
         }
-		//need timer ? 
+		// need timer ? 
     }
 }
