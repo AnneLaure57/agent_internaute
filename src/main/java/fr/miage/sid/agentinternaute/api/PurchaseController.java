@@ -32,17 +32,20 @@ public class PurchaseController {
 	@GetMapping
     public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "20") int size) {
+		LOGGER.info("GET on /purchases?page=0&size=20");
 
         return service.findPaged(page, size);
     }
 	
 	@PostMapping
     public Purchase create(@RequestBody Purchase h) {
+		LOGGER.info("POST on /purchases");
         return null;
     }
 
     @PutMapping(value = "/{id}")
     public Purchase update(@RequestBody Purchase h, @PathVariable int id) {
+    	LOGGER.info("PUT on /purchases/"+id);
         return null;
     }
 }

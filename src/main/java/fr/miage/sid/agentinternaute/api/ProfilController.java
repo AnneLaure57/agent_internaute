@@ -38,6 +38,7 @@ public class ProfilController {
 
 	@GetMapping
 	public ResponseEntity<?> getProfileByName(@RequestParam(value = "name", required = true) String name) {
+		LOGGER.info("GET on /profile?name=");
 		JadeAgentContainer.getInstance().createNewAgentInternaute(name);
 		return Optional.ofNullable(service.getProfileByName(name)).filter(Optional::isPresent)
 				.map(p -> ResponseEntity.ok(p.get())).orElse(ResponseEntity.notFound().build());
@@ -45,6 +46,7 @@ public class ProfilController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> getProfileById(@PathVariable Integer id) {
+		LOGGER.info("GET on /profile/"+id);
 		Optional<Profile> profile = service.getProfileById(id);
 		if(profile.isPresent()) {
 			JadeAgentContainer.getInstance().createNewAgentInternaute(profile.get().getName());
@@ -57,6 +59,7 @@ public class ProfilController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> createProfile(@RequestBody Profile profile) {
+		LOGGER.info("POST on /profile");
 		Optional<Profile> profileOptional = service.getProfileByName(profile.getName());
 
 		if (profileOptional.isPresent())
@@ -76,6 +79,7 @@ public class ProfilController {
 	@PutMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<?> updateProfile(@RequestBody Profile profile, @PathVariable int id) {
+		LOGGER.info("PUT on /profile/"+id);
 		Optional<Profile> profileOptional = service.getProfileById(id);
 
 		if (!profileOptional.isPresent())
