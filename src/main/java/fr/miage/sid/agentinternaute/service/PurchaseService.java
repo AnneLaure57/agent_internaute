@@ -20,17 +20,17 @@ public class PurchaseService {
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
 	private final PurchaseRepository repo;
 
-	public Optional<Purchase> getPurchaseById(int id, String profileId) {
+	public Optional<Purchase> getPurchaseById(int id, int profileId) {
 		LOGGER.info("Get purchase by ID " + id);
 		return repo.findByIdAndProfileId(id, profileId);
 	}
 
-	public Optional<Purchase> getPurchaseByName(Date date, String profileId) {
+	public Optional<Purchase> getPurchaseByName(Date date, int profileId) {
 		// TODO : LOGGER
 		return repo.findByDateAndProfileId(date, profileId);
 	}
 
-	public Optional<Purchase> getPurchaseByRating(Double rating, String profileId) {
+	public Optional<Purchase> getPurchaseByRating(Double rating, int profileId) {
 		// TODO : LOGGER
 		return repo.findByRatingAndProfileId(rating, profileId);
 	}
@@ -48,4 +48,14 @@ public class PurchaseService {
 
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
+	
+	public Iterable<Purchase> findPurchasesProfile(int profileId) {
+		
+		return repo.findByProfileId(profileId);
+	}
+
+	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
+
+	/* ========================================= Main ================================================== */ /*=========================================*/
+
 }
