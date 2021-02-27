@@ -192,12 +192,26 @@ public class AgentInternaute extends Agent {
 		int diff = currentDate.compareTo(date2);
 		Long newDiff = null;
 		
-		// 24h -> 4 ans
+//		 24h -> 4 ans
 		if (diff == TimeUnit.HOURS.toMillis(24)) {
 			newDiff = TimeUnit.DAYS.toMillis(4 * 365);
-		//6h -> 12 mois
+//		6h -> 12 mois
 		} else if (diff == TimeUnit.HOURS.toMillis(6)) {
-			//newDiff = TimeUnit.DAYS.toMillis();
+			newDiff = TimeUnit.DAYS.toMillis(12 * 30);
+//		3h -> 6 mois
+		} else if (diff == TimeUnit.HOURS.toMillis(3)) {
+			newDiff = TimeUnit.DAYS.toMillis(6 * 30);
+//		 1h30 -> 3 mois
+		} else if (diff == TimeUnit.MINUTES.toMillis(90)) {
+			newDiff = TimeUnit.DAYS.toMillis(3 * 30);
+		
+//		30 min -> 1 mois
+		} else if (diff == TimeUnit.MINUTES.toMillis(30)) {
+			newDiff = TimeUnit.DAYS.toMillis(3 * 30);
+		
+//	 		1 min -> 1 j		
+		} else if (diff == TimeUnit.MINUTES.toMillis(1)) {
+			newDiff = TimeUnit.DAYS.toMillis(1);
 		} else {
 			System.out.println(currentDate + " is equal to " + date2);
 		}
