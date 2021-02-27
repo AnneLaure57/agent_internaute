@@ -3,9 +3,11 @@ package fr.miage.sid.agentinternaute.service;
 import java.util.Date;
 import java.util.Optional;
 
+import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.repository.PurchaseRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,8 @@ public class PurchaseService {
 		return repo.findByRatingAndProfileId(rating, profileId);
 	}
 
-	public Purchase createOrUpdatePurchase(Purchase purchase) {
+	public Purchase createOrUpdatePurchase(Purchase p) {
+		Purchase purchase = new Purchase( p.getRating(), p.getItemId(), p.getItemTitle(), p.getProfile());
 		repo.save(purchase);
 		return purchase;
 	}

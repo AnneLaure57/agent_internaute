@@ -38,4 +38,16 @@ public class Purchase {
 	@JoinColumn(name="profile_id", referencedColumnName="id")
 	@JsonIgnore
     private Profile profile;
+
+	public Purchase( Double rating, String itemId, String itemTitle, Profile profile) {
+		super();
+		this.date = new Date();
+		this.rating = rating;
+		this.itemId = itemId;
+		this.itemTitle = itemTitle;
+		this.profile = profile;
+	}
+    
+    
+    
 }

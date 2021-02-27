@@ -56,7 +56,7 @@
           ></v-rating>
         </div>
         <div class="d-flex flex-column justify-space-around ml-12 mr-4">
-          <v-btn color="primary">Acheter</v-btn>
+          <v-btn color="primary" @click="buy(result)">Acheter</v-btn>
           <v-btn color="primary">S'abonner</v-btn>
         </div>
       </v-card-text>
@@ -76,10 +76,17 @@ export default {
       tv_shows: false,
       musics: false,
       results: [
-        { title: "Le parrain", year: 1972, rating: 4.5 },
-        { title: "Le parrain 2", year: 1974, rating: 4.5 },
-        { title: "Les bronzés", year: 1978, rating: 3.7 },
+        { id : 1234, title: "Le parrain", year: 1972, rating: 4.5 },
+        { id : 3214, title: "Le parrain 2", year: 1974, rating: 4.5 },
+        { id : 3234, title: "Les bronzés", year: 1978, rating: 3.7 },
       ],
+      newPurchase: {
+        rating: 0,
+        itemId: 0,
+        itemTitle: "",
+        profile: null,
+
+      }
     };
   },
 
@@ -97,6 +104,25 @@ export default {
         //TODO get Profil + type + title
         this.results = response.body;
       });
+    },
+    buy(result) {
+      // Ajout dans history
+      this.newPurchase.rating = result.rating;
+      this.newPurchase.itemTitle = result.title;
+      this.newPurchase.itemId = result.id;
+      this.newPurchase.profile = this.profile;
+      console.log(this.newPurchase);
+      this.$axios.post("/purchases", this.newPurchase).then(
+        (response) => {
+          console.log(response);
+          // this.profile = response.data;
+          // this.$store.commit("setProfile", response.data);
+          // this.$router.push({ name: "profile" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
 };
