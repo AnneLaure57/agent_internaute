@@ -18,7 +18,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SearchService {
+	/* ========================================= Global ================================================ */ /*=========================================*/
+
+	private final static String MOVIES = "movies", MUSICS = "musics", TV_SHOWS = "tv_shows";
 	
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final ProfileRepository repo;
 	
 	private HashMap<String, String> searchMap;
@@ -43,12 +48,10 @@ public class SearchService {
 		this.searchMap.put("sex", profil.getSex());
 		
 		ArrayList<String> checkTypes = new ArrayList<String>();
-		String[] types = {};
-				
-//		this.searchMap.put("movies", Arrays.toString(movies));
-		this.searchMap.put("movies", Boolean.toString(movies));
-		this.searchMap.put("musics", Boolean.toString(musics));
-		this.searchMap.put("tv_shows", Boolean.toString(tv_shows));
+		if (movies) checkTypes.add(MOVIES);
+		if (musics)	checkTypes.add(MUSICS);
+		if (tv_shows) checkTypes.add(TV_SHOWS);
+		this.searchMap.put("movies", Arrays.toString(checkTypes.toArray()));
 		
 		// TODO => OPTIMISE get preferences list => actors, directors, musics etc.
 		this.searchMap.put("preferences_actors", profil.getPreferedActors().toString());
