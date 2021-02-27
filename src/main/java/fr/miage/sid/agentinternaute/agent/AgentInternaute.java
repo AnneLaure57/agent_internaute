@@ -42,12 +42,16 @@ public class AgentInternaute extends Agent {
 		this.registerService();
 		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
-		addBehaviour(new TickerBehaviour(this, 60000) {
+		
+		addBehaviour(new TickerBehaviour(this, 10000) {
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
-				System.out.println("Coucou, je suis up depuis ");
+				long tStart = System.currentTimeMillis();
+				System.out.println("Coucou, je suis up depuis " + tStart);
+				
 			}
 		} );
+	
 	}
 
 	/*
