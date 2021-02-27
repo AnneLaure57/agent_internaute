@@ -65,7 +65,7 @@ export default {
     //
 
     getPurchases() {
-      console.log("appelle de la méthode " + typeof(this.profile.id));
+      console.log("appelle de la méthode " + this.profile.id);
       this.$axios.get("/purchases/"+ this.profile.id).then(
         (response) => {
           console.log(response.data);
