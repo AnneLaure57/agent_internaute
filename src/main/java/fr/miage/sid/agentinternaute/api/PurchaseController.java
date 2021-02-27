@@ -55,14 +55,11 @@ public class PurchaseController {
 	@Transactional
     public ResponseEntity<?> create(@RequestBody Purchase h) {
 		LOGGER.info("POST on /purchases");
-	
-		Purchase savedPurchase = this.service.createOrUpdatePurchase(h);
-		
+		Optional<Profile> profile = serviceProfile.getProfileById(h.getId());
+		Purchase savedPurchase = this.service.createPurchase(h, profile.get());
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("")
 				.buildAndExpand(savedPurchase.getId()).toUri();
 		return ResponseEntity.status(201).location(location).body(savedPurchase);
-		
-		
     }
 
     @PutMapping(value = "/{id}")

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.SearchService;
@@ -29,11 +30,18 @@ public class SearchController {
 	private final ProfileService profilService;
 	
 	@GetMapping
-	public ResponseEntity<?> searchArt(@RequestParam(value="title") String title, @RequestParam(value="type") List<Boolean> type, @RequestParam(value="Agent") Profile profil) {
-	LOGGER.info("GET on /search?title= &type= &Agent=");
-		if (title != null && type.size() > 0) {
+	//public ResponseEntity<?> search(@RequestParam(value="title") String title, @RequestParam(value="type") List<Boolean> type, @RequestParam(value="Agent") Profile profil) {
+	public ResponseEntity<?> search(@RequestParam SearchDTO newSearch) {
+		LOGGER.info("GET on /search?title= &type= &Agent=");
+		if (newSearch != null) {
+			String title = newSearch.getSearchField();
+			Boolean movies = newSearch.getMovies();
+			Boolean musics = newSearch.getMusics();
+			Boolean tv_shows = newSearch.getTv_shows();
+			Profile profil = newSearch.getProfile();
+			LOGGER.severe(title + movies + musics + tv_shows + profil);
 			//send to distrib agent infos
-			service.search(title,type,profil);
+			//service.search(title,type,profil);
 			// TODO return list of results and not title
 			return ResponseEntity.status(200).body(title);
 		} else {

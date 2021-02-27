@@ -74,4 +74,5 @@ public class Profile {
 		this.preferDownloadsForVideos = false;
 		this.preferDownloadsForMusics = false;
 	}
+	
 }

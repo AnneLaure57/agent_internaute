@@ -35,8 +35,8 @@ public class PurchaseService {
 		return repo.findByRatingAndProfileId(rating, profileId);
 	}
 
-	public Purchase createOrUpdatePurchase(Purchase p) {
-		Purchase purchase = new Purchase(p.getRating(), p.getItemId(), p.getItemTitle(), p.getProfile());
+	public Purchase createPurchase(Purchase p, Profile profile) {
+		Purchase purchase = new Purchase( p.getRating(), p.getItemId(), p.getItemTitle(), profile);
 		repo.save(purchase);
 		return purchase;
 	}
