@@ -2,6 +2,8 @@ package fr.miage.sid.agentinternaute.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.logging.Logger;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -22,6 +24,8 @@ class SearchServiceTest {
 //	}
 
 	/* ========================================= Global ================================================ */ /*=========================================*/
+	
+	private static final Logger LOGGER = Logger.getLogger(SearchServiceTest.class.getName());
 
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
@@ -34,5 +38,7 @@ class SearchServiceTest {
 	}
 	
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
+
+	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
 
 }
