@@ -35,11 +35,24 @@ class SearchServiceTest {
 
 	public void TestMockito(@Mock SearchService service) {
 		LOGGER.info("Init SearchService Mock.");
-		this.service = service;
+		this.setService(service);
 	}
 	
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
 
+	/**
+	 * @return the service
+	 */
+	public SearchService getService() {
+		return service;
+	}
+
+	/**
+	 * @param service the service to set
+	 */
+	public void setService(SearchService service) {
+		this.service = service;
+	}
 }
