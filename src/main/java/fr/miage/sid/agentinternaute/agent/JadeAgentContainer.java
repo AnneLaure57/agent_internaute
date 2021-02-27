@@ -3,16 +3,14 @@ package fr.miage.sid.agentinternaute.agent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.api.PurchaseController;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.ControllerException;
-import jade.wrapper.StaleProxyException;
 
 public final class JadeAgentContainer {
-	
+
 	private static final Logger LOGGER = Logger.getLogger(JadeAgentContainer.class.getName());
 
 	private static JadeAgentContainer INSTANCE;
@@ -51,21 +49,16 @@ public final class JadeAgentContainer {
 
 	public void createNewAgentInternaute(String name) {
 		try {
-//			if (this.agentContainer.getPlatformController().getAgent(name) == null) {
-				Object[] arguments = { name };
-				AgentController agent = this.agentContainer.createNewAgent(name,
-						"fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
-				agent.start();
-//			} else {
-//				LOGGER.log(Level.WARNING, "Agent " + name + " already exists");
-//			}
+			Object[] arguments = { name };
+			AgentController agent = this.agentContainer.createNewAgent(name,
+					"fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
+			agent.start();
 		} catch (ControllerException e) {
-			e.printStackTrace();
-			LOGGER.log(Level.SEVERE, "Couldn't create agent " + name);
+			LOGGER.log(Level.SEVERE, "Couldn't create agent " + name + ", probably already exists.");
 		}
 	}
-	
+
 	public void destroyNewAgentInternaute(String name) {
-	
+
 	}
 }

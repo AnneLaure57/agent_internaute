@@ -26,7 +26,7 @@ import fr.miage.sid.agentinternaute.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/profil", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Profile.class)
 @RequiredArgsConstructor
 @CrossOrigin 
@@ -62,9 +62,9 @@ public class ProfilController {
 		if (profileOptional.isPresent())
 			return ResponseEntity.status(209).body("Profile already exists");
 		else {
-			Profile savedProfile = service.createOrUpdateProfile(profile);
+			Profile savedProfile = service.createProfile(profile);
 			
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("")
 					.buildAndExpand(savedProfile.getId()).toUri();
 			
 			JadeAgentContainer.getInstance().createNewAgentInternaute(savedProfile.getName());
@@ -83,9 +83,9 @@ public class ProfilController {
 
 		profile.setId(id);
 
-		Profile savedProfile = service.createOrUpdateProfile(profile);
+		Profile savedProfile = service.updateProfile(profile);
 		
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("")
 				.buildAndExpand(savedProfile.getId()).toUri();
 
 		return ResponseEntity.status(200).location(location).body(savedProfile);

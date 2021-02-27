@@ -11,11 +11,31 @@
         <v-text-field v-model="login" placeholder="Identifiant"></v-text-field>
       </v-card-text>
       <v-card-actions class="d-flex justify-space-between">
-        <div>Pas encore de compte ? <br /><a @click="goToRegister()">Enregistrez votre profil.</a></div>
+        <div>
+          Pas encore de compte ? <br /><a @click="goToRegister()"
+            >Enregistrez votre profil.</a
+          >
+        </div>
         <v-spacer></v-spacer>
-        <v-btn text color="primary" @click="connexion()" :disabled="login.length == 0">Connexion</v-btn>
+        <v-btn
+          text
+          color="primary"
+          @click="connexion()"
+          :disabled="login.length == 0"
+          >Connexion</v-btn
+        >
       </v-card-actions>
     </v-card>
+    <div>
+      <v-snackbar v-model="snackbar" color="red" outlined :timeout="5000">
+        Le profil {{ login }} n'existe pas, mais vous pouvez l'enregistrer.
+        <template v-slot:action="{ attrs }">
+          <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+            Fermer
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </div>
   </div>
 </template>
 
@@ -27,6 +47,7 @@ export default {
   data() {
     return {
       login: "",
+      snackbar: false,
     };
   },
 
@@ -44,15 +65,15 @@ export default {
     },
 
     connexion() {
-      this.$axios.get("/profile?name=" + this.login).then(
+      this.$axios.get("/profil?name=" + this.login).then(
         (response) => {
           console.log(response);
           this.profile = response.data;
           this.$store.commit("setProfile", response.data);
           this.$router.push({ name: "rechercher" });
         },
-        (error) => {
-          console.log(error);
+        () => {
+          this.snackbar = true;
         }
       );
     },
