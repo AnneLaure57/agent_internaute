@@ -103,7 +103,7 @@ export default {
       this.$router.push({ name: "login" });
     },
     register() {
-      this.$axios.post("/profile", this.newProfile).then(
+      this.$axios.post("/profil", this.newProfile).then(
         (response) => {
           console.log(response);
           this.profile = response.data;

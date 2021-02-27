@@ -25,8 +25,12 @@ public class AgentInternaute extends Agent {
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
 	private String name;
+	// TODO
+	@SuppressWarnings("unused")
 	private ProfileService profileService;
 	private String service = "internaute";
+	// TODO
+	@SuppressWarnings("unused")
 	private AID aid = new AID();
 
 	protected void setup() {
@@ -42,8 +46,17 @@ public class AgentInternaute extends Agent {
 		this.registerService();
 		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
+<<<<<<< HEAD
 		
 		addBehaviour(new TickerBehaviour(this, 10000) {
+=======
+		addBehaviour(new TickerBehaviour(this, 60000) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 9192646164357857629L;
+
+>>>>>>> 6e9b284dca63666345fcaa5706d423aa6f8ed09f
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
@@ -117,6 +130,8 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Envoi d'un message, à former en JSON et à envoyer en String
 	 */
+	// TODO
+	@SuppressWarnings("unused")
 	private void sendMessage(String mess, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
@@ -137,6 +152,8 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Envoi préférences profil, type, titre
 	 */
+	// TODO
+	@SuppressWarnings("unused")
 	private void sendSearchInformations(JSONObject messageJSON, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
@@ -154,6 +171,8 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Vérifier la date 
 	 */
+	// TODO
+	@SuppressWarnings("unused")
 	private void checkDate() {
 
 	}

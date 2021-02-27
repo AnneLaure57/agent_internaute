@@ -20,6 +20,8 @@ public class SearchService {
 //		return repo.findAll(PageRequest.of(page, size)).getContent();
 //	}
 	
+	// TODO : fix this not initialized var
+	@SuppressWarnings("null")
 	public void search(String title, String type, Profile profil) {
 		//put in JSON Object
 		JSONObject searchInformations = null;
