@@ -33,7 +33,7 @@ class SearchServiceTest {
 	
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
 
-	public void TestMockito(@Mock SearchService service) {
+	public SearchServiceTest(@Mock SearchService service) {
 		LOGGER.info("Init SearchService Mock.");
 		this.setService(service);
 	}
