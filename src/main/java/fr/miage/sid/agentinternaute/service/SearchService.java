@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.service;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -20,6 +21,8 @@ public class SearchService {
 	
 	private final ProfileRepository repo;
 	
+	private HashMap<String, String> searchMap;
+	
 
 	public Iterable<Profile> findPaged(int page, int size) {
 		if (page < 0) page = 0;
@@ -30,24 +33,26 @@ public class SearchService {
 	public void search(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profil) {
 		//put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
-		JSONObject searchInformations = null;
-		searchInformations.put("title", title);
+		this.searchMap = new HashMap<String, String>();
+		this.searchMap.put("title", title);
 		
 		//tv_shows, musics etc.
-		searchInformations.put("name", profil.getName());
-		searchInformations.put("age", profil.getAge());
-		searchInformations.put("sex", profil.getSex());
+		this.searchMap.put("name", profil.getName());
+		this.searchMap.put("age", Integer.toString(profil.getAge()));
+		this.searchMap.put("sex", profil.getSex());
 		
-		searchInformations.put("movies", movies);
-		searchInformations.put("musics", musics);
-		searchInformations.put("tv_shows", tv_shows);
+		this.searchMap.put("movies", Boolean.toString(movies));
+		this.searchMap.put("musics", Boolean.toString(musics));
+		this.searchMap.put("tv_shows", Boolean.toString(tv_shows));
 		
 		//TODO => OPTIMISE get preferences list => actors, directors, musics etc.
-		searchInformations.put("preferences_actors", profil.getPreferedActors());
-		searchInformations.put("preferences_directors", profil.getPreferedDirectors());
-		searchInformations.put("preferences_musics_artists", profil.getPreferedMusicArtists());
-		searchInformations.put("preferences_musics_genres", profil.getPreferedMusicGenres());
-		searchInformations.put("preferences_videos", profil.getPreferedVideoGenres());
+		this.searchMap.put("preferences_actors", profil.getPreferedActors().toString());
+		this.searchMap.put("preferences_directors", profil.getPreferedDirectors().toString());
+		this.searchMap.put("preferences_musics_artists", profil.getPreferedMusicArtists().toString());
+		this.searchMap.put("preferences_musics_genres", profil.getPreferedMusicGenres().toString());
+		this.searchMap.put("preferences_videos", profil.getPreferedVideoGenres().toString());
+		
+		JSONObject searchInformations = new JSONObject(searchMap);
 		
 		try {
 			//On envoie tout à nos agents distributeurs sous JSON Object

@@ -31,16 +31,15 @@ public class SearchController {
 	@PostMapping
 	public ResponseEntity<?> search(@RequestBody SearchDTO newSearch) {
 		LOGGER.info("GET on /search");
-
 		if (newSearch != null) {
 			String title = newSearch.getSearchField();
 			Boolean movies = newSearch.getMovies();
 			Boolean musics = newSearch.getMusics();
 			Boolean tv_shows = newSearch.getTvShows();
 			Profile profil = newSearch.getProfile();
-			LOGGER.severe(title + movies + musics + tv_shows + profil);
+			System.out.println("Je suis" + newSearch);
 			//send to distrib agent infos
-			service.search(title,movies,musics,tv_shows,profil);
+			service.search(title,movies,musics,tv_shows,newSearch.getProfile());
 			// TODO return list of results and not title
 			return ResponseEntity.ok().build();
 		}
