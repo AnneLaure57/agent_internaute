@@ -1,12 +1,10 @@
 package fr.miage.sid.agentinternaute.service;
 
 import org.json.JSONObject;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.entity.Profile;
-import fr.miage.sid.agentinternaute.repository.ProfileRepository;
 import jade.wrapper.AgentContainer;
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +35,7 @@ public class SearchService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+		//need timer ? 
     }
 	
 }

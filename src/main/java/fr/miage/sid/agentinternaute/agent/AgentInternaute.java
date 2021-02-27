@@ -42,11 +42,10 @@ public class AgentInternaute extends Agent {
 		this.registerService();
 		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
-		
 		addBehaviour(new TickerBehaviour(this, 60000) {
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
-				System.out.println("Coucou, je suis up");
+				System.out.println("Coucou, je suis up depuis ");
 			}
 		} );
 	}
@@ -148,16 +147,14 @@ public class AgentInternaute extends Agent {
 			ex.printStackTrace();
 		}
 	}
+	/*
+	 * Vérifier la date 
+	 */
+	private void checkDate() {
+
+	}
 	
 	/*
-	 * Envoi message pour la recherche
-	 * 
-	 * param : Agent Client, String message -> contenu du message, AID receiver et le mot clé recherche
-	 */
-	private void sendMessageResearch(Agent myAgent, String mess, AID id, String recherche) {
-		// TODO
-	}
-
 	/*
 	 * Déférérencement dans l'annuaire
 	 */
@@ -170,52 +167,5 @@ public class AgentInternaute extends Agent {
 			fe.printStackTrace();
 		}
 	}	
-	
-	/*
-	 * Préparer achat oeuvre
-	 */
-	private void checkOrder(ACLMessage messageClient) {
-		
-	}
-	
-	
-	/*
-	 * Attendre Réponse Recherche
-	 */
-	private void getResponseSearch() {
-		
-	}
-	
-	/*
-	 * Recevoir la liste des médias proposés par les distributeurs
-	 * Faire intervenir les behaviours dedans
-	 */
-	private void getListMedias() {
-		//TODO AL : put here switch case with different behaviour
-	}
-	
-	/*
-	 * Envoyer la commande (accept_proposal)
-	 * 
-	 */
-	private void sendOrder(ACLMessage messageClient) {
-		
-	}
-	
-	/*
-	 * Prix commande/média
-	 * 
-	 */
-	private void getPriceOrder() {
-		
-	}
-	
-	/*
-	 * Prix commande/média
-	 * 
-	 */
-	private void buyMedia() {
-		
-	}
 	
 }
