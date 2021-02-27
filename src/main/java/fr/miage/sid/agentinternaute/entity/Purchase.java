@@ -29,11 +29,8 @@ public class Purchase {
 	private Integer id;
     
     private Date date;
-    
     private Double rating;
-    
     private String itemId;
-	
     private String itemTitle;
     
     @ManyToOne(cascade = CascadeType.ALL)
