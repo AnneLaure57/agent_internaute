@@ -41,11 +41,11 @@ public class SearchController {
 			Profile profil = newSearch.getProfile();
 			LOGGER.severe(title + movies + musics + tv_shows + profil);
 			//send to distrib agent infos
-			//service.search(title,type,profil);
+			service.search(title,movies,musics,tv_shows,profil);
 			// TODO return list of results and not title
 			return ResponseEntity.status(200).body(title);
 		} else {
-			return ResponseEntity.status(404).body("mot clé inconnu");
+			return ResponseEntity.status(400).body("mot clé inconnu");
 		}
 	}
 }
