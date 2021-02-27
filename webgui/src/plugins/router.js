@@ -35,6 +35,11 @@ const routes = [
         name: "historique"
     },
     {
+        path: "/",
+        redirect: "/login"
+    }
+    ,
+    {
         path: "*",
         redirect: "/login"
     }
