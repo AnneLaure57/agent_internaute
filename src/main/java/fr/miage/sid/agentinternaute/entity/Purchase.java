@@ -29,11 +29,8 @@ public class Purchase {
 	private Integer id;
     
     private Date date;
-    
     private Double rating;
-    
     private String itemId;
-	
     private String itemTitle;
     
     @ManyToOne(cascade = CascadeType.ALL)
@@ -41,7 +38,7 @@ public class Purchase {
 	@JsonIgnore
     private Profile profile;
 
-	public Purchase( Double rating, String itemId, String itemTitle, Profile profile) {
+	public Purchase(Double rating, String itemId, String itemTitle, Profile profile) {
 		super();
 		this.date = new Date();
 		this.rating = rating;
@@ -49,5 +46,4 @@ public class Purchase {
 		this.itemTitle = itemTitle;
 		this.profile = profile;
 	}
-
 }

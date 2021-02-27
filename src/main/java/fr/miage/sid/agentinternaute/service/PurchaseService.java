@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.repository.PurchaseRepository;
@@ -16,15 +16,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PurchaseService {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
-	
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private final PurchaseRepository repo;
-	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	public Optional<Purchase> getPurchaseById(int id, int profileId) {
 		LOGGER.info("Get purchase by ID " + id);
@@ -41,15 +35,16 @@ public class PurchaseService {
 		return repo.findByRatingAndProfileId(rating, profileId);
 	}
 
-	public Purchase createPurchase(Purchase p, Profile profile) {
-		Purchase purchase = new Purchase( p.getRating(), p.getItemId(), p.getItemTitle(), profile);
+	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
+		Purchase purchase = new Purchase(p.getRating(), p.getItemId(), p.getItemTitle(), profile);
 		repo.save(purchase);
 		return purchase;
 	}
 
 	public Iterable<Purchase> findPaged(int page, int size) {
 		// TODO : LOGGER
-		if (page < 0) page = 0;
+		if (page < 0)
+			page = 0;
 
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
@@ -62,4 +57,5 @@ public class PurchaseService {
 	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
 
 	/* ========================================= Main ================================================== */ /*=========================================*/
+
 }
