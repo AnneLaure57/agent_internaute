@@ -58,171 +58,186 @@
         </v-card-text>
       </div>
 
-        <!-- Films et séries -->
-        <div
-          class="d-flex flex-column justify-space-between mr-2"
-        >
-          <div>
-            <v-card-title class="pt-0">Films et séries</v-card-title>
+      <!-- Films et séries -->
+      <div class="d-flex flex-column justify-space-between mr-2">
+        <div>
+          <v-card-title class="pt-0">Films et séries</v-card-title>
 
-            <v-card-text>
-              <h4>Genres préférés</h4>
-              <div v-if="video_genres.length == 0" class="mt-2 mb-4">
-                Aucun genre n'a été trouvé
-              </div>
-              <div class="d-flex flex-wrap">
-                <v-checkbox
+          <v-card-text>
+            <h4>Genres préférés</h4>
+            <div v-if="video_genres.length == 0" class="mt-2 mb-4">
+              Aucun genre n'a été trouvé
+            </div>
+            <div class="d-flex flex-wrap">
+              <v-checkbox
+                hide-details
+                v-model="genre.selected"
+                :label="genre.name"
+                style="min-width: 200px;"
+                v-for="genre in video_genres"
+                :key="genre.id"
+              ></v-checkbox>
+            </div>
+
+            <h4 class="mt-8">Réalisateurs préférés</h4>
+            <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+              <div class="mr-10" style="max-width: 400px;">
+                <v-autocomplete
                   hide-details
-                  v-model="genre.selected"
-                  :label="genre.name"
-                  style="min-width: 200px;"
-                  v-for="genre in video_genres"
-                  :key="genre.id"
-                ></v-checkbox>
+                  prepend-inner-icon="mdi-plus"
+                  label="Ajouter nouveau"
+                >
+                </v-autocomplete>
               </div>
 
-              <h4 class="mt-8">Réalisateurs préférés</h4>
-              <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-                <div class="mr-10" style="max-width: 400px;">
-                  <v-autocomplete
-                    hide-details
-                    prepend-inner-icon="mdi-plus"
-                    label="Ajouter nouveau"
-                  >
-                  </v-autocomplete>
-                </div>
+              <div class="ml-10">
+                <v-chip
+                  v-for="director in profile.preferedDirectors"
+                  :key="director"
+                  class="mx-2"
+                  color="primary"
+                  outlined
+                  close
+                  @click:close="deletePreferedMovieDirector(director)"
+                >
+                  {{ director }}
+                </v-chip>
+              </div>
+            </div>
 
-                <div class="ml-10">
-                  <v-chip
-                    v-for="director in profile.preferedDirectors"
-                    :key="director"
-                    class="mx-2"
-                    color="primary"
-                    outlined
-                    close
-                    @click:close="deletePreferedMovieDirector(director)"
-                  >
-                    {{ director }}
-                  </v-chip>
-                </div>
+            <h4 class="mt-8">Acteurs préférés</h4>
+            <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+              <div class="mr-10" style="max-width: 400px;">
+                <v-autocomplete
+                  hide-details
+                  prepend-inner-icon="mdi-plus"
+                  label="Ajouter nouveau"
+                >
+                </v-autocomplete>
               </div>
 
-              <h4 class="mt-8">Acteurs préférés</h4>
-              <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-                <div class="mr-10" style="max-width: 400px;">
-                  <v-autocomplete
-                    hide-details
-                    prepend-inner-icon="mdi-plus"
-                    label="Ajouter nouveau"
-                  >
-                  </v-autocomplete>
-                </div>
+              <div class="ml-10">
+                <v-chip
+                  v-for="actor in profile.preferedActors"
+                  :key="actor"
+                  class="mx-2"
+                  color="primary"
+                  outlined
+                  close
+                  @click:close="deletePreferedMovieActor(actor)"
+                >
+                  {{ director }}
+                </v-chip>
+              </div>
+            </div>
 
-                <div class="ml-10">
-                  <v-chip
-                    v-for="actor in profile.preferedActors"
-                    :key="actor"
-                    class="mx-2"
-                    color="primary"
-                    outlined
-                    close
-                    @click:close="deletePreferedMovieActor(actor)"
-                  >
-                    {{ director }}
-                  </v-chip>
-                </div>
+            <h4 class="mt-8">Préférences offres</h4>
+            <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+              <!-- Switch -->
+              <div style="max-width: 300px;">
+                <v-switch
+                  v-model="profile.preferDownloadsForVideos"
+                  color="primary"
+                  inset
+                  flat
+                  label="Préférer le téléchargement"
+                ></v-switch>
+              </div>
+            </div>
+          </v-card-text>
+        </div>
+      </div>
+
+      <!-- Musique -->
+      <div class="d-flex flex-column justify-space-between ml-2">
+        <div>
+          <v-card-title class="pt-0">Musique</v-card-title>
+
+          <v-card-text>
+            <h4>Genres préférés</h4>
+            <div
+              v-if="music_genres && music_genres.length == 0"
+              class="mt-2 mb-4"
+            >
+              Aucun genre n'a été trouvé
+            </div>
+            <div class="d-flex flex-wrap">
+              <v-checkbox
+                style="min-width: 200px;"
+                v-for="genre in music_genres"
+                :key="genre.id"
+                v-model="genre.selected"
+                hide-details
+                :label="genre.name"
+              ></v-checkbox>
+            </div>
+
+            <h4 class="mt-8">Artistes préférés</h4>
+            <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+              <div class="mr-10" style="max-width: 400px;">
+
+                <v-autocomplete
+                  label="Ajouter nouveau"
+                  v-model="selected_artists"
+                  :items="artists"
+                  item-text="name"
+                  item-value="id"
+                  multiple
+                  hide-details
+                  prepend-inner-icon="mdi-plus"
+                >
+                  <template v-slot:selection="{ item, index }">
+                    <span
+                      class="mr-1"
+                      :key="item"
+                      v-if="index === 0"
+                    >
+                      {{ item.name }}
+                    </span>
+                    <span
+                      v-if="index === 1"
+                      class="grey--text caption"
+                      >(+{{ selected_artists.length - 1 }} autres)</span
+                    >
+                  </template>
+                </v-autocomplete>
               </div>
 
-              <h4 class="mt-8">Préférences offres</h4>
-              <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-                <!-- Switch -->
-                <div style="max-width: 300px;">
-                  <v-switch
-                    v-model="profile.preferDownloadsForVideos"
-                    color="primary"
-                    inset
-                    flat
-                    label="Préférer le téléchargement"
-                  ></v-switch>
-                </div>
+              <div class="ml-10">
+                <v-chip
+                  v-for="artist in selected_artists"
+                  :key="artist.name"
+                  class="mx-2"
+                  color="primary"
+                  outlined
+                  close
+                  @click:close="deletePreferedMusicArtist(artist)"
+                >
+                  {{ artist }}
+                </v-chip>
               </div>
-            </v-card-text>
-          </div>
+            </div>
+
+            <h4 class="mt-8">Préférences offres</h4>
+            <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+              <!-- Switch -->
+              <div style="max-width: 300px;">
+                <v-switch
+                  v-model="profile.preferDownloadsForMusics"
+                  flat
+                  color="primary"
+                  inset
+                  label="Préferer le téléchargement"
+                ></v-switch>
+              </div>
+            </div>
+          </v-card-text>
         </div>
 
-        <!-- Musique -->
-        <div
-          class="d-flex flex-column justify-space-between ml-2"
-        >
-          <div>
-            <v-card-title class="pt-0">Musique</v-card-title>
-
-            <v-card-text>
-              <h4>Genres préférés</h4>
-              <div
-                v-if="music_genres && music_genres.length == 0"
-                class="mt-2 mb-4"
-              >
-                Aucun genre n'a été trouvé
-              </div>
-              <div class="d-flex flex-wrap">
-                <v-checkbox
-                  style="min-width: 200px;"
-                  v-for="genre in music_genres"
-                  :key="genre.id"
-                  v-model="genre.selected"
-                  hide-details
-                  :label="genre.name"
-                ></v-checkbox>
-              </div>
-
-              <h4 class="mt-8">Artistes préférés</h4>
-              <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-                <div class="mr-10" style="max-width: 400px;">
-                  <v-autocomplete
-                    hide-details
-                    prepend-inner-icon="mdi-plus"
-                    label="Ajouter nouveau"
-                  >
-                  </v-autocomplete>
-                </div>
-
-                <div class="ml-10">
-                  <v-chip
-                    v-for="artist in profile.preferedMusicArtists"
-                    :key="artist"
-                    class="mx-2"
-                    color="primary"
-                    outlined
-                    close
-                    @click:close="deletePreferedMusicArtist(artist)"
-                  >
-                    {{ artist }}
-                  </v-chip>
-                </div>
-              </div>
-
-              <h4 class="mt-8">Préférences offres</h4>
-              <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
-                <!-- Switch -->
-                <div style="max-width: 300px;">
-                  <v-switch
-                    v-model="profile.preferDownloadsForMusics"
-                    flat
-                    color="primary"
-                    inset
-                    label="Préferer le téléchargement"
-                  ></v-switch>
-                </div>
-              </div>
-            </v-card-text>
-          </div>
-
-          <v-card-actions class="d-flex justify-space-between">
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="savePrefs()">Sauvegarder</v-btn>
-          </v-card-actions>
-
+        <v-card-actions class="d-flex justify-space-between">
+          <v-spacer></v-spacer>
+          <v-btn text color="primary" @click="savePrefs()">Sauvegarder</v-btn>
+        </v-card-actions>
       </div>
     </v-card>
 
@@ -263,6 +278,7 @@ export default {
       directors: [],
       actors: [],
       music_genres: [],
+      selected_artists: [],
       artists: [],
       snackbar: false,
       snackbar_status_ok: false,
@@ -293,8 +309,12 @@ export default {
 
     savePrefs() {
       console.log(this.profile);
-      this.profile.preferedVideoGenres = this.video_genres.filter((obj) => obj.selected).map((obj) => obj.id);
-      this.profile.preferedMusicGenres = this.music_genres.filter((obj) => obj.selected).map((obj) => obj.id);
+      this.profile.preferedVideoGenres = this.video_genres
+        .filter((obj) => obj.selected)
+        .map((obj) => obj.id);
+      this.profile.preferedMusicGenres = this.music_genres
+        .filter((obj) => obj.selected)
+        .map((obj) => obj.id);
       this.$axios.put("/profil/" + this.profile.id, this.profile).then(
         (response) => {
           if (response.status == 200) {
@@ -331,6 +351,11 @@ export default {
     getAllArtists() {
       this.$axios.get("/db/artists").then((response) => {
         this.artists = response.data;
+        this.artists.forEach(
+          (artist) =>
+           this.selected_artists = this.profile.artists.includes(
+              artist.id
+            ))
       });
     },
 
