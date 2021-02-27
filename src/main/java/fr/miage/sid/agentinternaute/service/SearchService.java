@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
+import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
 import jade.wrapper.AgentContainer;
@@ -56,4 +57,9 @@ public class SearchService {
         }
 		//need timer ? 
     }
+
+	public void search(SearchDTO newSearch) {
+		
+		
+	}
 }
