@@ -1,15 +1,12 @@
 package fr.miage.sid.agentinternaute.service;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
-import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
 import jade.wrapper.AgentContainer;
@@ -57,8 +54,8 @@ public class SearchService {
 		try {
 			//On envoie tout à nos agents distributeurs sous JSON Object
             AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
-            //agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
-            //agentContainer.getAgent("distributeur").putO2AObject(this, false);
+            agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
+            agentContainer.getAgent("distributeur").putO2AObject(this, false);
             
             //TODO How send to distrib with function with function sendMessageJSON in agentInternaute
         } catch (Exception e) {
