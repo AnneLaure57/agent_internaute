@@ -97,6 +97,7 @@
 		data() {
 			return {
 				searchfield: "",
+        arrayBool:[],
 				movies: false,
 				tv_shows: false,
 				musics: false,
@@ -119,9 +120,11 @@
 		methods: {
 			search(searchfield, movies, tv_shows, musics) {
         console.log(searchfield);
-        console.log(movies);
-        console.log(tv_shows);
-        console.log(musics);
+        // push in arrayBool
+        this.arrayBool.push(movies);
+        this.arrayBool.push(tv_shows);
+        this.arrayBool.push(musics);
+        console.log(this.arrayBool);
 				this.$axios.get("/search").then((response) => {
 					//TODO get Profil + type + title
 					this.results = response.body;
