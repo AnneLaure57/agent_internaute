@@ -3,7 +3,7 @@ package fr.miage.sid.agentinternaute.agent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.api.HistoryController;
+import fr.miage.sid.agentinternaute.api.PurchaseController;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.AgentContainer;

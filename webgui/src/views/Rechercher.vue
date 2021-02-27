@@ -94,6 +94,7 @@ export default {
   methods: {
     search() {
       this.$axios.get("/search").then((response) => {
+        //TODO get Profil + type + title
         this.results = response.body;
       });
     },

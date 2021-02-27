@@ -5,9 +5,14 @@
   >
     <div class="d-flex align-baseline ma-6">
       <h1 class="mr-12">Profil de l'utilisateur</h1>
-      <v-btn text color="primary" class="ma-0 pa-0" :to="{ name: 'rechercher' }">
+      <v-btn
+        text
+        color="primary"
+        class="ma-0 pa-0"
+        :to="{ name: 'rechercher' }"
+      >
         Retour à l'accueil
-        </v-btn>
+      </v-btn>
     </div>
 
     <!-- Général -->
@@ -16,12 +21,16 @@
       <v-card-text class="d-flex justify-space-between flex-wrap">
         <div style="max-width: 25%">
           <h4>Age</h4>
-          <v-text-field v-model="age" suffix="ans" style="max-width: 100px"></v-text-field>
+          <v-text-field
+            v-model="profile.age"
+            suffix="ans"
+            style="max-width: 100px"
+          ></v-text-field>
         </div>
 
         <div style="max-width: 25%">
           <h4>Sexe</h4>
-          <v-radio-group v-model="sex" row>
+          <v-radio-group v-model="profile.sex" row>
             <v-radio label="Femme" value="woman"></v-radio>
             <v-radio label="Homme" value="man"></v-radio>
             <v-radio label="Indéterminé" value="whoknows"></v-radio>
@@ -30,12 +39,20 @@
 
         <div style="max-width: 25%">
           <h4>Budget mensuel maximum</h4>
-          <v-text-field v-model="budget" suffix="€" style="max-width: 100px"></v-text-field>
+          <v-text-field
+            v-model="profile.maxBudget"
+            suffix="€"
+            style="max-width: 100px"
+          ></v-text-field>
         </div>
 
         <div style="max-width: 25%">
           <h4>Temps consommation moyen mensuel</h4>
-          <v-text-field v-model="time" suffix="heures" style="max-width: 100px"></v-text-field>
+          <v-text-field
+            v-model="profile.averageConsumptionTime"
+            suffix="heures"
+            style="max-width: 100px"
+          ></v-text-field>
         </div>
       </v-card-text>
       <v-card-actions class="d-flex justify-space-between">
@@ -50,10 +67,12 @@
 
       <v-card-text>
         <h4>Genres préférés</h4>
-        <div v-if="video_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
+        <div v-if="video_genres.length == 0" class="mt-2 mb-4">
+          Aucun genre n'a été trouvé
+        </div>
         <div class="d-flex flex-wrap">
           <v-checkbox
-            v-model="prefered_video_genres[genre]"
+            v-model="profile.preferedVideoGenres[genre]"
             v-for="genre in video_genres"
             :key="genre"
             :label="genre"
@@ -64,14 +83,17 @@
         <h4>Réalisateurs préférés</h4>
         <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
           <div class="mr-10" style="max-width: 400px;">
-            <v-autocomplete hide-details prepend-inner-icon="mdi-plus" label="Ajouter nouveau">
-
+            <v-autocomplete
+              hide-details
+              prepend-inner-icon="mdi-plus"
+              label="Ajouter nouveau"
+            >
             </v-autocomplete>
           </div>
 
           <div class="ml-10">
             <v-chip
-              v-for="director in prefered_directors"
+              v-for="director in profile.preferedDirectors"
               :key="director"
               class="mx-2"
               color="primary"
@@ -87,12 +109,17 @@
         <h4>Acteurs préférés</h4>
         <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
           <div class="mr-10" style="max-width: 400px;">
-            <v-autocomplete hide-details prepend-inner-icon="mdi-plus" label="Ajouter nouveau"> </v-autocomplete>
+            <v-autocomplete
+              hide-details
+              prepend-inner-icon="mdi-plus"
+              label="Ajouter nouveau"
+            >
+            </v-autocomplete>
           </div>
 
           <div class="ml-10">
             <v-chip
-              v-for="actor in video_prefered_actors"
+              v-for="actor in profile.preferedActors"
               :key="actor"
               class="mx-2"
               color="primary"
@@ -104,6 +131,26 @@
             </v-chip>
           </div>
         </div>
+
+        <h4>Préférences offres</h4>
+        <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+          <div class="mr-10" style="max-width: 400px;" id="app">
+            <!-- Switch -->
+            <div style="max-width: 100px;"  >
+              <v-sheet
+              >
+                <v-switch
+                  v-model="prefDo"
+                  color="primary"
+                  inset
+                  flat
+                  :label="`${prefDo.toString()}`"
+                ></v-switch>
+              </v-sheet>
+            </div>
+          </div>
+        </div>
+          
       </v-card-text>
       <v-card-actions class="d-flex justify-space-between">
         <v-spacer></v-spacer>
@@ -117,12 +164,14 @@
 
       <v-card-text>
         <h4>Genres préférés</h4>
-        <div v-if="music_genres.length == 0" class="mt-2 mb-4">Aucun genre n'a été trouvé</div>
+        <div v-if="music_genres && music_genres.length == 0" class="mt-2 mb-4">
+          Aucun genre n'a été trouvé
+        </div>
         <div class="d-flex flex-wrap">
           <v-checkbox
-            v-model="prefered_music_genres[genre]"
-            v-for="genre in music_genres"
-            :key="genre"
+            v-model="profile.preferedMusicGenres[genre]"
+            v-for="(genre, index) in music_genres"
+            :key="index"
             :label="genre"
             style="min-width: 200px;"
           ></v-checkbox>
@@ -131,12 +180,17 @@
         <h4>Artistes préférés</h4>
         <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
           <div class="mr-10" style="max-width: 400px;">
-            <v-autocomplete hide-details prepend-inner-icon="mdi-plus" label="Ajouter nouveau"> </v-autocomplete>
+            <v-autocomplete
+              hide-details
+              prepend-inner-icon="mdi-plus"
+              label="Ajouter nouveau"
+            >
+            </v-autocomplete>
           </div>
 
           <div class="ml-10">
             <v-chip
-              v-for="artist in prefered_artists"
+              v-for="artist in profile.preferedMusicArtists"
               :key="artist"
               class="mx-2"
               color="primary"
@@ -146,6 +200,25 @@
             >
               {{ artist }}
             </v-chip>
+          </div>
+        </div>
+
+        <h4>Préférences offres</h4>
+        <div class="d-flex flex-wrap align-baseline mt-2 mb-4">
+          <div class="mr-10" id="app">
+            <!-- Switch -->
+            <div style="max-width: 100px;"  >
+              <v-sheet
+              >
+                <v-switch
+                  v-model="prefDoM"
+                  flat
+                  color="primary"
+                  inset
+                  :label="`${prefDoM.toString()}`"
+                ></v-switch>
+              </v-sheet>
+            </div>
           </div>
         </div>
       </v-card-text>
@@ -169,31 +242,16 @@ import { mapState } from "vuex";
 export default {
   name: "Profil",
 
+
   data() {
     return {
-      age: 20,
-      sex: "whoknows",
-      budget: 40,
-      time: 60,
-      video_genres: ["action", "horreur", "romance", "science fiction", "suspense"],
-      prefered_video_genres: {
-        action: true,
-        horreur: false,
-        romance: false,
-        "science fiction": true,
-        suspense: false,
-      },
-      directors: ["Quentin Tarantino"],
-      prefered_directors: ["Quentin Tarantino"],
+      video_genres: [],
+      directors: [],
       actors: [],
-      prefered_actors: [],
-      music_genres: ["acid", "club", "metal", "pop", "reggae"],
-      prefered_music_genres: {
-        acid: false,
-        reggae: true,
-      },
+      music_genres: [],
       artists: [],
-      prefered_artists: ["Lorie"],
+      prefDo: ['Téléchargement'],
+      prefDoM: ['Téléchargement']
     };
   },
 
@@ -202,10 +260,50 @@ export default {
   },
 
   mounted() {
-    if(this.profile == null) this.$router.push({ name: "login" });
+    if (this.profile == null) this.$router.push({ name: "login" });
+    else {
+      this.getAllArtists();
+      this.getAllDirectors();
+      this.getAllActors();
+      this.getAllMusicGenres();
+      this.getAllVideoGenres();
+    }
   },
 
   methods: {
+
+    // Data from db
+    getAllDirectors() {
+      this.$axios.get("/db/directors").then((response) => {
+        this.directors = response.body;
+      });
+    },
+
+    getAllActors() {
+      this.$axios.get("/db/actors").then((response) => {
+        this.actors = response.body;
+      });
+    },
+
+    getAllArtists() {
+      this.$axios.get("/db/artists").then((response) => {
+        this.artists = response.body;
+      });
+    },
+
+    getAllVideoGenres() {
+      this.$axios.get("/db/video_genres").then((response) => {
+        this.video_genres = response.body;
+      });
+    },
+
+    getAllMusicGenres() {
+      this.$axios.get("/db/music_genres").then((response) => {
+        this.music_genres = response.body;
+      });
+    },
+
+    // Prefs
 
     addPreferedDirector(director) {
       this.$axios.post("/directors/preferred", director).then((response) => {

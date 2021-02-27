@@ -14,35 +14,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.miage.sid.agentinternaute.entity.History;
-import fr.miage.sid.agentinternaute.service.HistoryService;
+import fr.miage.sid.agentinternaute.entity.Purchase;
+import fr.miage.sid.agentinternaute.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value = "/history", produces = MediaType.APPLICATION_JSON_VALUE)
-@ExposesResourceFor(History.class)
+@RequestMapping(value = "/purchases", produces = MediaType.APPLICATION_JSON_VALUE)
+@ExposesResourceFor(Purchase.class)
 @RequiredArgsConstructor
 @CrossOrigin 
-public class HistoryController {
+public class PurchaseController {
 
-	private static final Logger LOGGER = Logger.getLogger(HistoryController.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(PurchaseController.class.getName());
 
-	private final HistoryService service;
+	private final PurchaseService service;
 
 	@GetMapping
-    public Iterable<History> getAllHistory(@RequestParam(defaultValue = "0") int page,
+    public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "20") int size) {
 
         return service.findPaged(page, size);
     }
 	
 	@PostMapping
-    public History create(@RequestBody History h) {
+    public Purchase create(@RequestBody Purchase h) {
         return null;
     }
 
     @PutMapping(value = "/{id}")
-    public History update(@RequestBody History h, @PathVariable int id) {
+    public Purchase update(@RequestBody Purchase h, @PathVariable int id) {
         return null;
     }
 }

@@ -4,10 +4,10 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -24,7 +24,6 @@ public class AgentInternaute extends Agent {
 	private String service = "internaute";
 	private AID aid = new AID();
 
-	@Override
 	protected void setup() {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
@@ -32,12 +31,19 @@ public class AgentInternaute extends Agent {
 			this.name = (String) args[0]; // Nom de l'internaute en paramètre de la ligne de commande
 		} else {
 			this.name = "Bob_" + UUID.randomUUID();
-		}		
-
+		}	
+		
 		// On s'enregistre auprès du DF
 		this.registerService();
-
+		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
+		
+		addBehaviour(new TickerBehaviour(this, 60000) {
+			protected void onTick() {
+				/********** WITHOUT BEHAVIOUR *****/
+				System.out.println("Coucou, je suis up");
+			}
+		} );
 	}
 
 	/*
@@ -117,9 +123,13 @@ public class AgentInternaute extends Agent {
 	}
 	
 	/*
+	 *  Rechercher une oeuvre ???
+	 */
+
+	/*
 	 * Envoi préférences profil, type, titre
 	 */
-	private void sendProfileAndTypeAndTitle(JSONObject messageJSON, AID id) {
+	private void sendSearchInformations(JSONObject messageJSON, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
 			aclMessage.addReceiver(id);
@@ -146,13 +156,15 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Déférérencement dans l'annuaire
 	 */
-//	protected void takeDown() {
-//		try {
-//			DFService.deregister(this);
-//		} catch (FIPAException fe) {
-//			fe.printStackTrace();
-//		}
-//	}	
+	protected void takeDown() {
+		try {
+			// Printout a dismissal message
+			System.out.println("l'agent " +getAID().getName()+ " s'est arrêté.");
+			DFService.deregister(this);
+		} catch (FIPAException fe) {
+			fe.printStackTrace();
+		}
+	}	
 	
 	/*
 	 * Préparer achat oeuvre
@@ -161,13 +173,6 @@ public class AgentInternaute extends Agent {
 		
 	}
 	
-	/*
-	 * Rechercher un média
-	 * TODO : change String to List
-	 */
-	private void searchMedia(String recherche) {
-		
-	}
 	
 	/*
 	 * Attendre Réponse Recherche
@@ -208,9 +213,4 @@ public class AgentInternaute extends Agent {
 		
 	}
 	
-	// Put agent clean-up operations here
-	 /*protected void takeDown() {
-		 // Printout a dismissal message
-		 System.out.println("l'agent " +getAID().getName()+" s'est arrêté.");
-	 }*/
 }
