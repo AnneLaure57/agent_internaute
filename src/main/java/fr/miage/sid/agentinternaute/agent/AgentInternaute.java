@@ -33,6 +33,8 @@ public class AgentInternaute extends Agent {
 	@SuppressWarnings("unused")
 	private AID aid = new AID();
 
+	// TODO
+	@SuppressWarnings("serial")
 	protected void setup() {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
