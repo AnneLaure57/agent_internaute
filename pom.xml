@@ -15,6 +15,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>agent-internaute</name>
 	<description>Proget Agents: Agent internaute</description>
+	<url>https://github.com/AnneLaure57/agent_internaute</url>
 
 	<properties>
 		<java.version>11</java.version>
