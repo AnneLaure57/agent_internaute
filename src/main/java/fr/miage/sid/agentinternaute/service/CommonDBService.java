@@ -52,6 +52,7 @@ public class CommonDBService {
 	 * Récupération des acteurs
 	 */
 	public JSONArray getActors() {
+		@SuppressWarnings("unused")
 		JSONArray actors = new JSONArray();
 //		try {
 //			makeJDBCConnection();
@@ -89,6 +90,7 @@ public class CommonDBService {
 	 * Récupération des réalisateurs
 	 */
 	public JSONArray getDirectors() {
+		@SuppressWarnings("unused")
 		JSONArray directors = new JSONArray();
 //		try {
 //			makeJDBCConnection();
@@ -126,6 +128,7 @@ public class CommonDBService {
 	 * Récupération des artistes de musiques
 	 */
 	public JSONArray getArtists() {
+		@SuppressWarnings("unused")
 		JSONArray artists = new JSONArray();
 //		try {
 //			makeJDBCConnection();
@@ -162,6 +165,7 @@ public class CommonDBService {
 	 * Récupération des genres des films (/série)
 	 */
 	public JSONArray getVideoGenres() {
+		@SuppressWarnings("unused")
 		JSONArray genres = new JSONArray();
 //		try {
 //			makeJDBCConnection();
