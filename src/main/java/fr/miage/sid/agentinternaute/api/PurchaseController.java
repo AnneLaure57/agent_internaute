@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.api;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -38,14 +39,22 @@ public class PurchaseController {
 	private final PurchaseService service;
 	private final ProfileService serviceProfile;
 
-	@GetMapping
-    public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
-                                            @RequestParam(defaultValue = "20") int size) {
-		LOGGER.info("GET on /purchases?page=0&size=20");
-
-        return service.findPaged(page, size);
-    }
+//	@GetMapping
+//    public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
+//                                            @RequestParam(defaultValue = "20") int size) {
+//		LOGGER.info("GET on /purchases?page=0&size=20");
+//
+//        return service.findPaged(page, size);
+//    }
+	@GetMapping(value = "/{id}") 
+	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
+	LOGGER.info("GET on /purchases?");
 	
+	List<Purchase> purchases = service.findPurchasesProfile(id);
+	System.out.println("length : "+ purchases.toArray().length);
+		return  ResponseEntity.ok(purchases);
+	}
+			
 	@PostMapping
 	@Transactional
     public ResponseEntity<?> create(@RequestBody PurchaseDTO p) {

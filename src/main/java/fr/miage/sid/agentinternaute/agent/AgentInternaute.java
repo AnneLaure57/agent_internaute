@@ -2,7 +2,6 @@ package fr.miage.sid.agentinternaute.agent;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -31,11 +30,11 @@ public class AgentInternaute extends Agent {
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
-	// TODO
+	// TODO : fix warnings
 	@SuppressWarnings("unused")
 	private ProfileService profileService;
 	private String service = "internaute";
-	// TODO
+	// TODO : fix warnings
 	@SuppressWarnings("unused")
 	private AID aid = new AID();
 
@@ -43,6 +42,8 @@ public class AgentInternaute extends Agent {
 	
     /* ========================================= Methodes ============================================== */ /*=========================================*/
 	
+	// TODO : fix warnings
+	@SuppressWarnings("serial")
 	protected void setup() {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
@@ -182,6 +183,8 @@ public class AgentInternaute extends Agent {
 ////	3h -> 6 mois
 ////	6h -> 12 mois
 ////	24h -> 4 ans
+	// TODO : fix warnings
+	@SuppressWarnings("unused")
 	private void checkDate(long tStart) {
 		
 		//Set date format

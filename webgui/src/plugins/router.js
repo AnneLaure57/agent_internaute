@@ -30,7 +30,7 @@ const routes = [
         name: "profil"
     },
     {
-        path: "/historique",
+        path: "/purchases",
         component: Historique,
         name: "historique"
     },

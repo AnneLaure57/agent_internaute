@@ -170,11 +170,21 @@ export default {
   },
 
   mounted() {
-    if (this.profile == null) this.$router.push({ name: "login" });
+    if(this.profile == null) this.$router.push({ name: "login" });
+    this.getPurchases();
   },
 
   methods: {
-    //
+    getPurchases() {
+      this.$axios.get("/purchases/" + this.profile.id).then(
+        (response) => {
+          this.purchases = response.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
 
     ratePurchase(purchase) {
       this.editPurchase = purchase;
