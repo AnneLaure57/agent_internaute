@@ -51,7 +51,7 @@ public class SearchService {
 		if (movies) checkTypes.add(MOVIES);
 		if (musics)	checkTypes.add(MUSICS);
 		if (tv_shows) checkTypes.add(TV_SHOWS);
-		this.searchMap.put("movies", Arrays.toString(checkTypes.toArray()));
+		this.searchMap.put("types", Arrays.toString(checkTypes.toArray()));
 		
 		// TODO => OPTIMISE get preferences list => actors, directors, musics etc.
 		this.searchMap.put("preferences_actors", profil.getPreferedActors().toString());
