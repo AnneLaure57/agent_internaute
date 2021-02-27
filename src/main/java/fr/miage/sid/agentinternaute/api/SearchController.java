@@ -1,5 +1,6 @@
 package fr.miage.sid.agentinternaute.api;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.http.MediaType;
@@ -24,17 +25,13 @@ public class SearchController {
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
 	private final SearchService service;
-	
-	// TODO
-	@SuppressWarnings("unused")
+
 	private final ProfileService profilService;
 	
-	//TODO here send profile + type + title
-	// without nom, age, sexe, les preferredTrucs (pas le temps ni le budget, c'est pas leur affaires).
 	@GetMapping
-	public ResponseEntity<?> searchArt(@RequestParam(value="title") String title, @RequestParam(value="type") String type, @RequestParam(value="Agent") Profile profil) {
+	public ResponseEntity<?> searchArt(@RequestParam(value="title") String title, @RequestParam(value="type") List<Boolean> type, @RequestParam(value="Agent") Profile profil) {
 	LOGGER.info("GET on /search?title= &type= &Agent=");
-		if (title != null && type != null) {
+		if (title != null && type.size() > 0) {
 			//send to distrib agent infos
 			service.search(title,type,profil);
 			// TODO return list of results and not title

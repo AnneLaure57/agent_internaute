@@ -21,9 +21,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin 
 public class CommonDBController {
-
+	
 	private static final Logger LOGGER = Logger.getLogger(CommonDBController.class.getName());
-
 	private final CommonDBService service;
 
 	@GetMapping(value = "/actors")

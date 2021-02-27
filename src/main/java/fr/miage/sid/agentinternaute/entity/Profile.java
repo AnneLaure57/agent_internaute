@@ -7,9 +7,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,34 +26,38 @@ import lombok.NoArgsConstructor;
 public class Profile {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GenericGenerator(name="generator", strategy="increment")
+	@GeneratedValue(generator="generator")
 	private Integer id;
 
 	@Column(unique = true)
 	private String name;
 
 	private String sex;
-
 	private Integer age;
-	
 	private Integer currentConsumptionTime;
-
 	private Integer averageConsumptionTime;
-
 	private Integer currentExpenses;
-	
 	private Integer maxBudget;
+
+	@Lob
+	private ArrayList<Integer> preferedVideoGenres;
+	@Lob
+	private ArrayList<Integer> preferedDirectors;
+	@Lob
+	private ArrayList<Integer> preferedActors;
+
+	@Lob
+	private ArrayList<Integer> preferedMusicGenres;
+	@Lob
+	private ArrayList<Integer> preferedMusicArtists;
+	
+	private boolean preferDownloadsForVideos;
+	private boolean preferDownloadsForMusics;
 	
 	@OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Purchase> moviesWatched;
-
-	private ArrayList<String> preferedVideoGenres;
-	private ArrayList<String> preferedDirectors;
-	private ArrayList<String> preferedActors;
-
-	private ArrayList<String> preferedMusicGenres;
-	private ArrayList<String> preferedMusicArtists;
 
 	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Integer maxBudget) {
 		super();
@@ -60,10 +66,12 @@ public class Profile {
 		this.age = age;
 		this.averageConsumptionTime = averageConsumptionTime;
 		this.maxBudget = maxBudget;
-		this.preferedVideoGenres = new ArrayList<String>();
-		this.preferedDirectors = new ArrayList<String>();
-		this.preferedActors = new ArrayList<String>();
-		this.preferedMusicGenres = new ArrayList<String>();
-		this.preferedMusicArtists = new ArrayList<String>();
+		this.preferedVideoGenres = new ArrayList<Integer>();
+		this.preferedDirectors = new ArrayList<Integer>();
+		this.preferedActors = new ArrayList<Integer>();
+		this.preferedMusicGenres = new ArrayList<Integer>();
+		this.preferedMusicArtists = new ArrayList<Integer>();
+		this.preferDownloadsForVideos = false;
+		this.preferDownloadsForMusics = false;
 	}
 }

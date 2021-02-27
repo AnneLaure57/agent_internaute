@@ -105,10 +105,8 @@ export default {
     register() {
       this.$axios.post("/profil", this.newProfile).then(
         (response) => {
-          console.log(response);
-          this.profile = response.data;
           this.$store.commit("setProfile", response.data);
-          this.$router.push({ name: "profile" });
+          this.$router.push({ name: "profil" });
         },
         (error) => {
           console.log(error);

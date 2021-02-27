@@ -12,11 +12,9 @@ import jade.wrapper.ControllerException;
 public final class JadeAgentContainer {
 
 	private static final Logger LOGGER = Logger.getLogger(JadeAgentContainer.class.getName());
-
 	private static JadeAgentContainer INSTANCE;
-
 	private AgentContainer agentContainer;
-
+	
 	private JadeAgentContainer() {
 		jade.core.Runtime rt = jade.core.Runtime.instance();
 		rt.setCloseVM(true);
@@ -26,6 +24,21 @@ public final class JadeAgentContainer {
 		profile.setParameter(Profile.MAIN_HOST, "localhost");
 		profile.setParameter(Profile.MAIN_PORT, "1099");
 		this.agentContainer = rt.createAgentContainer(profile);
+	}
+
+	public void createNewAgentInternaute(String name) {
+		try {
+			Object[] arguments = { name };
+			AgentController agent = this.agentContainer.createNewAgent(name,
+					"fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
+			agent.start();
+		} catch (ControllerException e) {
+			LOGGER.log(Level.SEVERE, "Couldn't create agent " + name + ", probably already exists.");
+		}
+	}
+
+	public void destroyNewAgentInternaute(String name) {
+
 	}
 
 	public static JadeAgentContainer getInstance() {
@@ -45,20 +58,5 @@ public final class JadeAgentContainer {
 
 	public void setAgentContainer(AgentContainer agentContainer) {
 		this.agentContainer = agentContainer;
-	}
-
-	public void createNewAgentInternaute(String name) {
-		try {
-			Object[] arguments = { name };
-			AgentController agent = this.agentContainer.createNewAgent(name,
-					"fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
-			agent.start();
-		} catch (ControllerException e) {
-			LOGGER.log(Level.SEVERE, "Couldn't create agent " + name + ", probably already exists.");
-		}
-	}
-
-	public void destroyNewAgentInternaute(String name) {
-
 	}
 }

@@ -1,40 +1,54 @@
 <template>
-  <div
-    style="width: 100%; height: 100%; background-color: #efefef;"
-    class="d-flex flex-column align-center justify-space-between flex-grow-1"
-  >
-  <div class="d-flex ma-5 justify-space-between" style="width: 80%" >
-    <v-card width="45%">
-      <v-card-title>Rechercher un titre spécifique</v-card-title>
-      <v-card-text class="d-flex flex-wrap">
-        <v-text-field
-          class="mr-8"
-          v-model="searchfield"
-          placeholder="Saisissez un ou plusieurs mots-clés"
-          append-outer-icon="mdi-magnify"
-          @click:append-outer="search"
-        ></v-text-field>
-        <v-checkbox v-model="movies" label="Films" class="mx-4"></v-checkbox>
-        <v-checkbox v-model="tv_shows" label="Séries" class="mx-4"></v-checkbox>
-        <v-checkbox v-model="musics" label="Musique" class="mx-4"></v-checkbox>
-      </v-card-text>
-      <v-card-actions></v-card-actions>
-    </v-card>
+	<div
+		style="width: 100%; height: 100%; background-color: #efefef"
+		class="d-flex flex-column align-center justify-space-between flex-grow-1"
+	>
+		<div class="d-flex ma-5 justify-space-between" style="width: 80%">
+			<v-card width="45%">
+				<v-card-title>Rechercher un titre spécifique</v-card-title>
+				<v-card-text class="d-flex flex-wrap">
+					<v-text-field
+						class="mr-8"
+						v-model="searchfield"
+						placeholder="Saisissez un ou plusieurs mots-clés"
+						append-outer-icon="mdi-magnify"
+						@click:append-outer="search(searchfield, movies, tv_shows, musics)"
+					></v-text-field>
+					<v-checkbox
+						v-model="movies"
+						label="Films"
+						class="mx-4"
+					></v-checkbox>
+					<v-checkbox
+						v-model="tv_shows"
+						label="Séries"
+						class="mx-4"
+					></v-checkbox>
+					<v-checkbox
+						v-model="musics"
+						label="Musique"
+						class="mx-4"
+					></v-checkbox>
+				</v-card-text>
+				<v-card-actions></v-card-actions>
+			</v-card>
 
-    <div class="d-flex align-center justify-center"><span class="title">ou</span></div>
+			<div class="d-flex align-center justify-center">
+				<span class="title">ou</span>
+			</div>
 
-    <v-card width="45%">
-      <v-card-title>Rechercher par filtre</v-card-title>
-      <v-card-text class="d-flex">
-        <!-- toto -->
-      </v-card-text>
-      <v-card-actions></v-card-actions>
-    </v-card>
-  </div>
+			<v-card width="45%">
+				<v-card-title>Rechercher par filtre</v-card-title>
+				<v-card-text class="d-flex">
+					<!-- toto -->
+				</v-card-text>
+				<v-card-actions></v-card-actions>
+			</v-card>
+		</div>
 
-    <div style="width: 80%" class="d-flex ma-5">
-      <h2 v-if="results.length > 0">Résultats</h2>
-    </div>
+		<div style="width: 80%" class="d-flex ma-5">
+			<h2 v-if="results.length > 0">Résultats</h2>
+		</div>
 
     <v-card v-for="result in results" :key="result.title" style="width: 80%" class="ma-5">
       <v-card-text class="d-flex justify-space-between">
@@ -65,13 +79,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-export default {
-  name: "Rechercher",
+	import { mapState } from "vuex";
+	export default {
+		name: "Rechercher",
 
   data() {
     return {
       searchfield: "",
+      arrayBool:[],
       movies: false,
       tv_shows: false,
       musics: false,
@@ -90,21 +105,27 @@ export default {
     };
   },
 
-  computed: {
-    ...mapState(["profile"]),
-  },
+		computed: {
+			...mapState(["profile"]),
+		},
 
-  mounted() {
-    if(this.profile == null) this.$router.push({ name: "login" });
-  },
+		mounted() {
+			if (this.profile == null) this.$router.push({ name: "login" });
+		},
 
   methods: {
-    search() {
-      this.$axios.get("/search").then((response) => {
-        //TODO get Profil + type + title
-        this.results = response.body;
-      });
-    },
+  search(searchfield, movies, tv_shows, musics) {
+        console.log(searchfield);
+        // push in arrayBool
+        this.arrayBool.push(movies);
+        this.arrayBool.push(tv_shows);
+        this.arrayBool.push(musics);
+        console.log(this.arrayBool);
+				this.$axios.get("/search").then((response) => {
+					//TODO get Profil + type + title
+					this.results = response.body;
+				});
+			},
     buy(result) {
       // Ajout dans history
       this.newPurchase.rating = result.rating;

@@ -9,7 +9,7 @@ const store = new Vuex.Store({
     plugins: [createPersistedState()],
     
     state: {
-        profile: null
+        profile: null,
     },
 
     mutations: {

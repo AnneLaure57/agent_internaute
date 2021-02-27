@@ -17,9 +17,16 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CommonDBService {
-	
-	private final Logger LOGGER = Logger.getLogger(CommonDBService.class.getName());
+	/* ========================================= Global ================================================ */ /*=========================================*/
 
+	private final Logger LOGGER = Logger.getLogger(CommonDBService.class.getName());
+	
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
+	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
+	
+    /* ========================================= Methodes ============================================== */ /*=========================================*/
+	
 	private Connection makeJDBCConnection() {
 
 		try {
@@ -71,9 +78,7 @@ public class CommonDBService {
 
 			stmta.close();
 			db.close();
-			
-			System.out.println("---------------Acteurs----------------");
-			System.out.println(actors.toString());
+
 			return actors;
 			
 		} catch (SQLException e) {
@@ -110,8 +115,6 @@ public class CommonDBService {
 			stmtd.close();
 			db.close();
 			
-			System.out.println("---------------Réalisateurs----------------");
-			System.out.println(directors.toString());
 			return directors;
 
 		} catch (SQLException e) {
@@ -147,8 +150,6 @@ public class CommonDBService {
 			stmtc.close();
 			db.close();
 			
-			System.out.println("---------------Artists musique----------------");
-			System.out.println(artists.toString());
 			return artists;
 
 		} catch (SQLException e) {
@@ -227,4 +228,8 @@ public class CommonDBService {
 		}
 		return null;
 	}
+
+	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
+
+	/* ========================================= Main ================================================== */ /*=========================================*/
 }

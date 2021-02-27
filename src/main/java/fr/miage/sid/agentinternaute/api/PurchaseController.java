@@ -40,7 +40,6 @@ import lombok.RequiredArgsConstructor;
 public class PurchaseController {
 
 	private static final Logger LOGGER = Logger.getLogger(PurchaseController.class.getName());
-
 	private final PurchaseService service;
 	private final ProfileService serviceProfile;
 
