@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
