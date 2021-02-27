@@ -26,7 +26,7 @@ public class SearchService {
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
 	
-	public void search(String title, List<String> type, Profile profil) {
+	public void search(String title, List<Boolean> type, Profile profil) {
 		//put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		JSONObject searchInformations = null;

@@ -29,7 +29,7 @@ public class SearchController {
 	private final ProfileService profilService;
 	
 	@GetMapping
-	public ResponseEntity<?> searchArt(@RequestParam(value="title") String title, @RequestParam(value="type") List<String> type, @RequestParam(value="Agent") Profile profil) {
+	public ResponseEntity<?> searchArt(@RequestParam(value="title") String title, @RequestParam(value="type") List<Boolean> type, @RequestParam(value="Agent") Profile profil) {
 	LOGGER.info("GET on /search?title= &type= &Agent=");
 		if (title != null && type.size() > 0) {
 			//send to distrib agent infos
