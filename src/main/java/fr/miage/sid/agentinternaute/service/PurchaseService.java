@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -49,9 +50,9 @@ public class PurchaseService {
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
 	
-	public Iterable<Purchase> findPurchasesProfile(int profileId) {
+	public List<Purchase> findPurchasesProfile(Integer id) {
 		
-		return repo.findByProfileId(profileId);
+		return repo.findByProfileId(id);
 	}
 
 	/* ========================================= Accesseurs ============================================ */ /*=========================================*/

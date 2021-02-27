@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.api;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -46,12 +47,12 @@ public class PurchaseController {
 //        return service.findPaged(page, size);
 //    }
 	@GetMapping(value = "/{id}") 
-	public Iterable<Purchase> getPurchasesProfile(@PathVariable int profileId) {
+	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
 	LOGGER.info("GET on /purchases?");
-	System.out.println("Profile : "+profileId);
-	Iterable<Purchase> purchases = service.findPurchasesProfile(profileId);
 	
-		return (Iterable<Purchase>) ResponseEntity.ok(purchases);
+	List<Purchase> purchases = service.findPurchasesProfile(id);
+	System.out.println("length : "+ purchases.toArray().length);
+		return  ResponseEntity.ok(purchases);
 	}
 			
 	@PostMapping
