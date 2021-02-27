@@ -24,17 +24,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin 
 public class PurchaseController {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private static final Logger LOGGER = Logger.getLogger(PurchaseController.class.getName());
-
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private final PurchaseService service;
-
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
-	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	@GetMapping
     public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
@@ -55,8 +47,4 @@ public class PurchaseController {
     	LOGGER.info("PUT on /purchases/"+id);
         return null;
     }
-	
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
-	/* ========================================= Main ================================================== */ /*=========================================*/
 }

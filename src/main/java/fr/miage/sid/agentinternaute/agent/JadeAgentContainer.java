@@ -11,17 +11,9 @@ import jade.wrapper.ControllerException;
 
 public final class JadeAgentContainer {
 
-	/* ========================================= Global ================================================ */ /*=========================================*/
-
 	private static final Logger LOGGER = Logger.getLogger(JadeAgentContainer.class.getName());
-
 	private static JadeAgentContainer INSTANCE;
-
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private AgentContainer agentContainer;
-
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
 	
 	private JadeAgentContainer() {
 		jade.core.Runtime rt = jade.core.Runtime.instance();
@@ -33,8 +25,6 @@ public final class JadeAgentContainer {
 		profile.setParameter(Profile.MAIN_PORT, "1099");
 		this.agentContainer = rt.createAgentContainer(profile);
 	}
-
-	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	public void createNewAgentInternaute(String name) {
 		try {
@@ -50,8 +40,6 @@ public final class JadeAgentContainer {
 	public void destroyNewAgentInternaute(String name) {
 
 	}
-
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
 
 	public static JadeAgentContainer getInstance() {
 		if (INSTANCE == null) {
@@ -71,6 +59,4 @@ public final class JadeAgentContainer {
 	public void setAgentContainer(AgentContainer agentContainer) {
 		this.agentContainer = agentContainer;
 	}
-	
-	/* ========================================= Main ================================================== */ /*=========================================*/
 }

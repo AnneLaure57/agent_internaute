@@ -21,18 +21,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin 
 public class CommonDBController {
-	/* ========================================= Global ================================================ */ /*=========================================*/
-
+	
 	private static final Logger LOGGER = Logger.getLogger(CommonDBController.class.getName());
-
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private final CommonDBService service;
 
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
-	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
-	
 	@GetMapping(value = "/actors")
 	public ResponseEntity<?> getActors() {
 		LOGGER.info("GET on /db/actors");
@@ -67,8 +59,4 @@ public class CommonDBController {
 		JSONArray music_genres = service.getMusicGenres();
 		return ResponseEntity.status(200).body(music_genres.toString());
 	}
-
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
-	/* ========================================= Main ================================================== */ /*=========================================*/
 }

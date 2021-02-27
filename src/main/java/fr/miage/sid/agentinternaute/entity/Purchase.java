@@ -5,10 +5,11 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,12 +22,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Purchase {
-	/* ========================================= Global ================================================ */ /*=========================================*/
-
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
+	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GenericGenerator(name="generator", strategy="increment")
+	@GeneratedValue(generator="generator")
 	private Integer id;
     
     private Date date;
@@ -41,12 +40,4 @@ public class Purchase {
 	@JoinColumn(name="profile_id", referencedColumnName="id")
 	@JsonIgnore
     private Profile profile;
-    
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
-	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
-	
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
-	/* ========================================= Main ================================================== */ /*=========================================*/
 }
