@@ -12,7 +12,7 @@
 						v-model="searchfield"
 						placeholder="Saisissez un ou plusieurs mots-clés"
 						append-outer-icon="mdi-magnify"
-						@click:append-outer="search"
+						@click:append-outer="search(searchfield)"
 					></v-text-field>
 					<v-checkbox
 						v-model="movies"
@@ -117,7 +117,8 @@
 		},
 
 		methods: {
-			search() {
+			search(searchfield) {
+        console.log(searchfield);
 				this.$axios.get("/search").then((response) => {
 					//TODO get Profil + type + title
 					this.results = response.body;
