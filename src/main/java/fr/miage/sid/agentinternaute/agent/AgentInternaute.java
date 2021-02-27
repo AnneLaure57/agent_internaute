@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -187,11 +188,16 @@ public class AgentInternaute extends Agent {
 		
 		System.out.println(" Date courante : " + currentDateTimeString +", timer : " + currentDateTimer);	
 		
-		//check 
+		//check diff between dates
 		int diff = currentDate.compareTo(date2);
-		// 1 min -> 1 j
-		if (diff == 86400000) {
-			
+		Long newDiff = null;
+		
+		// 24h -> 4 ans
+		if (diff == TimeUnit.HOURS.toMillis(24)) {
+			newDiff = TimeUnit.DAYS.toMillis(4 * 365);
+		//6h -> 12 mois
+		} else if (diff == TimeUnit.HOURS.toMillis(6)) {
+			//newDiff = TimeUnit.DAYS.toMillis();
 		} else {
 			System.out.println(currentDate + " is equal to " + date2);
 		}
