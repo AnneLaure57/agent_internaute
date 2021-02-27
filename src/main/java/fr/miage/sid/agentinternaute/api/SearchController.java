@@ -32,6 +32,8 @@ public class SearchController {
 
 	private final SearchService service;
 	
+	// TODO
+	@SuppressWarnings("unused")
 	private final ProfileService profilService;
 	
 	//TODO here send profile + type + title
