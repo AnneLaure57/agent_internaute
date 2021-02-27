@@ -78,7 +78,7 @@
         </div>
         <div class="d-flex flex-column justify-space-around ml-12 mr-4">
           <v-btn color="primary" @click="buy(result)">Acheter</v-btn>
-          <v-btn color="primary">S'abonner</v-btn>
+          <v-btn color="primary" @click="subscribe(result)">S'abonner</v-btn>
         </div>
       </v-card-text>
     </v-card>
@@ -120,35 +120,36 @@ export default {
         searchField: this.searchfield,
         movies: this.movies,
         tvShows: this.tv_shows,
-        musics:this.musics,
-        profile: this.profile,
+        musics: this.musics,
+        profileId: this.profile.id,
       };
 
-      console.log(newSearch);
       this.$axios.post("/search", newSearch).then((response) => {
         this.results = response.data;
       });
     },
 
     buy(result) {
-      // Ajout dans history
-      this.newPurchase.rating = result.rating;
-      this.newPurchase.itemTitle = result.title;
-      this.newPurchase.itemId = result.id;
-      this.newPurchase.profile = this.profile;
-      this.newPurchase.id = this.profile.id;
-      console.log(this.newPurchase);
-      this.$axios.post("/purchases", this.newPurchase).then(
+      let newPurchase = {
+        rating: result.rating,
+        itemTitle: result.title,
+        itemId: result.id,
+        profileId: this.profile.id,
+      };
+
+      console.log(newPurchase);
+      this.$axios.post("/purchases", newPurchase).then(
         (response) => {
           console.log(response.data);
-          // this.profile = response.data;
-          // this.$store.commit("setProfile", response.data);
-          // this.$router.push({ name: "profile" });
         },
         (error) => {
           console.log(error);
         }
       );
+    },
+
+    subscribe() {
+
     },
   },
 };
