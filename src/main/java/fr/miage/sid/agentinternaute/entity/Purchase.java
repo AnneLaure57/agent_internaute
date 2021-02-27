@@ -1,5 +1,6 @@
 package fr.miage.sid.agentinternaute.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,15 @@ public class Purchase {
 	private Integer id;
     
     private Date date;
-    private Double rating;
+    private Double rating; // Note des autres
+    
+    // Notes de l'internaute
+    private Double mediumRating;
+    private Double distributorRating;
+    private Double productorRating;
+    private ArrayList<Double> actorsRating;
+    private ArrayList<Double> directorsRating;
+    
     private String itemId;
     private String itemTitle;
     
@@ -42,6 +51,10 @@ public class Purchase {
 		super();
 		this.date = new Date();
 		this.rating = rating;
+		this.distributorRating = 0.0;
+		this.productorRating = 0.0;
+		this.actorsRating =  new ArrayList<Double>();
+		this.directorsRating =  new ArrayList<Double>();
 		this.itemId = itemId;
 		this.itemTitle = itemTitle;
 		this.profile = profile;
