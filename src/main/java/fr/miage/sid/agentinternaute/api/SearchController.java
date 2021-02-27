@@ -38,6 +38,7 @@ public class SearchController {
 	// without nom, age, sexe, les preferredTrucs (pas le temps ni le budget, c'est pas leur affaires).
 	@GetMapping
 	public ResponseEntity<?> searchArt(@RequestParam(value="title", required=false) String title, @RequestParam(value="type") String type, @RequestParam(value="Agent") Profile profil) {
+		LOGGER.info("GET on /search?title= &type= &Agent=");
 		if (title != null && type != null) {
 			service.search(title,type,profil);
 			// TODO return list of results and not title
