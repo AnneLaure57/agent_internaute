@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       media: [
-        { title: "Les bronzés", year: 1978, rating: 3.7, view_date: "11/01/2021" },
+        //{ title: "Les bronzés", year: 1978, rating: 3.7, view_date: "11/01/2021" },
       ],
     };
   },
@@ -58,10 +58,27 @@ export default {
 
   mounted() {
     if(this.profile == null) this.$router.push({ name: "login" });
+    this.getPurchases();
   },
 
   methods: {
     //
+
+    getPurchases() {
+      console.log("appelle de la méthode " + typeof(this.profile.id));
+      this.$axios.get("/purchases/"+ this.profile.id).then(
+        (response) => {
+          console.log(response.data);
+          this.media = response.data;
+          // this.profile = response.data;
+          // this.$store.commit("setProfile", response.data);
+          // this.$router.push({ name: "profile" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>

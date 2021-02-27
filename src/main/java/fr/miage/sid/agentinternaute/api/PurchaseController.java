@@ -43,14 +43,22 @@ public class PurchaseController {
 	private final PurchaseService service;
 	private final ProfileService serviceProfile;
 
-	@GetMapping
-    public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
-                                            @RequestParam(defaultValue = "20") int size) {
-		LOGGER.info("GET on /purchases?page=0&size=20");
-
-        return service.findPaged(page, size);
-    }
+//	@GetMapping
+//    public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
+//                                            @RequestParam(defaultValue = "20") int size) {
+//		LOGGER.info("GET on /purchases?page=0&size=20");
+//
+//        return service.findPaged(page, size);
+//    }
+	@GetMapping(value = "/{id}") 
+	public Iterable<Purchase> getPurchasesProfile(@PathVariable int profileId) {
+	LOGGER.info("GET on /purchases?");
+	System.out.println("Profile : "+profileId);
+	Iterable<Purchase> purchases = service.findPurchasesProfile(profileId);
 	
+		return (Iterable<Purchase>) ResponseEntity.ok(purchases);
+	}
+			
 	@PostMapping
 	@Transactional
     public ResponseEntity<?> create(@RequestBody Purchase h) {
