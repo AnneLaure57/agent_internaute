@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
@@ -20,5 +21,12 @@ class SearchServiceTest {
 //		fail("Not yet implemented");
 //	}
 
+
+	private SearchService service;
+	
+
+	public void TestMockito(@Mock SearchService service) {
+		this.service = service;
+	}
 	
 }
