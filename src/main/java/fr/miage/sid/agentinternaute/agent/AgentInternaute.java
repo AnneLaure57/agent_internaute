@@ -50,7 +50,7 @@ public class AgentInternaute extends Agent {
 		// On s'enregistre auprès du DF
 		this.registerService();
 		
-		Long timerTickerBehaviour = (long) 600000;
+		Long timerTickerBehaviour = (long) 100000;
 		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
