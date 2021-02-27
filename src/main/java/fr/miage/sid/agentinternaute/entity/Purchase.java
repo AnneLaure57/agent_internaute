@@ -49,7 +49,5 @@ public class Purchase {
 		this.itemTitle = itemTitle;
 		this.profile = profile;
 	}
-    
-    
-    
+
 }

@@ -96,6 +96,7 @@
         { id : 3234, title: "Les bronzés", year: 1978, rating: 3.7 },
       ],
       newPurchase: {
+        id:0,
         rating: 0,
         itemId: 0,
         itemTitle: "",
@@ -132,10 +133,11 @@
       this.newPurchase.itemTitle = result.title;
       this.newPurchase.itemId = result.id;
       this.newPurchase.profile = this.profile;
+      this.newPurchase.id = this.profile.id;
       console.log(this.newPurchase);
       this.$axios.post("/purchases", this.newPurchase).then(
         (response) => {
-          console.log(response);
+          console.log(response.data);
           // this.profile = response.data;
           // this.$store.commit("setProfile", response.data);
           // this.$router.push({ name: "profile" });
