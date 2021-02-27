@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -74,5 +72,4 @@ public class Profile {
 		this.preferDownloadsForVideos = false;
 		this.preferDownloadsForMusics = false;
 	}
-	
 }

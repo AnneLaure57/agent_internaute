@@ -9,7 +9,5 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 public interface ProfileRepository extends JpaRepository<Profile, String> {
 
 	Optional<Profile> findById(int id);
-
 	Optional<Profile> findByName(String name);
-
 }

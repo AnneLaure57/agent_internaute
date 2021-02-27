@@ -22,12 +22,13 @@ import net.minidev.json.JSONObject;
 
 public class AgentInternaute extends Agent {
 	
-	/**
-	 * 
-	 */
+	/* ========================================= Global ================================================ */ /*=========================================*/
+
 	private static final long serialVersionUID = -1271454263303780513L;
 
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
+
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
 	// TODO
@@ -38,6 +39,10 @@ public class AgentInternaute extends Agent {
 	@SuppressWarnings("unused")
 	private AID aid = new AID();
 
+	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
+	
+    /* ========================================= Methodes ============================================== */ /*=========================================*/
+	
 	protected void setup() {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
@@ -50,14 +55,16 @@ public class AgentInternaute extends Agent {
 		// On s'enregistre auprès du DF
 		this.registerService();
 		
-		Long timerTickerBehaviour = (long) 100000;
+		// 300000 => 30 sec
+		// 1000000 => 10 min
+		Long timerTickerBehaviour = (long) 1000000;
 		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
-				System.out.println("Coucou, je suis up depuis " + tStart);
+				System.out.println("Coucou, je suis up");
 				checkDate(tStart);
 				
 			}
@@ -230,5 +237,8 @@ public class AgentInternaute extends Agent {
 			fe.printStackTrace();
 		}
 	}	
-	
+
+	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
+
+	/* ========================================= Main ================================================== */ /*=========================================*/
 }

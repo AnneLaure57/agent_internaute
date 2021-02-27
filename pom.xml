@@ -85,6 +85,13 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+		    <groupId>com.tilab.jade</groupId>
+		    <artifactId>jade</artifactId>
+		    <version>4.5.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/lib/jade.jar</systemPath>
+		</dependency>
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
