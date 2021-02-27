@@ -37,8 +37,6 @@ public class AgentInternaute extends Agent {
 	@SuppressWarnings("unused")
 	private AID aid = new AID();
 
-	// TODO
-	@SuppressWarnings("serial")
 	protected void setup() {
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
@@ -51,8 +49,10 @@ public class AgentInternaute extends Agent {
 		// On s'enregistre auprès du DF
 		this.registerService();
 		
+		Long timerTickerBehaviour = (long) 600000;
+		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
-		addBehaviour(new TickerBehaviour(this, 600000) {
+		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
@@ -176,13 +176,25 @@ public class AgentInternaute extends Agent {
 ////	24h -> 4 ans
 	private void checkDate(long tStart) {
 		
-		// get local time
+		//Set date format
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ss");
+		//Convert Date + Timer
 		Date currentDate = new Date();
 		Date date2 =new Date(tStart);
+		
 		String currentDateTimeString = dateFormat.format(currentDate);
 		String currentDateTimer = dateFormat.format(date2);
+		
 		System.out.println(" Date courante : " + currentDateTimeString +", timer : " + currentDateTimer);	
+		
+		//check 
+		int diff = currentDate.compareTo(date2);
+		// 1 min -> 1 j
+		if (diff == 86400000) {
+			
+		} else {
+			System.out.println(currentDate + " is equal to " + date2);
+		}
 	} 
 	
 	/*
