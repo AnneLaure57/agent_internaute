@@ -27,23 +27,28 @@ public class PurchaseService {
     /* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	public Optional<Purchase> getPurchaseById(int id, String profileId) {
+		LOGGER.info("Get purchase by ID " + id);
 		return repo.findByIdAndProfileId(id, profileId);
 	}
 
 	public Optional<Purchase> getPurchaseByName(Date date, String profileId) {
+		// TODO : LOGGER
 		return repo.findByDateAndProfileId(date, profileId);
 	}
 
 	public Optional<Purchase> getPurchaseByRating(Double rating, String profileId) {
+		// TODO : LOGGER
 		return repo.findByRatingAndProfileId(rating, profileId);
 	}
 
 	public Purchase createOrUpdatePurchase(Purchase purchase) {
+		// TODO : LOGGER
 		repo.save(purchase);
 		return purchase;
 	}
 
 	public Iterable<Purchase> findPaged(int page, int size) {
+		// TODO : LOGGER
 		if (page < 0) page = 0;
 
 		return repo.findAll(PageRequest.of(page, size)).getContent();
