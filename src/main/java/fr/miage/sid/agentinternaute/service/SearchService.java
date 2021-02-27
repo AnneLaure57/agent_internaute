@@ -1,5 +1,8 @@
 package fr.miage.sid.agentinternaute.service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.json.JSONObject;
@@ -39,6 +42,10 @@ public class SearchService {
 		this.searchMap.put("age", Integer.toString(profil.getAge()));
 		this.searchMap.put("sex", profil.getSex());
 		
+		ArrayList<String> checkTypes = new ArrayList<String>();
+		String[] types = {};
+				
+//		this.searchMap.put("movies", Arrays.toString(movies));
 		this.searchMap.put("movies", Boolean.toString(movies));
 		this.searchMap.put("musics", Boolean.toString(musics));
 		this.searchMap.put("tv_shows", Boolean.toString(tv_shows));
