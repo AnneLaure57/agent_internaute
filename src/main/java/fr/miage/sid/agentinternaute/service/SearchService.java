@@ -31,6 +31,7 @@ public class SearchService {
 		// without nom, age, sexe, les preferredTrucs type + title
 		JSONObject searchInformations = null;
 		searchInformations.put("title", title);
+		//tv_shows, musics etc.
 		for (int i = 0; i < type.size(); i++) {
 			searchInformations.put("type_"+ type.get(i), type.get(i));
 		}

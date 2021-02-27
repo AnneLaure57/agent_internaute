@@ -117,8 +117,11 @@
 		},
 
 		methods: {
-			search(searchfield) {
+			search(searchfield, movies, tv_shows, musics) {
         console.log(searchfield);
+        console.log(movies);
+        console.log(tv_shows);
+        console.log(musics);
 				this.$axios.get("/search").then((response) => {
 					//TODO get Profil + type + title
 					this.results = response.body;
