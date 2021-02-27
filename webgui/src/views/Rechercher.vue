@@ -50,43 +50,32 @@
 			<h2 v-if="results.length > 0">Résultats</h2>
 		</div>
 
-		<v-card
-			v-for="result in results"
-			:key="result.title"
-			style="width: 80%"
-			class="ma-5"
-		>
-			<v-card-text class="d-flex justify-space-between">
-				<v-img
-					contain
-					max-height="200px"
-					max-width="200px"
-					width="200px"
-					src="../assets/img/default.png"
-				></v-img>
-				<div class="d-flex flex-column flex-grow-1 mx-4">
-					<span class="title">{{ result.title }}</span>
-					<span>{{ result.year }}</span>
-				</div>
-				<div>
-					<v-rating
-						empty-icon="mdi-star-outline"
-						full-icon="mdi-star"
-						half-icon="mdi-star-half"
-						length="5"
-						size="24"
-						color="yellow darken-3"
-						background-color="grey darken-1"
-						:value="result.rating"
-					></v-rating>
-				</div>
-				<div class="d-flex flex-column justify-space-around ml-12 mr-4">
-					<v-btn color="primary">Acheter</v-btn>
-					<v-btn color="primary">S'abonner</v-btn>
-				</div>
-			</v-card-text>
-		</v-card>
-	</div>
+    <v-card v-for="result in results" :key="result.title" style="width: 80%" class="ma-5">
+      <v-card-text class="d-flex justify-space-between">
+        <v-img contain max-height="200px" max-width="200px" width="200px" src="../assets/img/default.png"></v-img>
+        <div class="d-flex flex-column flex-grow-1 mx-4">
+          <span class="title">{{ result.title }}</span>
+          <span>{{ result.year }}</span>
+        </div>
+        <div>
+          <v-rating
+            empty-icon="mdi-star-outline"
+            full-icon="mdi-star"
+            half-icon="mdi-star-half"
+            length="5"
+            size="24"
+            color="yellow darken-3"
+            background-color="grey darken-1"
+            :value="result.rating"
+          ></v-rating>
+        </div>
+        <div class="d-flex flex-column justify-space-around ml-12 mr-4">
+          <v-btn color="primary" @click="buy(result)">Acheter</v-btn>
+          <v-btn color="primary">S'abonner</v-btn>
+        </div>
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -94,20 +83,27 @@
 	export default {
 		name: "Rechercher",
 
-		data() {
-			return {
-				searchfield: "",
-        arrayBool:[],
-				movies: false,
-				tv_shows: false,
-				musics: false,
-				results: [
-					{ title: "Le parrain", year: 1972, rating: 4.5 },
-					{ title: "Le parrain 2", year: 1974, rating: 4.5 },
-					{ title: "Les bronzés", year: 1978, rating: 3.7 },
-				],
-			};
-		},
+  data() {
+    return {
+      searchfield: "",
+      arrayBool:[],
+      movies: false,
+      tv_shows: false,
+      musics: false,
+      results: [
+        { id : 1234, title: "Le parrain", year: 1972, rating: 4.5 },
+        { id : 3214, title: "Le parrain 2", year: 1974, rating: 4.5 },
+        { id : 3234, title: "Les bronzés", year: 1978, rating: 3.7 },
+      ],
+      newPurchase: {
+        rating: 0,
+        itemId: 0,
+        itemTitle: "",
+        profile: null,
+
+      }
+    };
+  },
 
 		computed: {
 			...mapState(["profile"]),
@@ -117,8 +113,8 @@
 			if (this.profile == null) this.$router.push({ name: "login" });
 		},
 
-		methods: {
-			search(searchfield, movies, tv_shows, musics) {
+  methods: {
+  search(searchfield, movies, tv_shows, musics) {
         console.log(searchfield);
         // push in arrayBool
         this.arrayBool.push(movies);
@@ -130,6 +126,25 @@
 					this.results = response.body;
 				});
 			},
-		},
-	};
+    buy(result) {
+      // Ajout dans history
+      this.newPurchase.rating = result.rating;
+      this.newPurchase.itemTitle = result.title;
+      this.newPurchase.itemId = result.id;
+      this.newPurchase.profile = this.profile;
+      console.log(this.newPurchase);
+      this.$axios.post("/purchases", this.newPurchase).then(
+        (response) => {
+          console.log(response);
+          // this.profile = response.data;
+          // this.$store.commit("setProfile", response.data);
+          // this.$router.push({ name: "profile" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  },
+};
 </script>
