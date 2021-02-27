@@ -1,5 +1,9 @@
 package fr.miage.sid.agentinternaute.agent;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,11 +50,12 @@ public class AgentInternaute extends Agent {
 		this.registerService();
 		
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
-		addBehaviour(new TickerBehaviour(this, 60000) {
+		addBehaviour(new TickerBehaviour(this, 600000) {
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
 				System.out.println("Coucou, je suis up depuis " + tStart);
+				checkDate(tStart);
 				
 			}
 		} );
@@ -161,11 +166,22 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Vérifier la date 
 	 */
-	// TODO
-	@SuppressWarnings("unused")
-	private void checkDate() {
-
-	}
+// 		1 min -> 1 j
+////	30 min -> 1 mois
+////	1h30 -> 3 mois
+////	3h -> 6 mois
+////	6h -> 12 mois
+////	24h -> 4 ans
+	private void checkDate(long tStart) {
+		
+		// get local time
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ss");
+		Date currentDate = new Date();
+		Date date2 =new Date(tStart);
+		String currentDateTimeString = dateFormat.format(currentDate);
+		String currentDateTimer = dateFormat.format(date2);
+		System.out.println(" Date courante : " + currentDateTimeString +", timer : " + currentDateTimer);	
+	} 
 	
 	/*
 	/*
