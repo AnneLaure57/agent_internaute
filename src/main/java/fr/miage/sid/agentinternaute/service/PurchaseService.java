@@ -2,6 +2,7 @@ package fr.miage.sid.agentinternaute.service;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 public class PurchaseService {
 	/* ========================================= Global ================================================ */ /*=========================================*/
 
+	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
+	
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private final PurchaseRepository repo;
