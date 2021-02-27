@@ -3,13 +3,11 @@ package fr.miage.sid.agentinternaute.agent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.api.PurchaseController;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.ControllerException;
-import jade.wrapper.StaleProxyException;
 
 public final class JadeAgentContainer {
 	
