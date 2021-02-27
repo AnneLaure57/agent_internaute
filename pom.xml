@@ -14,9 +14,72 @@
 	<artifactId>agentinternaute</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>agent-internaute</name>
+	
 	<description>Proget Agents: Agent internaute</description>
+	<organization>
+		<name>Miage Nancy</name>
+		<url>http://www.miage-nancy.fr</url>
+	</organization>
 	<url>https://github.com/AnneLaure57/agent_internaute</url>
-
+	
+	<licenses>
+    	<license>
+	    	<name>The MIT License</name>
+	    	<url>https://github.com/AnneLaure57/agent_internaute/LICENSE</url>
+	    	<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>al</id>
+			<name>Anne-Laure CHARLES</name>
+			<email>anne-laure.charles4@etu.univ-lorraine.fr</email>
+			<organization>MIAGE M2 SID</organization>
+			<organizationUrl>http://www.miage-nancy.fr</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>Europe/Paris</timezone>
+		</developer>
+		<developer>
+			<id>lmassicard</id>
+			<name>Louis MASSICARD</name>
+			<email>louis.massicard9@etu.univ-lorraine.fr</email>
+			<organization>MIAGE M2 SID</organization>
+			<organizationUrl>http://www.miage-nancy.fr</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>Europe/Paris</timezone>
+		</developer>
+		<developer>
+			<id>cleve21</id>
+			<name>Claire ROMANEL</name>
+			<email>claire.romanel3@etu.univ-lorraine.fr</email>
+			<organization>MIAGE M2 SID</organization>
+			<organizationUrl>http://www.miage-nancy.fr</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>Europe/Paris</timezone>
+		</developer>
+		<developer>
+			<id>adel</id>
+			<name>Adel YACIA</name>
+			<email>adel.yacia6@etu.univ-lorraine.fr</email>
+			<organization>MIAGE M2 SID</organization>
+			<organizationUrl>http://www.miage-nancy.fr</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>Europe/Paris</timezone>
+		</developer>
+	</developers>
+    
 	<properties>
 		<java.version>11</java.version>
 	</properties>
