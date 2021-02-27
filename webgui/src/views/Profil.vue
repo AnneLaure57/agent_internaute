@@ -65,7 +65,7 @@
       <!-- Films et séries -->
       <v-card width="50%" class="d-flex flex-column justify-space-between mr-2 pa-3">
         <div>
-        <v-card-title>Films</v-card-title>
+        <v-card-title>Films et séries</v-card-title>
 
         <v-card-text>
           <h4>Genres préférés</h4>
@@ -77,9 +77,9 @@
               hide-details
               v-model="profile.preferedVideoGenres[genre]"
               v-for="genre in video_genres"
-              :key="genre"
-              :label="genre"
-              style="min-width: 200px;"
+              :key="genre.id"
+              :label="genre.name"
+              style="min-width: 25%;"
             ></v-checkbox>
           </div>
 
@@ -265,7 +265,7 @@ export default {
       this.getAllDirectors();
       this.getAllActors();
       this.getAllMusicGenres();
-      //this.getAllVideoGenres();
+      this.getAllVideoGenres();
     }
   },
 
@@ -297,7 +297,6 @@ export default {
 
     getAllMusicGenres() {
       this.$axios.get("/db/music_genres").then((response) => {
-        console.log(response.data);
         this.music_genres = response.data;
       });
     },
