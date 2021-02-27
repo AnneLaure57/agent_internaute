@@ -112,6 +112,7 @@
 			<plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
+            <!-- JACOCO : Java Code Coverage Library -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
