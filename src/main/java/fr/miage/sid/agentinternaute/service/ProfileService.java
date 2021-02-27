@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.service;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProfileService {
 	/* ========================================= Global ================================================ */ /*=========================================*/
+	
+	private final Logger LOGGER = Logger.getLogger(ProfileService.class.getName());
 	
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
