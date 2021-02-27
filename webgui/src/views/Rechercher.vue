@@ -95,6 +95,14 @@
         { id : 3214, title: "Le parrain 2", year: 1974, rating: 4.5 },
         { id : 3234, title: "Les bronzés", year: 1978, rating: 3.7 },
       ],
+      newSearch: {
+        searchfield: "",
+        movies:false,
+        tv_shows: false,
+        musics: false,
+        profile: null,
+
+      },
       newPurchase: {
         rating: 0,
         itemId: 0,
@@ -114,18 +122,37 @@
 		},
 
   methods: {
-  search(searchfield, movies, tv_shows, musics) {
+    // WITHOUT DTO
+    /*search(searchfield, movies, tv_shows, musics) {
         console.log(searchfield);
         // push in arrayBool
         this.arrayBool.push(movies);
         this.arrayBool.push(tv_shows);
         this.arrayBool.push(musics);
         console.log(this.arrayBool);
-				this.$axios.get("/search").then((response) => {
+        console.log(this.profile);
+				this.$axios.get("/search", (this.searchfield, this.arrayBool, this.profile)).then((response) => {
 					//TODO get Profil + type + title
+          console.log(response);
 					this.results = response.body;
 				});
-			},
+        this.arrayBool.splice(0);
+		},*/
+    search(searchfield, movies, tv_shows, musics) {
+        this.newSearch.searchfield = searchfield;
+        
+        this.newSearch.movies = movies;
+        this.newSearch.tv_shows = tv_shows;
+        this.newSearch.musics = musics;
+
+        this.newSearch.profile = this.profile;
+        console.log(this.newSearch)
+				this.$axios.get("/search", this.newSearch).then((response) => {
+					//TODO get Profil + type + title
+          console.log(response);
+					this.results = response.body;
+				});
+		},
     buy(result) {
       // Ajout dans history
       this.newPurchase.rating = result.rating;
