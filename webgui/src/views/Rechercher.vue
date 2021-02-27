@@ -12,7 +12,7 @@
 						v-model="searchfield"
 						placeholder="Saisissez un ou plusieurs mots-clés"
 						append-outer-icon="mdi-magnify"
-						@click:append-outer="search(searchfield)"
+						@click:append-outer="search(searchfield, movies, tv_shows, musics)"
 					></v-text-field>
 					<v-checkbox
 						v-model="movies"

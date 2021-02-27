@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +26,14 @@ public class SearchService {
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
 	
-	public void search(String title, String type, Profile profil) {
+	public void search(String title, List<String> type, Profile profil) {
 		//put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		JSONObject searchInformations = null;
 		searchInformations.put("title", title);
-		searchInformations.put("type", type);
+		for (int i = 0; i < type.size(); i++) {
+			searchInformations.put("type_"+ type.get(i), type.get(i));
+		}
 		searchInformations.put("name", profil.getName());
 		searchInformations.put("age", profil.getAge());
 		searchInformations.put("sex", profil.getSex());
