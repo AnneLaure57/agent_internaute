@@ -37,8 +37,9 @@ public class SearchController {
 	//TODO here send profile + type + title
 	// without nom, age, sexe, les preferredTrucs (pas le temps ni le budget, c'est pas leur affaires).
 	@GetMapping
-	public ResponseEntity<?> searchArt(@RequestParam(value="title", required=false) String title, @RequestParam(value="type") String type, @RequestParam(value="Agent") Profile profil) {
+	public ResponseEntity<?> searchArt(@RequestParam(value="title") String title, @RequestParam(value="type") String type, @RequestParam(value="Agent") Profile profil) {
 		if (title != null && type != null) {
+			//send to distrib agent infos
 			service.search(title,type,profil);
 			// TODO return list of results and not title
 			return ResponseEntity.status(200).body(title);
