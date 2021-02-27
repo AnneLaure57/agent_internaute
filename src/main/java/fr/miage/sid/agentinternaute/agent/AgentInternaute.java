@@ -33,17 +33,17 @@ public class AgentInternaute extends Agent {
 			this.name = "Bob_" + UUID.randomUUID();
 		}	
 		
+		// On s'enregistre auprès du DF
+		this.registerService();
+		
+		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
+		
 		addBehaviour(new TickerBehaviour(this, 60000) {
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				System.out.println("Coucou, je suis up");
 			}
 		} );
-
-		// On s'enregistre auprès du DF
-		this.registerService();
-
-		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 	}
 
 	/*
