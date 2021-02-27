@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.miage.sid.agentinternaute.dto.SearchDTO;
+import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.SearchService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,15 @@ public class SearchController {
 		LOGGER.info("GET on /search");
 
 		if (newSearch != null) {
-			service.search(newSearch);
+			String title = newSearch.getSearchField();
+			Boolean movies = newSearch.getMovies();
+			Boolean musics = newSearch.getMusics();
+			Boolean tv_shows = newSearch.getTvShows();
+			Profile profil = newSearch.getProfile();
+			LOGGER.severe(title + movies + musics + tv_shows + profil);
+			//send to distrib agent infos
+			service.search(title,movies,musics,tv_shows,profil);
+			// TODO return list of results and not title
 			return ResponseEntity.ok().build();
 		}
 
