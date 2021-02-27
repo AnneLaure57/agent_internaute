@@ -28,30 +28,35 @@ public class CommonDBController {
 
 	@GetMapping(value = "/actors")
 	public ResponseEntity<?> getActors() {
+		LOGGER.info("GET on /db/actors");
 		JSONArray actors = service.getActors();
 		return ResponseEntity.status(200).body(actors);
 	}
 	
 	@GetMapping(value = "/directors")
 	public ResponseEntity<?> getDirectors() {
+		LOGGER.info("GET on /db/directors");
 		JSONArray directors = service.getDirectors();
 		return ResponseEntity.status(200).body(directors);
 	}
 	
 	@GetMapping(value = "/artists")
 	public ResponseEntity<?> getArtists() {
+		LOGGER.info("GET on /db/artists");
 		JSONArray artists = service.getArtists();
 		return ResponseEntity.status(200).body(artists);
 	}
 	
 	@GetMapping(value = "/video_genres")
 	public ResponseEntity<?> getVideoGenres() {
+		LOGGER.info("GET on /db/video_genres");
 		JSONArray video_genres = service.getVideoGenres();
 		return ResponseEntity.status(200).body(video_genres);
 	}
 	
 	@GetMapping(value = "/music_genres")
 	public ResponseEntity<?> getMusicGenres() {
+		LOGGER.info("GET on /db/music_genres");
 		JSONArray music_genres = service.getMusicGenres();
 //		System.out.println("---------------Genre de musique----------------");
 //		System.out.println(music_genres.toString());
