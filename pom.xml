@@ -160,6 +160,7 @@
 		  <artifactId>mockito-core</artifactId>
 		  <!-- <version>3.8.0</version> -->
 		</dependency>
+		<!-- TESTS : HAMCREST -->
 		<dependency>
 		    <groupId>org.hamcrest</groupId>
 		    <artifactId>hamcrest</artifactId>
