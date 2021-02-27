@@ -29,6 +29,7 @@ public class ProfileService {
 	}
 
 	public Profile updateProfile(Profile profile) {
+		System.out.println(profile);
 		repo.save(profile);
 		return profile;
 	}

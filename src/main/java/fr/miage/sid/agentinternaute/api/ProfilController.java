@@ -39,9 +39,13 @@ public class ProfilController {
 	@GetMapping
 	public ResponseEntity<?> getProfileByName(@RequestParam(value = "name", required = true) String name) {
 		LOGGER.info("GET on /profile?name=");
-		JadeAgentContainer.getInstance().createNewAgentInternaute(name);
-		return Optional.ofNullable(service.getProfileByName(name)).filter(Optional::isPresent)
-				.map(p -> ResponseEntity.ok(p.get())).orElse(ResponseEntity.notFound().build());
+		Optional<Profile> p = service.getProfileByName(name);
+		if(p.isPresent()) {			
+			JadeAgentContainer.getInstance().createNewAgentInternaute(name);
+			return ResponseEntity.ok(p.get());
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping(value = "/{id}")
@@ -49,7 +53,6 @@ public class ProfilController {
 		LOGGER.info("GET on /profile/"+id);
 		Optional<Profile> profile = service.getProfileById(id);
 		if(profile.isPresent()) {
-			JadeAgentContainer.getInstance().createNewAgentInternaute(profile.get().getName());
 			return ResponseEntity.ok(profile.get());
 		} else {
 			return ResponseEntity.notFound().build();

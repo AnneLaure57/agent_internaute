@@ -29,11 +29,6 @@
     <div>
       <v-snackbar v-model="snackbar" color="red" outlined :timeout="5000">
         Le profil {{ login }} n'existe pas, mais vous pouvez l'enregistrer.
-        <template v-slot:action="{ attrs }">
-          <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
-            Fermer
-          </v-btn>
-        </template>
       </v-snackbar>
     </div>
   </div>
@@ -67,8 +62,6 @@ export default {
     connexion() {
       this.$axios.get("/profil?name=" + this.login).then(
         (response) => {
-          console.log(response);
-          this.profile = response.data;
           this.$store.commit("setProfile", response.data);
           this.$router.push({ name: "rechercher" });
         },
