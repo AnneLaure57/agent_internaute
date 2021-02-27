@@ -24,13 +24,9 @@ public class SearchController {
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
 	private final SearchService service;
-	
-	// TODO
-	@SuppressWarnings("unused")
+
 	private final ProfileService profilService;
 	
-	//TODO here send profile + type + title
-	// without nom, age, sexe, les preferredTrucs (pas le temps ni le budget, c'est pas leur affaires).
 	@GetMapping
 	public ResponseEntity<?> searchArt(@RequestParam(value="title") String title, @RequestParam(value="type") String type, @RequestParam(value="Agent") Profile profil) {
 	LOGGER.info("GET on /search?title= &type= &Agent=");
