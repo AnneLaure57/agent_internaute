@@ -17,6 +17,11 @@ import net.minidev.json.JSONObject;
 
 public class AgentInternaute extends Agent {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1271454263303780513L;
+
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
 	private String name;
