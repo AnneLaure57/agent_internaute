@@ -42,23 +42,8 @@ public class SearchController {
 	// without nom, age, sexe, les preferredTrucs (pas le temps ni le budget, c'est pas leur affaires).
 	@GetMapping
 	@Transactional
-	public ResponseEntity<?> searchArt(@RequestBody String title, Boolean type, Profile profile) {
-		Optional<Profile> profileOptional = profilService.getProfileByName(profile.getName());
-
-		if (profileOptional.isPresent())
-			return ResponseEntity.status(209).body("Profile already exists");
-		else {
-			// set the fields to not send to distributeur
-			// DO NOT save the new profile
-			profile.setAverageConsumptionTime(null);
-			profile.setCurrentConsumptionTime(null);
-			profile.setCurrentExpenses(0);
-			
-			//convert String -> JSON Array
-			JSONArray array = new JSONArray();
-			
-			// Not retturn profil but message from distribteur here/request
-			return ResponseEntity.status(201).body(profile);
-		}
+	public ResponseEntity<?> searchArt(@RequestBody String title) {
+		return null;
+		
 	}
 }
