@@ -70,8 +70,11 @@ public class AgentDistributeur extends Agent {
 	
 	}
 
-	/*
-	 * Recherche d'un type d'agent
+	/**
+	 * Method searchAgents : to search an other agent by name.
+	 * 
+	 * @param serviceName The name of the other agent to search.
+	 * @return Return an array of DFAgentDescription. 
 	 */
 	private DFAgentDescription[] searchAgents(String serviceName) {
 
