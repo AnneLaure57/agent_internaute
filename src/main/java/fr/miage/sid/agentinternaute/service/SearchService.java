@@ -12,11 +12,8 @@ import org.springframework.stereotype.Service;
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
-import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
-import jade.util.Logger;
-import jade.wrapper.AgentContainer;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -73,7 +70,7 @@ public class SearchService {
 		this.profilMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
 		this.profilMap.put("prefered_videos_genres", profil.getPreferedVideoGenres().toString());
 		//add Profil in search Map
-		this.searchMap.put("profil_utilisateur", profilMap.toString());
+		this.searchMap.put("user_profile", profilMap.toString());
 		
 		
 		JSONObject searchInformations = new JSONObject(searchMap);
@@ -85,18 +82,6 @@ public class SearchService {
 //            AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
 //            agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
 //            agentContainer.getAgent("distributeur").putO2AObject(this, false);
-            
-//            {
-//            	"request": "search",
-//            	
-//            	"title": "Le Parrain",
-//            	
-//            	"name": "Jean",
-//            	"age": "24",
-//            	"sex": "Beau mâle",
-//            	        	
-//            	"types": "[movies, ]",
-//            }
             
             // TODO How send to distrib with function with function sendMessageJSON in agentInternaute
         } catch (Exception e) {
