@@ -43,6 +43,9 @@ public class AgentDistributeur extends Agent {
 	
     /* ========================================= Methodes ============================================== */ /*=========================================*/
 	
+	/**
+	 * Method setup : to register a Distributeur Agent (set a random name, cyclic behaviour and register to Jade service). 
+	 */
 	protected void setup() {
 		// On renseigne un nom de distributeur (random)
 		this.name = "Distributeur_" + UUID.randomUUID();
