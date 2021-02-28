@@ -34,7 +34,7 @@ public class PurchaseService {
 
 	public List<Purchase> getPurchaseByDate(Date date, int profileID) {
 		LOGGER.info("Get purchase by date " + date);
-		return repo.findByViewDateAndProfileId(date, profileID);
+		return repo.findByPurchaseDateAndProfileId(date, profileID);
 	}
 
 	public List<Purchase> getPurchaseByRating(Double rating, int profileID) {
