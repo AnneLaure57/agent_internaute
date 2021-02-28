@@ -72,12 +72,13 @@ public class AgentDistributeur extends Agent {
 	 * @return Return an array of DFAgentDescription. 
 	 */
 	private DFAgentDescription[] searchAgents(String serviceName) {
-
+		// On créé le portrait robot de l'objet Jade que l'on cherche 
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
 		sd.setType(serviceName);
 		dfd.addServices(sd);
-
+		
+		// On essaie de récupérer les agents qui match auprès du Directory Facilitator
 		try {
 			return DFService.search(this, dfd);
 		} catch (FIPAException e) {
@@ -91,6 +92,7 @@ public class AgentDistributeur extends Agent {
 	 * Method registerService : to regiser our Distributeur agent to the Directory Facilitator.
 	 */
 	private void registerService() {
+		// On créé notre agent profile
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(getAID());
 
@@ -98,6 +100,7 @@ public class AgentDistributeur extends Agent {
 		sd.setType(this.service);
 		sd.setName(this.name);
 
+		// On essaie de s'enregistrer
 		dfd.addServices(sd);
 		try {
 			DFService.register(this, dfd);
