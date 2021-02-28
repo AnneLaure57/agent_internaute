@@ -19,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SearchService {
 	
+	// Le code de Claire est dégueulasse !!! Burk !!!
+	
 	private final static String MOVIES = "movies", MUSICS = "musics", TV_SHOWS = "tv_shows";
 	
 	private final ProfileRepository repo;
