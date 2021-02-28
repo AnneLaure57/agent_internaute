@@ -70,11 +70,25 @@ public class SearchService {
 		
 		JSONObject searchInformations = new JSONObject(searchMap);
 		
+		System.out.println(searchInformations.toString());
+		
 		try {
 			// On envoie tout à nos agents distributeurs sous JSON Object
             AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
             agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
             agentContainer.getAgent("distributeur").putO2AObject(this, false);
+            
+//            {
+//            	"request": "search",
+//            	
+//            	"title": "Le Parrain",
+//            	
+//            	"name": "Jean",
+//            	"age": "24",
+//            	"sex": "Beau mâle",
+//            	        	
+//            	"types": "[movies, ]",
+//            }
             
             // TODO How send to distrib with function with function sendMessageJSON in agentInternaute
         } catch (Exception e) {
