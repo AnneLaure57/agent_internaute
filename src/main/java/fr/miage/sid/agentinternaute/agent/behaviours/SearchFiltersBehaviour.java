@@ -31,6 +31,7 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 			// Send message to distributor agent
 			ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
 			request.addReceiver(distributor.getName());	
+			getFilters("message from searchService");
 			//request.setContent(message);
 			request.setContent("message from searchService");
 			myAgent.send(request);
@@ -54,7 +55,7 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 		}
 	}
 	
-	public String getFilters() {
+	public String getFilters(String filters) {
 		
 		String result ="hello";
 		
