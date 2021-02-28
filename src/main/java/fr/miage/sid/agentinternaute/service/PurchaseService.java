@@ -27,21 +27,21 @@ public class PurchaseService {
 
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
-	public Optional<Purchase> getPurchaseById(int id) {
-		LOGGER.info("Get purchase by ID " + id);
-		return repo.findById(id);
+	public Optional<Purchase> getPurchaseById(int ID) {
+		LOGGER.info("Get purchase by ID " + ID);
+		return repo.findById(ID);
 	}
 
-	public List<Purchase> getPurchaseByDate(Date date, int profileId) {
+	public List<Purchase> getPurchaseByDate(Date date, int profileID) {
 		LOGGER.info("Get purchase by date " + date);
-		return repo.findByViewDateAndProfileId(date, profileId);
+		return repo.findByViewDateAndProfileId(date, profileID);
 	}
 
-	public List<Purchase> getPurchaseByRating(Double rating, int profileId) {
-		LOGGER.info("Get purchase by rating " + rating + "(profile ID : " + profileId + ")");
+	public List<Purchase> getPurchaseByRating(Double rating, int profileID) {
+		LOGGER.info("Get purchase by rating " + rating + "(profile ID : " + profileID + ")");
 		// TODO : code commenté car ne compile pas !
 		return null;
-		// return repo.findByRatingAndProfileId(rating, profileId);
+		// return repo.findByRatingAndProfileId(rating, profileID);
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
@@ -64,8 +64,8 @@ public class PurchaseService {
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
 	
-	public List<Purchase> findPurchasesProfile(Integer id) {
+	public List<Purchase> findPurchasesProfile(Integer ID) {
 		
-		return repo.findByProfileId(id);
+		return repo.findByProfileId(ID);
 	}
 }
