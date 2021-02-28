@@ -31,7 +31,7 @@
         ></v-img>
         <div class="d-flex flex-column flex-grow-1 mx-4">
           <span class="title">{{ purchase.itemTitle }}</span>
-          <span>Visionné le {{ purchase.viewDate }}</span>
+          <span>Visionné le {{ dateFromTimestamp(purchase.viewDate) }}</span>
         </div>
         <div
           class="d-flex flex-column align-center justify-space-around ml-12 mr-4"
@@ -145,6 +145,7 @@
 <style scoped></style>
 
 <script>
+import moment from "moment";
 import { mapState } from "vuex";
 export default {
   name: "Historique",
@@ -182,6 +183,15 @@ export default {
     openRatePurchaseDialog(purchase) {
       this.editPurchase = purchase;
       this.dlg_ratings = true;
+    },
+
+    dateFromTimestamp(timestamp) {
+      return timestamp ? moment.utc(timestamp).format("DD/MM/YYYY") : "";
+    },
+
+    moment(date) {
+      if (date) return moment.utc(date).format("YYYY-MM-DD HH:mm:ss");
+      else return "inconnu";
     },
 
     sendRatings() {
