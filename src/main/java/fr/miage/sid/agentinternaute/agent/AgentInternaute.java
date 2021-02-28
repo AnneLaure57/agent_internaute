@@ -65,6 +65,8 @@ public class AgentInternaute extends Agent {
 		Long timerTickerBehaviour = (long) 1000000;
 		
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
+			private static final long serialVersionUID = 9192646164357857629L;
+
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
