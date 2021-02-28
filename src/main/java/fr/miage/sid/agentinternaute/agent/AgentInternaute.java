@@ -23,10 +23,13 @@ import jade.lang.acl.ACLMessage;
 import net.minidev.json.JSONObject;
 
 public class AgentInternaute extends Agent {
-	
+	/* ========================================= Global ================================================ */ /*=========================================*/
+
 	private static final long serialVersionUID = -1271454263303780513L;
 
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
+
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
 	// TODO : fix warnings
