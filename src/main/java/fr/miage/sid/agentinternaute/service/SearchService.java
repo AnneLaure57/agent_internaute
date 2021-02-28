@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
+import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
 import jade.wrapper.AgentContainer;
