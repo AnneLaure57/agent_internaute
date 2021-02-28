@@ -45,7 +45,7 @@ public class AgentEReputation extends Agent {
     /* ========================================= Methodes ============================================== */ /*=========================================*/
 	
 	/**
-	 * Method setup : to register a Distributeur Agent (set a random name, cyclic behaviour and register to Jade service). 
+	 * Method setup : to register a E réputation Agent (set a random name, cyclic behaviour and register to Jade service). 
 	 */
 	protected void setup() {
 		// On s'assure que notre Agent a bien un ID
@@ -58,7 +58,7 @@ public class AgentEReputation extends Agent {
 		
 		// On l'enregistre auprès du service Jade
 		this.registerService();
-		LOGGER.info("Bonjour Distributeur. Vous êtes enregistré en tant que : " + this.getLocalName());
+		LOGGER.info("Bonjour E Réputation. Vous êtes enregistré en tant que : " + this.getLocalName());
 		
 		// On accpte de communiquer
 		setEnabledO2ACommunication(true, 0);
@@ -77,7 +77,7 @@ public class AgentEReputation extends Agent {
 					JSONObject JSON = new JSONObject(content);
 					
 					// Logique métier
-					if (message.getPerformative() == ACLMessage.REQUEST) {
+					if (message.getPerformative() == ACLMessage.INFORM) {
 						// On vérifie que l'on a ce q'il nous faut
 						if (! JSON.has("request")) {
 							LOGGER.severe("It missing the main key : 'request'.");
