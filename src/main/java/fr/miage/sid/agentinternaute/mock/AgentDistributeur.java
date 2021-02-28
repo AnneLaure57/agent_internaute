@@ -126,14 +126,19 @@ public class AgentDistributeur extends Agent {
 	/*
 	 * Envoi d'un message, à former en JSON et à envoyer en String
 	 */
-	// TODO
-	@SuppressWarnings("unused")
-	private void sendMessage(String mess, AID id) {
+	
+	/**
+	 * Method sendMessage : to send a JSON message (into a Java String) to a specific agent (find by it's ID).
+	 * 
+	 * @param message JSON message (into a Java String) to send.
+	 * @param id The ID of the agent who will receive the message.
+	 */
+	private void sendMessage(String message, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
 			aclMessage.addReceiver(id);
 
-			aclMessage.setContent(mess);
+			aclMessage.setContent(message);
 
 			super.send(aclMessage);
 		} catch (Exception ex) {
