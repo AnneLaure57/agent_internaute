@@ -112,11 +112,6 @@ public class AgentDistributeur extends Agent {
 		}
 	}
 	
-	/*
-	 * Recherche d'un agent internaute
-	 */
-	
-	
 	/**
 	 * Method getAgentInternaute : to find the agent with type "internaute".
 	 * 
