@@ -75,9 +75,9 @@ public class AgentInternaute extends Agent {
 			}
 		} );
 		
-		addBehaviour(new RateBehaviour(this));
-		addBehaviour(new SearchTitleBehaviour(this));
-		addBehaviour(new SearchFiltersBehaviour(this));
+		// addBehaviour(new RateBehaviour(this));
+		// addBehaviour(new SearchTitleBehaviour(this));
+		// addBehaviour(new SearchFiltersBehaviour(this));
 	}
 
 	/*
