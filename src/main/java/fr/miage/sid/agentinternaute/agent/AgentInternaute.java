@@ -52,6 +52,7 @@ public class AgentInternaute extends Agent {
 		
 		// On s'enregistre auprès du DF
 		this.registerService();
+		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		
 		// On accpte de communiquer
 		setEnabledO2ACommunication(true, 0);
@@ -60,7 +61,6 @@ public class AgentInternaute extends Agent {
 		// 1000000 => 10 min
 		Long timerTickerBehaviour = (long) 1000000;
 		
-		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
