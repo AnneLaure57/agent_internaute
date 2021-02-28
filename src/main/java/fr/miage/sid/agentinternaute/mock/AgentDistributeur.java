@@ -10,11 +10,9 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
-import fr.miage.sid.agentinternaute.commons.PassingTime;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -63,21 +61,7 @@ public class AgentDistributeur extends Agent {
 		
 		// On accpte de communiquer
 		setEnabledO2ACommunication(true, 0);
-		
-		// Ajout d'un behaviour cyclique pour pas que l'agetn soit takeDown instantanément
-//		Long timerTickerBehaviour = (long) 1000000;
-//		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
-//			private static final long serialVersionUID = -4616758656969662837L;
-//
-//			protected void onTick() {
-//				/********** WITHOUT BEHAVIOUR *****/
-//				long tStart = System.currentTimeMillis();
-//				System.out.println("Hello, je suis up");
-//				PassingTime.checkDate(tStart);
-//				
-//			}
-//		} );
-		
+
 		addBehaviour(new CyclicBehaviour() {
 			private static final long serialVersionUID = 1456892866260756940L;
 
