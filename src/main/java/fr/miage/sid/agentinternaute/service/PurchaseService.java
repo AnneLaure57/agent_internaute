@@ -39,7 +39,9 @@ public class PurchaseService {
 
 	public List<Purchase> getPurchaseByRating(Double rating, int profileId) {
 		LOGGER.info("Get purchase by rating " + rating + "(profile ID : " + profileId + ")");
-		return repo.findByRatingAndProfileId(rating, profileId);
+		// TODO : code commenté car ne compile pas !
+		return null;
+		// return repo.findByRatingAndProfileId(rating, profileId);
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
