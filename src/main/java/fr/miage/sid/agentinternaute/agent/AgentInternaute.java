@@ -54,7 +54,7 @@ public class AgentInternaute extends Agent {
 		this.registerService();
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		
-		// On accpte de communiquer
+		// On accepte de communiquer
 		setEnabledO2ACommunication(true, 0);
 		
 		// 300000 => 30 sec
