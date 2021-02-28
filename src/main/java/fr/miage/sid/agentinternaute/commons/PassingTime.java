@@ -13,6 +13,11 @@ import java.util.logging.Logger;
  *
  */
 public class PassingTime {
+	/* ========================================= Global ================================================ */ /*=========================================*/
+
+	private static final Logger LOGGER = Logger.getLogger(PassingTime.class.getName());
+	
+	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	/*
 	 * Vérifier la date 
