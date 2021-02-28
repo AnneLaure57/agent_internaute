@@ -30,9 +30,8 @@
           src="../assets/img/default.png"
         ></v-img>
         <div class="d-flex flex-column flex-grow-1 mx-4">
-          <span class="title">{{ purchase.title }}</span>
-          <span>{{ purchase.year }}</span>
-          <span>Visionné le {{ purchase.view_date }}</span>
+          <span class="title">{{ purchase.itemTitle }}</span>
+          <span>Acheté le {{ purchase.date }}</span>
         </div>
         <div
           class="d-flex flex-column align-center justify-space-around ml-12 mr-4"
