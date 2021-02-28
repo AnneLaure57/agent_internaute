@@ -32,7 +32,7 @@ public class PurchaseService {
 		return repo.findById(id);
 	}
 
-	public List<Purchase> getPurchaseByName(Date date, int profileId) {
+	public List<Purchase> getPurchaseByDate(Date date, int profileId) {
 		// TODO : LOGGER
 		return repo.findByViewDateAndProfileId(date, profileId);
 	}
