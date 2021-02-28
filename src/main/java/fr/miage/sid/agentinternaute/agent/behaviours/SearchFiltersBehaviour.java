@@ -47,10 +47,6 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 					reply.setPerformative(ACLMessage.INFORM);
 					reply.setContent(" Pong");
 					myAgent.send(reply);
-				}
-
-				if (msg != null) {
-					System.out.println(" - " + myAgent.getLocalName() + " <- " + msg.getContent());
 					finished = true;
 				}
 				block();
