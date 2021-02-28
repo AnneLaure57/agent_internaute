@@ -34,8 +34,6 @@ public class AgentInternaute extends Agent {
 	@SuppressWarnings("unused")
 	private ProfileService profileService;
 	private String service = AgentTypes.AGENT_INTERNAUTE;
-	// TODO : fix warnings
-	@SuppressWarnings("unused")
 	private AID AID = new AID();
 
     /* ========================================= Methodes ============================================== */ /*=========================================*/
@@ -43,6 +41,11 @@ public class AgentInternaute extends Agent {
 	// TODO : fix warnings
 	@SuppressWarnings("serial")
 	protected void setup() {
+		// On s'assure que notre Agent a bien un ID
+		if (this.AID == null) {
+			this.AID = new AID();
+		}
+		
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
 		if (args.length > 0) {
