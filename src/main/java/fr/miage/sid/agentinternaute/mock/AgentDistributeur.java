@@ -113,23 +113,12 @@ public class AgentDistributeur extends Agent {
 	}
 	
 	/*
-	 * Recherche d'un agent e-reputation
+	 * Recherche d'un agent internaute
 	 */
-	public DFAgentDescription getAgentReputation() {
-		DFAgentDescription[] results = searchAgents("reputation");
+	public DFAgentDescription getAgentInternaute() {
+		DFAgentDescription[] results = searchAgents("internaute");
 		if (results != null && results.length > 0) {
 			return results[0];
-		}
-		return null;
-	}
-
-	/*
-	 * Recherche des agents distributeurs
-	 */
-	public DFAgentDescription[] getAgentsDistributeurs() {
-		DFAgentDescription[] results = searchAgents("distributeur");
-		if (results != null && results.length > 0) {
-			return results;
 		}
 		return null;
 	}
