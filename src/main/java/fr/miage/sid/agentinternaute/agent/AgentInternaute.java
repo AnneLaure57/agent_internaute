@@ -38,7 +38,7 @@ public class AgentInternaute extends Agent {
 	@SuppressWarnings("unused")
 	private AID AID = new AID();
 
-    /* ========================================= Methodes ============================================== */ 
+    /* ========================================= Methodes ============================================== */ /*=========================================*/
 	
 	// TODO : fix warnings
 	@SuppressWarnings("serial")
