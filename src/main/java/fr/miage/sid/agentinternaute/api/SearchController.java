@@ -32,16 +32,16 @@ public class SearchController {
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
 	private final SearchService service;
-	private final ProfileService profileService;	
+	private final ProfileService profileService;
 	private final PurchaseService purchaseService;
-	
+
 	@GetMapping
 	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
 		LOGGER.info("GET purchase in /search");
-		
+
 		List<Purchase> purchases = purchaseService.findPurchasesProfile(id);
-		System.out.println("length : "+ purchases.toArray().length);
-			return  ResponseEntity.ok(purchases);
+		System.out.println("length : " + purchases.toArray().length);
+		return ResponseEntity.ok(purchases);
 	}
 
 	// TODO : fix warnings
@@ -51,18 +51,18 @@ public class SearchController {
 		LOGGER.info("GET on /search");
 		if (newSearch != null) {
 			Optional<Profile> profile = profileService.getProfileById(newSearch.getProfileId());
-			if(profile.isPresent()) {
-			String title = newSearch.getSearchField();
-			Boolean movies = newSearch.getMovies();
-			Boolean musics = newSearch.getMusics();
-			Boolean tv_shows = newSearch.getTvShows();
-			System.out.println("Je suis" + newSearch);
-			
-			//send to distrib agent infos
-			List<ResultDTO> results = service.search(title,movies,musics,tv_shows, profile.get());
-			
-			// TODO return list of results and not title
-			return ResponseEntity.status(200).body(null);
+			if (profile.isPresent()) {
+				String title = newSearch.getSearchField();
+				Boolean movies = newSearch.getMovies();
+				Boolean musics = newSearch.getMusics();
+				Boolean tv_shows = newSearch.getTvShows();
+				System.out.println("Je suis" + newSearch);
+
+				// send to distrib agent infos
+				List<ResultDTO> results = service.search(title, movies, musics, tv_shows, profile.get());
+
+				// TODO return list of results and not title
+				return ResponseEntity.status(200).body(null);
 			}
 		}
 

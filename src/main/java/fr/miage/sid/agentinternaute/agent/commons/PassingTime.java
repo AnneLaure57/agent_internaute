@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.commons;
+package fr.miage.sid.agentinternaute.agent.commons;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

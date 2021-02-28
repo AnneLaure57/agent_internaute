@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.commons;
+package fr.miage.sid.agentinternaute.agent.commons;
 
 /**
  * @author Louis MASSICARD (user name : louis)
