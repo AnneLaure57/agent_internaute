@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
+import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
@@ -43,7 +44,7 @@ public class SearchService {
 		this.searchMap = new HashMap<String, String>();
 		
 		// we need it to say what we want
-		this.searchMap.put("request", "search");
+		this.searchMap.put("request", ACLMessageTypes.REQUEST_SEARCH);
 		
 		// what we search
 		this.searchMap.put("title", title);
