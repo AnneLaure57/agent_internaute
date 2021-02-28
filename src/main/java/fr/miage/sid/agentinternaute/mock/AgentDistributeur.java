@@ -86,6 +86,7 @@ public class AgentDistributeur extends Agent {
 		try {
 			return DFService.search(this, dfd);
 		} catch (FIPAException e) {
+			LOGGER.severe("can't search the agent : " + serviceName);
 			e.printStackTrace();
 			return null;
 		}
@@ -106,7 +107,7 @@ public class AgentDistributeur extends Agent {
 		try {
 			DFService.register(this, dfd);
 		} catch (FIPAException e) {
-			System.err.println(getLocalName() + " registration with DF unsucceeded. Reason: " + e.getMessage());
+			LOGGER.severe(getLocalName() + " registration with DF unsucceeded. Reason: " + e.getMessage());
 			doDelete();
 		}
 	}
