@@ -16,7 +16,7 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 	@Override
 	public void action() {
 
-		DFAgentDescription[] distributors = ((AgentInternaute) myAgent).getAgentsDistributeurs();
+		/*DFAgentDescription[] distributors = ((AgentInternaute) myAgent).getAgentsDistributeurs();
 		for (DFAgentDescription distributor : distributors) {
 			// Send message to distributor agent
 			ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
@@ -40,7 +40,7 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 				finished = true;
 			}
 			block();
-		}
+		}*/
 	}
 
 	@Override
