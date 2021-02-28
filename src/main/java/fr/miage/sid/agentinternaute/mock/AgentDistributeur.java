@@ -1,10 +1,15 @@
 package fr.miage.sid.agentinternaute.mock;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
 
+import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.commons.PassingTime;
 import jade.core.AID;
 import jade.core.Agent;
@@ -90,10 +95,21 @@ public class AgentDistributeur extends Agent {
 					if (message.getPerformative() == ACLMessage.REQUEST) {
 						// On vérifie que l'on a ce q'il nous faut
 						if (! JSON.has("request")) {
-							LOGGER.severe("It miising the main key : 'request'.");
+							LOGGER.severe("It missing the main key : 'request'.");
 						}
 						
-						
+						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH) {
+							Map<String, String> responsehMap = new HashMap<String, String>();
+							ArrayList<String> oeuvres = new ArrayList<String>();
+							oeuvres.add("Titi");
+							oeuvres.add("Tata");
+							oeuvres.add("Toto");
+							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
+							JSONObject response = new JSONObject(responsehMap);
+							
+							DFAgentDescription internaute = getAgentInternaute();
+							sendMessage(response.toString(), internaute.getName());
+						}
 					}
 				}
 			}
