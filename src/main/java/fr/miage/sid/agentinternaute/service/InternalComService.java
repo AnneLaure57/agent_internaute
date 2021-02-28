@@ -1,7 +1,5 @@
 package fr.miage.sid.agentinternaute.service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.json.JSONObject;
