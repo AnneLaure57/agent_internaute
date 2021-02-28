@@ -73,7 +73,7 @@ public class SearchService {
 		this.profilMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
 		this.profilMap.put("prefered_videos_genres", profil.getPreferedVideoGenres().toString());
 		//add Profil in search Map
-		this.searchMap.put("profil_utilisateur", profilMap.toString());
+		this.searchMap.put("user_profile", profilMap.toString());
 		
 		
 		JSONObject searchInformations = new JSONObject(searchMap);
