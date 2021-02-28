@@ -29,8 +29,10 @@ public class Purchase {
 	@GenericGenerator(name = "generator", strategy = "increment")
 	@GeneratedValue(generator = "generator")
 	private Integer id;
-
-	private Date viewDate;
+	private String itemId;
+	private String itemType;
+	private String itemTitle;
+	private Date purchaseDate;
 
 	// Notes de l'internaute
 	private Double mediumRating;
@@ -40,18 +42,16 @@ public class Purchase {
 	private HashMap<Integer, Double> actorsRating;
 	private HashMap<Integer, Double> directorsRating;
 
-	private String itemId;
-	private String itemTitle;
-
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "profile_id", referencedColumnName = "id")
 	@JsonIgnore
 	private Profile profile;
 
-	public Purchase(String itemId, String itemTitle, Integer distributorId, Integer productorId, List<Integer> artistsIds, List<Integer> actorsIds, List<Integer> directorsIds, Profile profile) {
+	public Purchase(String itemId, String itemType, String itemTitle, Integer distributorId, Integer productorId, List<Integer> artistsIds, List<Integer> actorsIds, List<Integer> directorsIds, Profile profile) {
 		super();
-		this.viewDate = new Date();		
+		this.purchaseDate = new Date();		
 		this.itemId = itemId;
+		this.itemType = itemType;
 		this.itemTitle = itemTitle;
 		this.profile = profile;
 

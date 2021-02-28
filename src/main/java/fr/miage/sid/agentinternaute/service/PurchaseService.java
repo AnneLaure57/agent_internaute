@@ -45,7 +45,7 @@ public class PurchaseService {
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
-		Purchase purchase = new Purchase(p.getItemId(), p.getItemTitle(), p.getDistributorId(), p.getProductorId(), p.getArtistsIds(), p.getActorsIds(), p.getDirectorsIds(), profile);
+		Purchase purchase = new Purchase(p.getItemId(), p.getItemType(), p.getItemTitle(), p.getDistributorId(), p.getProductorId(), p.getArtistsIds(), p.getActorsIds(), p.getDirectorsIds(), profile);
 		repo.save(purchase);
 		return purchase;
 	}
