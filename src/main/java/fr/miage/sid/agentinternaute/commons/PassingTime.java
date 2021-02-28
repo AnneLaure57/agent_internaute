@@ -46,7 +46,7 @@ public class PassingTime {
 		String currentDateTimeString = dateFormat.format(currentDate);
 		String currentDateTimer = dateFormat.format(date2);
 		
-		System.out.println(" Date courante : " + currentDateTimeString +", timer : " + currentDateTimer);	
+		LOGGER.info(" Date courante : " + currentDateTimeString +", timer : " + currentDateTimer);	
 		
 		//check diff between dates
 		int diff = currentDate.compareTo(date2);
@@ -73,7 +73,7 @@ public class PassingTime {
 		} else if (diff == TimeUnit.MINUTES.toMillis(1)) {
 			newDiff = TimeUnit.DAYS.toMillis(1);
 		} else {
-			System.out.println(currentDate + " is equal to " + date2);
+			LOGGER.info(currentDate + " is equal to " + date2);
 		}
 	} 
 }
