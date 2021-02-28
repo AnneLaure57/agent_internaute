@@ -93,7 +93,6 @@ export default {
   data() {
     return {
       searchfield: "",
-      arrayBool: [],
       movies: true,
       tv_shows: false,
       musics: false,

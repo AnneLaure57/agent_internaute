@@ -51,16 +51,16 @@ public class SearchController {
 		LOGGER.info("GET on /search");
 		if (newSearch != null) {
 			Optional<Profile> profile = profileService.getProfileById(newSearch.getProfileId());
-			if (profile.isPresent()) {
+			if(profile.isPresent()) {
 				String title = newSearch.getSearchField();
 				Boolean movies = newSearch.getMovies();
 				Boolean musics = newSearch.getMusics();
 				Boolean tv_shows = newSearch.getTvShows();
 				System.out.println("Je suis" + newSearch);
-
-				// send to distrib agent infos
-				List<ResultDTO> results = service.search(title, movies, musics, tv_shows, profile.get());
-
+				
+				//send to distrib agent infos
+				List<ResultDTO> results = service.search(title,movies,musics,tv_shows, profile.get());
+				
 				// TODO return list of results and not title
 				return ResponseEntity.status(200).body(null);
 			}
