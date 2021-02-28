@@ -17,9 +17,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PurchaseService {
+	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
+
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final PurchaseRepository repo;
+
+	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	public Optional<Purchase> getPurchaseById(int id) {
 		LOGGER.info("Get purchase by ID " + id);
