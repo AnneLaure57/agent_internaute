@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.mock;
+package fr.miage.sid.agentinternaute.agent.mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 import org.json.JSONObject;
 
-import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
-import fr.miage.sid.agentinternaute.commons.AgentTypes;
+import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
+import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;

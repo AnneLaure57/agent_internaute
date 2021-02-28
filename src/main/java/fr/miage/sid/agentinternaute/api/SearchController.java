@@ -32,16 +32,16 @@ public class SearchController {
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
 	private final SearchService service;
-	private final ProfileService profileService;	
+	private final ProfileService profileService;
 	private final PurchaseService purchaseService;
-	
+
 	@GetMapping
 	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
 		LOGGER.info("GET purchase in /search");
-		
+
 		List<Purchase> purchases = purchaseService.findPurchasesProfile(id);
-		System.out.println("length : "+ purchases.toArray().length);
-			return  ResponseEntity.ok(purchases);
+		System.out.println("length : " + purchases.toArray().length);
+		return ResponseEntity.ok(purchases);
 	}
 
 	// TODO : fix warnings
