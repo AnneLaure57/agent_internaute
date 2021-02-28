@@ -102,6 +102,7 @@ export default {
         {
           id: 1234,
           title: "Le parrain",
+          type: "movie",
           year: 1972,
           rating: 4.5,
           distributorId: 1,
@@ -112,6 +113,7 @@ export default {
         {
           id: 3214,
           title: "Le parrain 2",
+          type: "movie",
           year: 1974,
           rating: 4.5,
           distributorId: 1,
@@ -122,6 +124,7 @@ export default {
         {
           id: 3234,
           title: "Les bronzés",
+          type: "movie",
           year: 1978,
           rating: 3.7,
           distributorId: 2,
@@ -161,6 +164,7 @@ export default {
     buy(result) {
       let newPurchase = {
         itemId: result.id,
+        itemType: result.type,
         itemTitle: result.title,
         profileId: this.profile.id,
         distributorId: result.distributorId,
