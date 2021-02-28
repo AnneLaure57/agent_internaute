@@ -9,20 +9,25 @@ import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
+import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
+import jade.util.Logger;
+import jade.wrapper.AgentContainer;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class SearchService {
-	
-	// Le code de Claire est dégueulasse !!! Burk !!!
-	
+	/* ========================================= Global ================================================ */ /*=========================================*/
+
 	private final static String MOVIES = "movies", MUSICS = "musics", TV_SHOWS = "tv_shows";
 	
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final ProfileRepository repo;
 	
 	private HashMap<String, String> searchMap;
@@ -66,7 +71,7 @@ public class SearchService {
 		this.profilMap.put("prefered_directors", profil.getPreferedDirectors().toString());
 		this.profilMap.put("prefered_musics_artists", profil.getPreferedMusicArtists().toString());
 		this.profilMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
-		this.profilMap.put("prefered_videos", profil.getPreferedVideoGenres().toString());
+		this.profilMap.put("prefered_videos_genres", profil.getPreferedVideoGenres().toString());
 		//add Profil in search Map
 		this.searchMap.put("profil_utilisateur", profilMap.toString());
 		
