@@ -30,14 +30,15 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 			
 			// Send message to distributor agent
 			ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-			request.addReceiver(distributor.getName());		
+			request.addReceiver(distributor.getName());	
+			getFilters("message from searchService");
+			//request.setContent(message);
 			request.setContent("message from searchService");
 			myAgent.send(request);
 			
 			Long timerEnd = System.currentTimeMillis();
 
 			// Wait for answer 1 minute
-			// 
 			if ((timerStart - timerEnd) < 60000) {
 				ACLMessage msg = myAgent.receive();
 				if (msg != null) {
@@ -47,16 +48,18 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 					reply.setPerformative(ACLMessage.INFORM);
 					reply.setContent(" Pong");
 					myAgent.send(reply);
-				}
-
-				if (msg != null) {
-					System.out.println(" - " + myAgent.getLocalName() + " <- " + msg.getContent());
 					finished = true;
 				}
-				block();
 			}
 			block();
 		}
+	}
+	
+	public String getFilters(String filters) {
+		
+		String result ="hello";
+		
+		return result;
 	}
 
 	@Override
