@@ -28,6 +28,8 @@ public class AgentInternaute extends Agent {
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
 	private String name;
+	// TODO : fix it
+	@SuppressWarnings("unused")
 	private ProfileService profileService;
 	private String service = AgentTypes.AGENT_INTERNAUTE;
 	private AID AID = new AID();
