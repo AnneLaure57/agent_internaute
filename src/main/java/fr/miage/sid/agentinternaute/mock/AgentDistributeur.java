@@ -115,6 +115,13 @@ public class AgentDistributeur extends Agent {
 	/*
 	 * Recherche d'un agent internaute
 	 */
+	
+	
+	/**
+	 * Method getAgentInternaute : to find the agent with type "internaute".
+	 * 
+	 * @return Return the agent with type "internaute", if it was find, otherwise return null.
+	 */
 	public DFAgentDescription getAgentInternaute() {
 		DFAgentDescription[] results = searchAgents("internaute");
 		if (results != null && results.length > 0) {
