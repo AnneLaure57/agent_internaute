@@ -6,7 +6,7 @@ package fr.miage.sid.agentinternaute.commons;
  * @since %G% - %U% (%I%)
  *
  */
-public class ACLMessageTypes {
+public class AgentTypes {
 	/* ========================================= Global ================================================ */ /*=========================================*/
-	public final static String REQUEST_SEARCH = "search", REQUEST_PURCHASE = "purchase";
+	public final static String AGENT_INTERNAUTE = "internaute", AGENT_DISTRIBUTEUR = "distributeur", AGENT_E_REPUTATION = "e-reputationr";
 }

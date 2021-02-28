@@ -26,18 +26,18 @@ import jade.lang.acl.ACLMessage;
  * @since %G% - %U% (%I%)
  *
  */
-public class AgentDistributeur extends Agent {
+public class AgentEReputation extends Agent {
 	
 	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private static final long serialVersionUID = -1271454263303780513L;
 
-	private static final Logger LOGGER = Logger.getLogger(AgentDistributeur.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(AgentEReputation.class.getName());
 
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
-	private String service = AgentTypes.AGENT_DISTRIBUTEUR;
+	private String service = AgentTypes.AGENT_E_REPUTATION;
 	private AID AID = new AID();
 
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
@@ -45,7 +45,7 @@ public class AgentDistributeur extends Agent {
     /* ========================================= Methodes ============================================== */ /*=========================================*/
 	
 	/**
-	 * Method setup : to register a Distributeur Agent (set a random name, cyclic behaviour and register to Jade service). 
+	 * Method setup : to register a E réputation Agent (set a random name, cyclic behaviour and register to Jade service). 
 	 */
 	protected void setup() {
 		// On s'assure que notre Agent a bien un ID
@@ -54,11 +54,11 @@ public class AgentDistributeur extends Agent {
 		}
 		
 		// On renseigne un nom de distributeur (random)
-		this.name = AgentTypes.AGENT_DISTRIBUTEUR + "_" + UUID.randomUUID();
+		this.name = AgentTypes.AGENT_E_REPUTATION + "_" + UUID.randomUUID();
 		
 		// On l'enregistre auprès du service Jade
 		this.registerService();
-		LOGGER.info("Bonjour Distributeur. Vous êtes enregistré en tant que : " + this.getLocalName());
+		LOGGER.info("Bonjour E Réputation. Vous êtes enregistré en tant que : " + this.getLocalName());
 		
 		// On accpte de communiquer
 		setEnabledO2ACommunication(true, 0);
@@ -77,7 +77,7 @@ public class AgentDistributeur extends Agent {
 					JSONObject JSON = new JSONObject(content);
 					
 					// Logique métier
-					if (message.getPerformative() == ACLMessage.REQUEST) {
+					if (message.getPerformative() == ACLMessage.INFORM) {
 						// On vérifie que l'on a ce q'il nous faut
 						if (! JSON.has("request")) {
 							LOGGER.severe("It missing the main key : 'request'.");
@@ -118,7 +118,7 @@ public class AgentDistributeur extends Agent {
 		try {
 			return DFService.search(this, dfd);
 		} catch (FIPAException e) {
-			LOGGER.severe("can't search the agent : " + serviceName);
+			LOGGER.severe("Can't search the agent : " + serviceName);
 			e.printStackTrace();
 			return null;
 		}
@@ -141,7 +141,7 @@ public class AgentDistributeur extends Agent {
 		try {
 			DFService.register(this, dfd);
 		} catch (FIPAException e) {
-			LOGGER.severe(getLocalName() + " registration with DF unsucceeded. Reason: " + e.getMessage());
+			LOGGER.severe(getLocalName() + " registration with DF unsucceeded. Reason : " + e.getMessage());
 			doDelete();
 		}
 	}

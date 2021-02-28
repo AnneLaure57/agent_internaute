@@ -6,6 +6,7 @@ import fr.miage.sid.agentinternaute.agent.AgentInternaute;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 
 public class SearchTitleBehaviour extends SimpleBehaviour {
 
@@ -49,8 +50,8 @@ private boolean finished = false;
 					myAgent.send(reply);
 					finished = true;
 				}
+			    block();
 			}
-			block();
 		}
 	}
 

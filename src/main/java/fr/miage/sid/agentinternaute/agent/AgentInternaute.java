@@ -8,6 +8,7 @@ import fr.miage.sid.agentinternaute.agent.behaviours.RateBehaviour;
 import fr.miage.sid.agentinternaute.agent.behaviours.SearchFiltersBehaviour;
 import fr.miage.sid.agentinternaute.agent.behaviours.SearchTitleBehaviour;
 import fr.miage.sid.agentinternaute.service.ProfileService;
+import fr.miage.sid.agentinternaute.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.commons.PassingTime;
 import jade.core.AID;
 import jade.core.Agent;
@@ -32,16 +33,19 @@ public class AgentInternaute extends Agent {
 	// TODO : fix warnings
 	@SuppressWarnings("unused")
 	private ProfileService profileService;
-	private String service = "internaute";
-	// TODO : fix warnings
-	@SuppressWarnings("unused")
+	private String service = AgentTypes.AGENT_INTERNAUTE;
 	private AID AID = new AID();
 
-    /* ========================================= Methodes ============================================== */ 
+    /* ========================================= Methodes ============================================== */ /*=========================================*/
 	
 	// TODO : fix warnings
 	@SuppressWarnings("serial")
 	protected void setup() {
+		// On s'assure que notre Agent a bien un ID
+		if (this.AID == null) {
+			this.AID = new AID();
+		}
+		
 		// On récupère le nom de l'internaute
 		Object[] args = getArguments();
 		if (args.length > 0) {
@@ -54,7 +58,7 @@ public class AgentInternaute extends Agent {
 		this.registerService();
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		
-		// On accpte de communiquer
+		// On accepte de communiquer
 		setEnabledO2ACommunication(true, 0);
 		
 		// 300000 => 30 sec
@@ -118,7 +122,7 @@ public class AgentInternaute extends Agent {
 	 * Recherche d'un agent e-reputation
 	 */
 	public DFAgentDescription getAgentReputation() {
-		DFAgentDescription[] results = searchAgents("reputation");
+		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_E_REPUTATION);
 		if (results != null && results.length > 0) {
 			return results[0];
 		}
@@ -129,7 +133,7 @@ public class AgentInternaute extends Agent {
 	 * Recherche des agents distributeurs
 	 */
 	public DFAgentDescription[] getAgentsDistributeurs() {
-		DFAgentDescription[] results = searchAgents("distributeur");
+		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_DISTRIBUTEUR);
 		if (results != null && results.length > 0) {
 			return results;
 		}
@@ -145,10 +149,10 @@ public class AgentInternaute extends Agent {
 	 */
 	// TODO : fix warnings
 	@SuppressWarnings("unused")
-	private void sendSearchInformations(JSONObject messageJSON, AID id) {
+	private void sendSearchInformations(JSONObject messageJSON, AID ID) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(id);
+			aclMessage.addReceiver(ID);
 			
 			// convert JSON --> String
 			String message = messageJSON.toString();
@@ -167,7 +171,7 @@ public class AgentInternaute extends Agent {
 	protected void takeDown() {
 		try {
 			// Printout a dismissal message
-			System.out.println("l'agent " +getAID().getName()+ " s'est arrêté.");
+			System.out.println("L'agent " +getAID().getName()+ " s'est arrêté.");
 			DFService.deregister(this);
 		} catch (FIPAException fe) {
 			fe.printStackTrace();
