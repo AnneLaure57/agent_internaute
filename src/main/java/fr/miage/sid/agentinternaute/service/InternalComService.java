@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
+import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.dto.RatingsDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import jade.util.Event;
@@ -30,6 +31,10 @@ public class InternalComService {
 			System.err.println("Failed to send object to " + agentName + " : " + e.getMessage());
 			return null;
 		}
+	}
+	
+	public Object sendSearchTitleToAgent(String request) {
+		return sendToAgent(request, AgentTypes.AGENT_DISTRIBUTEUR, 15);
 	}
 
 	public Object sendRatingsToAgent(Profile profile, RatingsDTO r) {
