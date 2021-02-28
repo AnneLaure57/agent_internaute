@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
+import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
+import jade.util.Logger;
 import jade.wrapper.AgentContainer;
 import lombok.RequiredArgsConstructor;
 
@@ -42,9 +44,10 @@ public class SearchService {
 		// put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		this.searchMap = new HashMap<String, String>();
-		
+		System.out.println("fuck IA" + profil);
+
 		// we need it to say what we want
-		this.searchMap.put("request", ACLMessageTypes.REQUEST_SEARCH);
+		//this.searchMap.put("request", ACLMessageTypes.REQUEST_SEARCH);
 		
 		// what we search
 		this.searchMap.put("title", title);
