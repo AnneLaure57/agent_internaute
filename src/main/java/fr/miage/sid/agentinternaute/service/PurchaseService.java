@@ -33,12 +33,12 @@ public class PurchaseService {
 	}
 
 	public List<Purchase> getPurchaseByDate(Date date, int profileId) {
-		// TODO : LOGGER
+		LOGGER.info("Get purchase by date " + date);
 		return repo.findByViewDateAndProfileId(date, profileId);
 	}
 
 	public List<Purchase> getPurchaseByRating(Double rating, int profileId) {
-		// TODO : LOGGER
+		LOGGER.info("Get purchase by rating " + rating + "(profile ID : " + profileId + ")");
 		return repo.findByRatingAndProfileId(rating, profileId);
 	}
 
