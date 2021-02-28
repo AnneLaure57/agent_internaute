@@ -34,7 +34,7 @@ public class PurchaseService {
 
 	public List<Purchase> getPurchaseByDate(Date date, int profileID) {
 		LOGGER.info("Get purchase by date " + date);
-		return repo.findByViewDateAndProfileId(date, profileID);
+		return repo.findByPurchaseDateAndProfileId(date, profileID);
 	}
 
 	public List<Purchase> getPurchaseByRating(Double rating, int profileID) {
@@ -45,7 +45,7 @@ public class PurchaseService {
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
-		Purchase purchase = new Purchase(p.getItemId(), p.getItemTitle(), p.getDistributorId(), p.getProductorId(), p.getActorsIds(), p.getDirectorsIds(), profile);
+		Purchase purchase = new Purchase(p.getItemId(), p.getItemType(), p.getItemTitle(), p.getDistributorId(), p.getProductorId(), p.getArtistsIds(), p.getActorsIds(), p.getDirectorsIds(), profile);
 		repo.save(purchase);
 		return purchase;
 	}
@@ -57,6 +57,7 @@ public class PurchaseService {
 	}
 
 	public Iterable<Purchase> findPaged(int page, int size) {
+		
 		// TODO : LOGGER
 		if (page < 0)
 			page = 0;

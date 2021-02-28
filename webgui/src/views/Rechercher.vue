@@ -76,7 +76,7 @@
             :value="result.rating"
           ></v-rating>
         </div>
-        <div class="d-flex flex-column justify-space-around ml-12 mr-4" >
+        <div v-if="!(purchases.some(data => data == result.id))" class="d-flex flex-column justify-space-around ml-12 mr-4" >
           <v-btn color="primary" @click="buy(result)">Acheter</v-btn>
           <v-btn color="primary" @click="subscribe(result)">S'abonner</v-btn>
         </div>
@@ -97,10 +97,12 @@ export default {
       movies: true,
       tv_shows: false,
       musics: false,
+      purchases: [],
       results: [
         {
           id: 1234,
           title: "Le parrain",
+          type: "movie",
           year: 1972,
           rating: 4.5,
           distributorId: 1,
@@ -111,6 +113,7 @@ export default {
         {
           id: 3214,
           title: "Le parrain 2",
+          type: "movie",
           year: 1974,
           rating: 4.5,
           distributorId: 1,
@@ -121,6 +124,7 @@ export default {
         {
           id: 3234,
           title: "Les bronzés",
+          type: "movie",
           year: 1978,
           rating: 3.7,
           distributorId: 2,
@@ -139,6 +143,7 @@ export default {
 
   mounted() {
     if (this.profile == null) this.$router.push({ name: "login" });
+    this.getPurchases();
   },
 
   methods: {
@@ -159,6 +164,7 @@ export default {
     buy(result) {
       let newPurchase = {
         itemId: result.id,
+        itemType: result.type,
         itemTitle: result.title,
         profileId: this.profile.id,
         distributorId: result.distributorId,
@@ -166,6 +172,8 @@ export default {
         actorsIds: result.actorsIds,
         directorsIds: result.directorsIds,
       };
+      // Ajout dans le tableau des purchases pour cacher les boutons
+      this.purchases.push(result.id);
 
       console.log(newPurchase);
       this.$axios.post("/purchases", newPurchase).then(
@@ -179,6 +187,21 @@ export default {
     },
 
     subscribe() {},
+
+    getPurchases() {
+      this.$axios.get("/purchases/" + this.profile.id).then(
+        (response) => {
+          
+          response.data.forEach(element => {
+            this.purchases.push(element.itemId);
+          });
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>

@@ -7,6 +7,5 @@ package fr.miage.sid.agentinternaute.commons;
  *
  */
 public class ACLMessageTypes {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 	public final static String REQUEST_SEARCH = "search", REQUEST_PURCHASE = "purchase";
 }

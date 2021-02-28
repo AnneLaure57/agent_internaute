@@ -12,15 +12,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(ProfileService.class.getName());
 
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private final ProfileRepository repo;
-	
-	/* ========================================= Methodes ============================================== */ /*=========================================*/
 	
 	public Optional<Profile> getProfileById(int ID) {
 		LOGGER.info("Get profile by ID " + ID);

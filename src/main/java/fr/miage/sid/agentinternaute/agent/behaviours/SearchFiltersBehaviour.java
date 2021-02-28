@@ -20,7 +20,7 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 	@Override
 	public void action() {
 
-		DFAgentDescription[] distributors = ((AgentInternaute) myAgent).getAgentsDistributeurs();
+		/*DFAgentDescription[] distributors = ((AgentInternaute) myAgent).getAgentsDistributeurs();
 		
 		//TODO add timer
 		Long timerStart = System.currentTimeMillis();
@@ -52,12 +52,11 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 				}
 			}
 			block();
-		}
+		}*/
 	}
 
 	@Override
 	public boolean done() {
 		return finished;
 	}
-
 }

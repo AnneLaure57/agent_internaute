@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import fr.miage.sid.agentinternaute.agent.behaviours.InternalComBehaviour;
 import fr.miage.sid.agentinternaute.agent.behaviours.RateBehaviour;
 import fr.miage.sid.agentinternaute.agent.behaviours.SearchFiltersBehaviour;
 import fr.miage.sid.agentinternaute.agent.behaviours.SearchTitleBehaviour;
@@ -21,25 +22,19 @@ import jade.lang.acl.ACLMessage;
 import net.minidev.json.JSONObject;
 
 public class AgentInternaute extends Agent {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private static final long serialVersionUID = -1271454263303780513L;
 
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private String name;
-	// TODO : fix warnings
-	@SuppressWarnings("unused")
 	private ProfileService profileService;
 	private String service = AgentTypes.AGENT_INTERNAUTE;
 	private AID AID = new AID();
-
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
 	
-	// TODO : fix warnings
-	@SuppressWarnings("serial")
+	/**
+	 * Setup method of agent
+	 */
 	protected void setup() {
 		// On s'assure que notre Agent a bien un ID
 		if (this.AID == null) {
@@ -61,6 +56,10 @@ public class AgentInternaute extends Agent {
 		// On accepte de communiquer
 		setEnabledO2ACommunication(true, 0);
 		
+		// Activation de O2A pour la communication avec le reste de l'application
+		setEnabledO2ACommunication(true, 0);
+		setO2AManager(new InternalComBehaviour(this));
+		
 		// 300000 => 30 sec
 		// 1000000 => 10 min
 		Long timerTickerBehaviour = (long) 1000000;
@@ -70,10 +69,9 @@ public class AgentInternaute extends Agent {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
 				System.out.println("Coucou, je suis up");
-				PassingTime.checkDate(tStart);
-				
+				PassingTime.checkDate(tStart);				
 			}
-		} );
+		});
 		
 		// addBehaviour(new RateBehaviour(this));
 		// addBehaviour(new SearchTitleBehaviour(this));

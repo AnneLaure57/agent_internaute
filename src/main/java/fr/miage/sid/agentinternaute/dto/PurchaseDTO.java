@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 public class PurchaseDTO {
 	
     private String itemId;
+    private String itemType;
     private String itemTitle;
     private Integer profileId;
     
     private Integer distributorId;
     private Integer productorId;
+    private List<Integer> artistsIds;
     private List<Integer> actorsIds;
     private List<Integer> directorsIds;
 }

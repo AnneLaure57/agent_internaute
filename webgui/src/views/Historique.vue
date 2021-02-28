@@ -31,7 +31,7 @@
         ></v-img>
         <div class="d-flex flex-column flex-grow-1 mx-4">
           <span class="title">{{ purchase.itemTitle }}</span>
-          <span>Acheté et visionné le {{ dateFromTimestamp(purchase.viewDate) }}</span>
+          <span>Acheté et visionné le {{ dateFromTimestamp(purchase.purchaseDate) }}</span>
         </div>
         <div
           class="d-flex flex-column align-center justify-space-around ml-12 mr-4"
@@ -98,6 +98,20 @@
             background-color="grey darken-1"
             v-model="editPurchase.productorRating"
           ></v-rating>
+
+          <h4>Notes des artistes</h4>
+          <div v-for="medium in editPurchase.artistsRating" :key="medium.id">
+            <v-rating
+              empty-icon="mdi-star-outline"
+              full-icon="mdi-star"
+              half-icon="mdi-star-half"
+              length="5"
+              size="24"
+              color="yellow darken-3"
+              background-color="grey darken-1"
+              v-model="medium.artistsRating"
+            ></v-rating>
+          </div>
 
           <h4>Notes des acteurs</h4>
           <div v-for="medium in editPurchase.actorsRating" :key="medium.id">
@@ -197,10 +211,12 @@ export default {
     sendRatings() {
       let ratings = {
         purchaseId: this.editPurchase.id,
+        itemType: this.editPurchase.itemType,
         itemId: this.editPurchase.itemId,
         mediumRating: this.editPurchase.mediumRating,
         distributorRating: this.editPurchase.distributorRating,
         productorRating: this.editPurchase.productorRating,
+        artistsRating: this.editPurchase.artistsRating,
         actorsRating: this.editPurchase.actorsRating,
         directorsRating: this.editPurchase.directorsRating,
       }

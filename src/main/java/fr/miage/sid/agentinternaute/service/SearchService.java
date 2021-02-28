@@ -74,9 +74,9 @@ public class SearchService {
 		
 		try {
 			// On envoie tout à nos agents distributeurs sous JSON Object
-            AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
-            agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
-            agentContainer.getAgent("distributeur").putO2AObject(this, false);
+//            AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
+//            agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
+//            agentContainer.getAgent("distributeur").putO2AObject(this, false);
             
 //            {
 //            	"request": "search",
@@ -94,7 +94,7 @@ public class SearchService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-		// need timer ? 
+		// need timer ?
 		return null;
     }
 }

@@ -7,6 +7,5 @@ package fr.miage.sid.agentinternaute.commons;
  *
  */
 public class AgentTypes {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 	public final static String AGENT_INTERNAUTE = "internaute", AGENT_DISTRIBUTEUR = "distributeur", AGENT_E_REPUTATION = "e-reputationr";
 }
