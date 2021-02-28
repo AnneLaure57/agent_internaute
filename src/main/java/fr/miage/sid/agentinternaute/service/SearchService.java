@@ -47,7 +47,7 @@ public class SearchService {
 		System.out.println("fuck IA" + profil);
 
 		// we need it to say what we want
-		//this.searchMap.put("request", ACLMessageTypes.REQUEST_SEARCH);
+		this.searchMap.put("request", ACLMessageTypes.REQUEST_SEARCH);
 		
 		// what we search
 		this.searchMap.put("title", title);
@@ -65,11 +65,11 @@ public class SearchService {
 		this.searchMap.put("types", Arrays.toString(checkTypes.toArray()));
 		
 		// TODO => OPTIMISE get preferences list => actors, directors, musics etc.
-		this.searchMap.put("preferences_actors", profil.getPreferedActors().toString());
-		this.searchMap.put("preferences_directors", profil.getPreferedDirectors().toString());
-		this.searchMap.put("preferences_musics_artists", profil.getPreferedMusicArtists().toString());
-		this.searchMap.put("preferences_musics_genres", profil.getPreferedMusicGenres().toString());
-		this.searchMap.put("preferences_videos", profil.getPreferedVideoGenres().toString());
+		this.searchMap.put("prefered_actors", profil.getPreferedActors().toString());
+		this.searchMap.put("prefered_directors", profil.getPreferedDirectors().toString());
+		this.searchMap.put("prefered_musics_artists", profil.getPreferedMusicArtists().toString());
+		this.searchMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
+		this.searchMap.put("prefered_videos", profil.getPreferedVideoGenres().toString());
 		
 		JSONObject searchInformations = new JSONObject(searchMap);
 		
