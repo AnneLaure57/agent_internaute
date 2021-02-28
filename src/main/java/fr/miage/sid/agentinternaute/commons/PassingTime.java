@@ -32,10 +32,10 @@ public class PassingTime {
 	 * Method checkDate : to  
 	 * 
 	 * @param tStart
+	 * @return 
 	 */
 	// TODO : fix warnings
-	@SuppressWarnings("unused")
-	public static void checkDate(long tStart) {
+	public static Long checkDate(long tStart) {
 		
 		//Set date format
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ss");
@@ -52,28 +52,32 @@ public class PassingTime {
 		int diff = currentDate.compareTo(date2);
 		Long newDiff = null;
 		
-//		 24h -> 4 ans
+//		si la diff est de 24h -> 4 ans sont écoulés
 		if (diff == TimeUnit.HOURS.toMillis(24)) {
 			newDiff = TimeUnit.DAYS.toMillis(4 * 365);
-//		6h -> 12 mois
+			
+//		si la diff est de 6h -> 12 mois sont écoulés
 		} else if (diff == TimeUnit.HOURS.toMillis(6)) {
 			newDiff = TimeUnit.DAYS.toMillis(12 * 30);
-//		3h -> 6 mois
+			
+//		si la diff est de 3h -> 6 mois sont écoulés
 		} else if (diff == TimeUnit.HOURS.toMillis(3)) {
 			newDiff = TimeUnit.DAYS.toMillis(6 * 30);
-//		 1h30 -> 3 mois
+			
+//		si la diff est de 1h30 -> 3 mois sont écoulés
 		} else if (diff == TimeUnit.MINUTES.toMillis(90)) {
 			newDiff = TimeUnit.DAYS.toMillis(3 * 30);
 		
-//		30 min -> 1 mois
+//		si la diff est de 30 min -> 1 mois sont écoulés
 		} else if (diff == TimeUnit.MINUTES.toMillis(30)) {
 			newDiff = TimeUnit.DAYS.toMillis(3 * 30);
 		
-//	 		1 min -> 1 j		
+//	 	si la diff est de 1 min -> 1 j sont écoulés
 		} else if (diff == TimeUnit.MINUTES.toMillis(1)) {
 			newDiff = TimeUnit.DAYS.toMillis(1);
 		} else {
-			LOGGER.info(currentDate + " is equal to " + date2);
+			LOGGER.info(currentDate + " est égale à " + date2);
 		}
+	    return newDiff;
 	} 
 }
