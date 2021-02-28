@@ -98,9 +98,6 @@ public class AgentDistributeur extends Agent {
 				}
 			}
 		});
-		
-		
-	
 	}
 
 	/**
