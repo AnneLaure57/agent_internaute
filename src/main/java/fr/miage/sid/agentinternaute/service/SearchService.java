@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
@@ -82,6 +81,9 @@ public class SearchService {
 //            AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
 //            agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
 //            agentContainer.getAgent("distributeur").putO2AObject(this, false);
+            
+			InternalComService internalFunctions = new InternalComService();
+			internalFunctions.sendSearchTitleToAgent(searchInformations.toString());
             
             // TODO How send to distrib with function with function sendMessageJSON in agentInternaute
         } catch (Exception e) {
