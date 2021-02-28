@@ -166,13 +166,6 @@ public class AgentDistributeur extends Agent {
 		}
 	}
 
-	
-	/*
-	/*
-	 * Déférérencement dans l'annuaire
-	 */
-	
-	
 	/**
 	 * Method takeDown : to shut down the Agent Distributeur.
 	 */
