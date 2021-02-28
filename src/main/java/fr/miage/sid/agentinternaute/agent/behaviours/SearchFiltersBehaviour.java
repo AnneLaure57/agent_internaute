@@ -38,7 +38,6 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 			Long timerEnd = System.currentTimeMillis();
 
 			// Wait for answer 1 minute
-			// 
 			if ((timerStart - timerEnd) < 60000) {
 				ACLMessage msg = myAgent.receive();
 				if (msg != null) {
@@ -53,6 +52,13 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 			}
 			block();
 		}
+	}
+	
+	public String getFilters() {
+		
+		String result ="hello";
+		
+		return result;
 	}
 
 	@Override
