@@ -9,14 +9,10 @@ import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
-import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
+import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
-import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
-import jade.util.Logger;
-import jade.wrapper.AgentContainer;
 import lombok.RequiredArgsConstructor;
 
 @Service
