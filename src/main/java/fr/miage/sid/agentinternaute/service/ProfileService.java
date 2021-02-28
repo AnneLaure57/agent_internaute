@@ -12,13 +12,19 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
+	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(ProfileService.class.getName());
+
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final ProfileRepository repo;
 	
-	public Optional<Profile> getProfileById(int id) {
-		LOGGER.info("Get profile by ID " + id);
-		return repo.findById(id);
+	/* ========================================= Methodes ============================================== */ /*=========================================*/
+	
+	public Optional<Profile> getProfileById(int ID) {
+		LOGGER.info("Get profile by ID " + ID);
+		return repo.findById(ID);
 	}
 
 	public Optional<Profile> getProfileByName(String name) {
@@ -38,5 +44,5 @@ public class ProfileService {
 		LOGGER.info("Update profile for " + profile.getName());
 		repo.save(profile);
 		return profile;
-	}	
+	}
 }

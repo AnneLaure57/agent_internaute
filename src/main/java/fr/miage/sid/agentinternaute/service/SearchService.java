@@ -1,15 +1,17 @@
 package fr.miage.sid.agentinternaute.service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
+import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
+import fr.miage.sid.agentinternaute.dto.ResultDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
 import jade.wrapper.AgentContainer;
@@ -36,17 +38,23 @@ public class SearchService {
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
 	
-	public void search(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profil) {
+	public List<ResultDTO> search(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profil) {
 		// put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		this.searchMap = new HashMap<String, String>();
+		
+		// we need it to say what we want
+		this.searchMap.put("request", ACLMessageTypes.REQUEST_SEARCH);
+		
+		// what we search
 		this.searchMap.put("title", title);
 		
-		// tv_shows, musics etc.
+		// send our profile
 		this.searchMap.put("name", profil.getName());
 		this.searchMap.put("age", Integer.toString(profil.getAge()));
 		this.searchMap.put("sex", profil.getSex());
 		
+		// tv_shows, musics etc.
 		ArrayList<String> checkTypes = new ArrayList<String>();
 		if (movies) checkTypes.add(MOVIES);
 		if (musics)	checkTypes.add(MUSICS);
@@ -73,5 +81,6 @@ public class SearchService {
             e.printStackTrace();
         }
 		// need timer ? 
+		return null;
     }
 }

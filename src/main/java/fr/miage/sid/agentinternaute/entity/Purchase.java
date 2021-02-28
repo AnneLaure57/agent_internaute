@@ -1,7 +1,8 @@
 package fr.miage.sid.agentinternaute.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -23,40 +24,48 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Purchase {
-	
-	@Id
-	@GenericGenerator(name="generator", strategy="increment")
-	@GeneratedValue(generator="generator")
-	private Integer id;
-    
-    private Date date;
-    private Double rating; // Note des autres
-    
-    // Notes de l'internaute
-    private Double mediumRating;
-    private Double distributorRating;
-    private Double productorRating;
-    private ArrayList<Double> actorsRating;
-    private ArrayList<Double> directorsRating;
-    
-    private String itemId;
-    private String itemTitle;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="profile_id", referencedColumnName="id")
-	@JsonIgnore
-    private Profile profile;
 
-	public Purchase(Double rating, String itemId, String itemTitle, Profile profile) {
+	@Id
+	@GenericGenerator(name = "generator", strategy = "increment")
+	@GeneratedValue(generator = "generator")
+	private Integer id;
+
+	private Date viewDate;
+
+	// Notes de l'internaute
+	private Double mediumRating;
+	private HashMap<Integer, Double> distributorRating;
+	private HashMap<Integer, Double> productorRating;
+	private HashMap<Integer, Double> actorsRating;
+	private HashMap<Integer, Double> directorsRating;
+
+	private String itemId;
+	private String itemTitle;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "profile_id", referencedColumnName = "id")
+	@JsonIgnore
+	private Profile profile;
+
+	public Purchase(String itemId, String itemTitle, Integer distributorId, Integer productorId, List<Integer> actorsIds, List<Integer> directorsIds, Profile profile) {
 		super();
-		this.date = new Date();
-		this.rating = rating;
-		this.distributorRating = 0.0;
-		this.productorRating = 0.0;
-		this.actorsRating =  new ArrayList<Double>();
-		this.directorsRating =  new ArrayList<Double>();
+		this.viewDate = new Date();		
 		this.itemId = itemId;
 		this.itemTitle = itemTitle;
 		this.profile = profile;
+
+		this.mediumRating = 0.0;
+		
+		this.distributorRating = new HashMap<Integer, Double>();
+		this.distributorRating.put(distributorId, 0.0);
+		
+		this.productorRating = new HashMap<Integer, Double>();
+		this.productorRating.put(productorId, 0.0);
+		
+		this.actorsRating =  new HashMap<Integer, Double>();
+		for(Integer actorId: actorsIds)  this.actorsRating.put(actorId, 0.0);
+		
+		this.directorsRating =  new HashMap<Integer, Double>();
+		for(Integer directorId: directorsIds)  this.directorsRating.put(directorId, 0.0);
 	}
 }

@@ -17,27 +17,41 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PurchaseService {
+	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
+
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final PurchaseRepository repo;
 
-	public Optional<Purchase> getPurchaseById(int id, int profileId) {
-		LOGGER.info("Get purchase by ID " + id);
-		return repo.findByIdAndProfileId(id, profileId);
+	/* ========================================= Methodes ============================================== */ /*=========================================*/
+
+	public Optional<Purchase> getPurchaseById(int ID) {
+		LOGGER.info("Get purchase by ID " + ID);
+		return repo.findById(ID);
 	}
 
-	public Optional<Purchase> getPurchaseByName(Date date, int profileId) {
-		// TODO : LOGGER
-		return repo.findByDateAndProfileId(date, profileId);
+	public List<Purchase> getPurchaseByDate(Date date, int profileID) {
+		LOGGER.info("Get purchase by date " + date);
+		return repo.findByViewDateAndProfileId(date, profileID);
 	}
 
-	public Optional<Purchase> getPurchaseByRating(Double rating, int profileId) {
-		// TODO : LOGGER
-		return repo.findByRatingAndProfileId(rating, profileId);
+	public List<Purchase> getPurchaseByRating(Double rating, int profileID) {
+		LOGGER.info("Get purchase by rating " + rating + "(profile ID : " + profileID + ")");
+		// TODO : code commenté car ne compile pas !
+		return null;
+		// return repo.findByRatingAndProfileId(rating, profileID);
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
-		Purchase purchase = new Purchase(p.getRating(), p.getItemId(), p.getItemTitle(), profile);
+		Purchase purchase = new Purchase(p.getItemId(), p.getItemTitle(), p.getDistributorId(), p.getProductorId(), p.getActorsIds(), p.getDirectorsIds(), profile);
+		repo.save(purchase);
+		return purchase;
+	}
+	
+	public Purchase updatePurchase(Purchase purchase) {
+		LOGGER.info("Update purchase for " + purchase.getItemTitle());
 		repo.save(purchase);
 		return purchase;
 	}
@@ -50,13 +64,8 @@ public class PurchaseService {
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
 	
-	public List<Purchase> findPurchasesProfile(Integer id) {
+	public List<Purchase> findPurchasesProfile(Integer ID) {
 		
-		return repo.findByProfileId(id);
+		return repo.findByProfileId(ID);
 	}
-
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
-	/* ========================================= Main ================================================== */ /*=========================================*/
-
 }

@@ -3,8 +3,10 @@
     <!-- App bar -->
     <v-app-bar app flat clipped-left dark color="black">
       <v-toolbar-title class="link ml-6" @click="goToHome()">
-        <span>Agent internaute</span>
+        <span>Agent internaute</span>        
       </v-toolbar-title>
+
+      <v-icon dark  class="link ml-6" @click="goToHome()">mdi-magnify</v-icon>
 
       <v-spacer></v-spacer>
 
