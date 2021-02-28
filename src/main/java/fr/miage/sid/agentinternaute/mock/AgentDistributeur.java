@@ -122,10 +122,6 @@ public class AgentDistributeur extends Agent {
 		}
 		return null;
 	}
-
-	/*
-	 * Envoi d'un message, à former en JSON et à envoyer en String
-	 */
 	
 	/**
 	 * Method sendMessage : to send a JSON message (into a Java String) to a specific agent (find by it's ID).
