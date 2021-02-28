@@ -22,9 +22,9 @@ public class ProfileService {
 	
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
 	
-	public Optional<Profile> getProfileById(int id) {
-		LOGGER.info("Get profile by ID " + id);
-		return repo.findById(id);
+	public Optional<Profile> getProfileById(int ID) {
+		LOGGER.info("Get profile by ID " + ID);
+		return repo.findById(ID);
 	}
 
 	public Optional<Profile> getProfileByName(String name) {
