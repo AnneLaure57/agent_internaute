@@ -35,7 +35,7 @@ public class PassingTime {
 	 */
 	// TODO : fix warnings
 	@SuppressWarnings("unused")
-	private void checkDate(long tStart) {
+	public static void checkDate(long tStart) {
 		
 		//Set date format
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ss");

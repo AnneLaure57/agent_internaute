@@ -12,6 +12,7 @@ import fr.miage.sid.agentinternaute.agent.behaviours.RateBehaviour;
 import fr.miage.sid.agentinternaute.agent.behaviours.SearchFiltersBehaviour;
 import fr.miage.sid.agentinternaute.agent.behaviours.SearchTitleBehaviour;
 import fr.miage.sid.agentinternaute.service.ProfileService;
+import fr.miage.sid.agentinternaute.commons.PassingTime;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
@@ -66,7 +67,7 @@ public class AgentInternaute extends Agent {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
 				System.out.println("Coucou, je suis up");
-				checkDate(tStart);
+				PassingTime.checkDate(tStart);
 				
 			}
 		} );
