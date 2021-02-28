@@ -41,13 +41,19 @@ public class SearchService {
 		// put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		this.searchMap = new HashMap<String, String>();
+		
+		// we need it to say what we want
+		this.searchMap.put("request", "search");
+		
+		// what we search
 		this.searchMap.put("title", title);
 		
-		// tv_shows, musics etc.
+		// send our profile
 		this.searchMap.put("name", profil.getName());
 		this.searchMap.put("age", Integer.toString(profil.getAge()));
 		this.searchMap.put("sex", profil.getSex());
 		
+		// tv_shows, musics etc.
 		ArrayList<String> checkTypes = new ArrayList<String>();
 		if (movies) checkTypes.add(MOVIES);
 		if (musics)	checkTypes.add(MUSICS);
