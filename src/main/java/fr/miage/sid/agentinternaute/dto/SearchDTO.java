@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SearchDTO {	
 	
+	private Integer profileId;
 	private String searchField;
 	private Boolean movies;
 	private Boolean musics;
 	private Boolean tvShows;
-	private Profile profile;
 }
