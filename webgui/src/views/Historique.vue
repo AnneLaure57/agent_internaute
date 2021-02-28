@@ -17,7 +17,7 @@
 
     <v-card
       v-for="purchase in purchases"
-      :key="purchase.title"
+      :key="purchase.id"
       style="width: 80%"
       class="ma-5"
     >
@@ -30,9 +30,8 @@
           src="../assets/img/default.png"
         ></v-img>
         <div class="d-flex flex-column flex-grow-1 mx-4">
-          <span class="title">{{ purchase.title }}</span>
-          <span>{{ purchase.year }}</span>
-          <span>Visionné le {{ purchase.view_date }}</span>
+          <span class="title">{{ purchase.itemTitle }}</span>
+          <span>Visionné le {{ purchase.viewDate }}</span>
         </div>
         <div
           class="d-flex flex-column align-center justify-space-around ml-12 mr-4"
@@ -48,7 +47,7 @@
             background-color="grey darken-1"
             :value="purchase.rating"
           ></v-rating>
-          <v-btn color="primary" @click="ratePurchase(purchase)">Noter</v-btn>
+          <v-btn color="primary" @click="openRatePurchaseDialog(purchase)">Noter</v-btn>
         </div>
       </v-card-text>
     </v-card>
@@ -101,7 +100,7 @@
           ></v-rating>
 
           <h4>Notes des acteurs</h4>
-          <div v-for="medium in editPurchase.directorsRating" :key="medium.id">
+          <div v-for="medium in editPurchase.actorsRating" :key="medium.id">
             <v-rating
               empty-icon="mdi-star-outline"
               full-icon="mdi-star"
@@ -134,7 +133,7 @@
           <v-btn text color="primary" @click="dlg_ratings = false"
             >Fermer</v-btn
           >
-          <v-btn text color="primary" @click="sendRatings(editPurchase)"
+          <v-btn text color="primary" @click="sendRatings()"
             >Envoyer</v-btn
           >
         </v-card-actions>
@@ -153,14 +152,7 @@ export default {
   data() {
     return {
       editPurchase: null,
-      purchases: [
-        {
-          title: "Les bronzés",
-          year: 1978,
-          rating: 3.7,
-          view_date: "11/01/2021",
-        },
-      ],
+      purchases: [],
       dlg_ratings: false,
     };
   },
@@ -179,6 +171,7 @@ export default {
       this.$axios.get("/purchases/" + this.profile.id).then(
         (response) => {
           this.purchases = response.data;
+          console.log(this.purchases);
         },
         (error) => {
           console.log(error);
@@ -186,13 +179,22 @@ export default {
       );
     },
 
-    ratePurchase(purchase) {
+    openRatePurchaseDialog(purchase) {
       this.editPurchase = purchase;
       this.dlg_ratings = true;
     },
 
-    sendRatings(purchase) {
-      this.$axios.put("/purchases/" + this.profile.id, purchase).then(
+    sendRatings() {
+      let ratings = {
+        purchaseId: this.editPurchase.id,
+        itemId: this.editPurchase.itemId,
+        mediumRating: this.editPurchase.mediumRating,
+        distributorRating: this.editPurchase.distributorRating,
+        productorRating: this.editPurchase.productorRating,
+        actorsRating: this.editPurchase.actorsRating,
+        directorsRating: this.editPurchase.directorsRating,
+      }
+      this.$axios.put("/ratings", ratings).then(
         (response) => {
           console.log(response.data);
         },

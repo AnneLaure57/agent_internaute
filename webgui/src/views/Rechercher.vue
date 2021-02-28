@@ -98,9 +98,36 @@ export default {
       tv_shows: false,
       musics: false,
       results: [
-        { id: 1234, title: "Le parrain", year: 1972, rating: 4.5 },
-        { id: 3214, title: "Le parrain 2", year: 1974, rating: 4.5 },
-        { id: 3234, title: "Les bronzés", year: 1978, rating: 3.7 },
+        {
+          id: 1234,
+          title: "Le parrain",
+          year: 1972,
+          rating: 4.5,
+          distributorId: 1,
+          productorId: 1,
+          actorsIds: [1, 2],
+          directorsIds: [1],
+        },
+        {
+          id: 3214,
+          title: "Le parrain 2",
+          year: 1974,
+          rating: 4.5,
+          distributorId: 1,
+          productorId: 2,
+          actorsIds: [1, 2],
+          directorsIds: [1],
+        },
+        {
+          id: 3234,
+          title: "Les bronzés",
+          year: 1978,
+          rating: 3.7,
+          distributorId: 2,
+          productorId: 2,
+          actorsIds: [1, 2],
+          directorsIds: [2],
+        },
       ],
       newPurchase: null,
     };
@@ -131,10 +158,13 @@ export default {
 
     buy(result) {
       let newPurchase = {
-        rating: result.rating,
-        itemTitle: result.title,
         itemId: result.id,
+        itemTitle: result.title,
         profileId: this.profile.id,
+        distributorId: result.distributorId,
+        productorId: result.productorId,
+        actorsIds: result.actorsIds,
+        directorsIds: result.directorsIds,
       };
 
       console.log(newPurchase);
@@ -148,9 +178,7 @@ export default {
       );
     },
 
-    subscribe() {
-
-    },
+    subscribe() {},
   },
 };
 </script>
