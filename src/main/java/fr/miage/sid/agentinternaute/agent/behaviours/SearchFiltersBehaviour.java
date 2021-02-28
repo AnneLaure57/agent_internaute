@@ -30,7 +30,8 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 			
 			// Send message to distributor agent
 			ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-			request.addReceiver(distributor.getName());		
+			request.addReceiver(distributor.getName());	
+			//request.setContent(message);
 			request.setContent("message from searchService");
 			myAgent.send(request);
 			
@@ -49,7 +50,6 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 					myAgent.send(reply);
 					finished = true;
 				}
-				block();
 			}
 			block();
 		}
