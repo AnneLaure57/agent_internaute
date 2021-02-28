@@ -163,12 +163,12 @@ public class AgentEReputation extends Agent {
 	 * Method sendMessage : to send a JSON message (into a Java String) to a specific agent (find by it's ID).
 	 * 
 	 * @param message JSON message (into a Java String) to send.
-	 * @param id The ID of the agent who will receive the message.
+	 * @param ID The ID of the agent who will receive the message.
 	 */
-	private void sendMessage(String message, AID id) {
+	private void sendMessage(String message, AID ID) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(id);
+			aclMessage.addReceiver(ID);
 
 			aclMessage.setContent(message);
 

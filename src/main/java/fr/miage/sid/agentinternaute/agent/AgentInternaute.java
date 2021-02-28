@@ -149,10 +149,10 @@ public class AgentInternaute extends Agent {
 	 */
 	// TODO : fix warnings
 	@SuppressWarnings("unused")
-	private void sendSearchInformations(JSONObject messageJSON, AID id) {
+	private void sendSearchInformations(JSONObject messageJSON, AID ID) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(id);
+			aclMessage.addReceiver(ID);
 			
 			// convert JSON --> String
 			String message = messageJSON.toString();
