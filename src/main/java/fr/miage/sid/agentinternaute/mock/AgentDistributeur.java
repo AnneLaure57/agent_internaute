@@ -3,9 +3,12 @@ package fr.miage.sid.agentinternaute.mock;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.json.JSONObject;
+
 import fr.miage.sid.agentinternaute.commons.PassingTime;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -57,18 +60,46 @@ public class AgentDistributeur extends Agent {
 		setEnabledO2ACommunication(true, 0);
 		
 		// Ajout d'un behaviour cyclique pour pas que l'agetn soit takeDown instantanément
-		Long timerTickerBehaviour = (long) 1000000;
-		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
-			private static final long serialVersionUID = -4616758656969662837L;
+//		Long timerTickerBehaviour = (long) 1000000;
+//		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
+//			private static final long serialVersionUID = -4616758656969662837L;
+//
+//			protected void onTick() {
+//				/********** WITHOUT BEHAVIOUR *****/
+//				long tStart = System.currentTimeMillis();
+//				System.out.println("Hello, je suis up");
+//				PassingTime.checkDate(tStart);
+//				
+//			}
+//		} );
+		
+		addBehaviour(new CyclicBehaviour() {
+			private static final long serialVersionUID = 1456892866260756940L;
 
-			protected void onTick() {
-				/********** WITHOUT BEHAVIOUR *****/
-				long tStart = System.currentTimeMillis();
-				System.out.println("Hello, je suis up");
-				PassingTime.checkDate(tStart);
-				
+			@Override
+			public void action() {
+				// On récupère l'ACL message
+				ACLMessage message = myAgent.receive();
+				if (message != null) {
+
+					// On récupère le JSON
+					String content = message.getContent();
+					JSONObject JSON = new JSONObject(content);
+					
+					// Logique métier
+					if (message.getPerformative() == ACLMessage.REQUEST) {
+						// On vérifie que l'on a ce q'il nous faut
+						if (! JSON.has("request")) {
+							LOGGER.severe("It miising the main key : 'request'.");
+						}
+						
+						
+					}
+				}
 			}
-		} );
+		});
+		
+		
 	
 	}
 
