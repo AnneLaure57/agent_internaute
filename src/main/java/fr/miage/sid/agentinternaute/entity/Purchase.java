@@ -36,6 +36,7 @@ public class Purchase {
 	private Double mediumRating;
 	private HashMap<Integer, Double> distributorRating;
 	private HashMap<Integer, Double> productorRating;
+	private HashMap<Integer, Double> artistsRating;
 	private HashMap<Integer, Double> actorsRating;
 	private HashMap<Integer, Double> directorsRating;
 
@@ -47,7 +48,7 @@ public class Purchase {
 	@JsonIgnore
 	private Profile profile;
 
-	public Purchase(String itemId, String itemTitle, Integer distributorId, Integer productorId, List<Integer> actorsIds, List<Integer> directorsIds, Profile profile) {
+	public Purchase(String itemId, String itemTitle, Integer distributorId, Integer productorId, List<Integer> artistsIds, List<Integer> actorsIds, List<Integer> directorsIds, Profile profile) {
 		super();
 		this.viewDate = new Date();		
 		this.itemId = itemId;
@@ -61,6 +62,9 @@ public class Purchase {
 		
 		this.productorRating = new HashMap<Integer, Double>();
 		this.productorRating.put(productorId, 0.0);
+		
+		this.artistsRating =  new HashMap<Integer, Double>();
+		for(Integer artistId: artistsIds)  this.artistsRating.put(artistId, 0.0);
 		
 		this.actorsRating =  new HashMap<Integer, Double>();
 		for(Integer actorId: actorsIds)  this.actorsRating.put(actorId, 0.0);

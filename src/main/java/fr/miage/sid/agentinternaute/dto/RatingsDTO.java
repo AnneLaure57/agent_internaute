@@ -12,9 +12,11 @@ import lombok.NoArgsConstructor;
 public class RatingsDTO {
 	private Integer purchaseId;
 	private Integer itemId;
+	private String itemType;
 	private Double mediumRating;
     private HashMap<Integer, Double> distributorRating;
     private HashMap<Integer, Double> productorRating;
+    private HashMap<Integer, Double> artistsRating;
     private HashMap<Integer, Double> actorsRating;
     private HashMap<Integer, Double> directorsRating;
 }

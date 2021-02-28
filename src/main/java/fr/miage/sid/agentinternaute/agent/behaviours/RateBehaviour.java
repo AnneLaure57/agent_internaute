@@ -19,10 +19,12 @@ public class RateBehaviour extends SimpleBehaviour {
 		// Send message to e-reputation agent
 		DFAgentDescription ereput = ((AgentInternaute) myAgent).getAgentReputation();
 		try {
-			ACLMessage aclMessage = new ACLMessage(ACLMessage.INFORM);
-			aclMessage.addReceiver(ereput.getName());		
-			aclMessage.setContent("yo");
-			myAgent.send(aclMessage);
+			if(ereput != null) {
+				ACLMessage aclMessage = new ACLMessage(ACLMessage.INFORM);
+				aclMessage.addReceiver(ereput.getName());		
+				aclMessage.setContent("yo");
+				myAgent.send(aclMessage);
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -33,5 +35,4 @@ public class RateBehaviour extends SimpleBehaviour {
 	public boolean done() {
 		return finished;
 	}
-
 }

@@ -47,5 +47,4 @@ public class SearchFiltersBehaviour extends SimpleBehaviour {
 	public boolean done() {
 		return finished;
 	}
-
 }

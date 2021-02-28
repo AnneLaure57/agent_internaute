@@ -17,6 +17,7 @@ public class PurchaseDTO {
     
     private Integer distributorId;
     private Integer productorId;
+    private List<Integer> artistsIds;
     private List<Integer> actorsIds;
     private List<Integer> directorsIds;
 }

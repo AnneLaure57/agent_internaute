@@ -13,9 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.dto.RatingsDTO;
+import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
+import fr.miage.sid.agentinternaute.service.InternalComService;
+import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.PurchaseService;
+import jade.core.Agent;
+import jade.util.Event;
+import jade.wrapper.AgentController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,6 +33,8 @@ public class RatingsController {
 
 	private static final Logger LOGGER = Logger.getLogger(RatingsController.class.getName());
 	private final PurchaseService service;
+	private final ProfileService profileService;
+	private final InternalComService agentService;
 			
 	@PostMapping
 	@Transactional
@@ -39,11 +48,12 @@ public class RatingsController {
 			p.setDistributorRating(r.getDistributorRating());
 			p.setProductorRating(r.getProductorRating());
 			p.setActorsRating(r.getActorsRating());
+			p.setActorsRating(r.getActorsRating());
 			p.setDirectorsRating(r.getDirectorsRating());
 			service.updatePurchase(p);
 			
-			// Send to erepute TODO
-			
+			// Send to erepute
+			agentService.sendRatingsToAgent(p.getProfile(), r);
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.badRequest().build();

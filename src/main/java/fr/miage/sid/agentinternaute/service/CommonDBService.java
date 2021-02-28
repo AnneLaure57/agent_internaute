@@ -17,13 +17,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CommonDBService {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(CommonDBService.class.getName());
 	
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-	/* ========================================= Methodes ============================================== */ /*=========================================*/
-
 	private Connection makeJDBCConnection() {
 
 		try {
