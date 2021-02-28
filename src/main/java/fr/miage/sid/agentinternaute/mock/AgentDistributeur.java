@@ -54,6 +54,8 @@ public class AgentDistributeur extends Agent {
 		// Ajout d'un behaviour cyclique pour pas que l'agetn soit takeDown instantanément
 		Long timerTickerBehaviour = (long) 1000000;
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
+			private static final long serialVersionUID = -4616758656969662837L;
+
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();
