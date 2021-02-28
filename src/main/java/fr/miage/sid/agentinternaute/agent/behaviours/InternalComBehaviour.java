@@ -4,6 +4,7 @@ import fr.miage.sid.agentinternaute.agent.AgentInternaute;
 import jade.core.behaviours.CyclicBehaviour;
 
 public class InternalComBehaviour extends CyclicBehaviour {
+	private static final long serialVersionUID = 7707849724284945599L;
 
 	public InternalComBehaviour(AgentInternaute agentInternaute) {
 		super(agentInternaute);
