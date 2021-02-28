@@ -90,9 +90,9 @@ public class AgentDistributeur extends Agent {
 			return null;
 		}
 	}
-
-	/*
-	 * Enregistrement auprès du Directory Facilitator
+	
+	/**
+	 * Method registerService : to regiser our Distributeur agent to the Directory Facilitator.
 	 */
 	private void registerService() {
 		DFAgentDescription dfd = new DFAgentDescription();
