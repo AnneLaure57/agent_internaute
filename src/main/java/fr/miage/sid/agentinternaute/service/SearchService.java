@@ -71,7 +71,7 @@ public class SearchService {
 		this.profilMap.put("prefered_directors", profil.getPreferedDirectors().toString());
 		this.profilMap.put("prefered_musics_artists", profil.getPreferedMusicArtists().toString());
 		this.profilMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
-		this.profilMap.put("prefered_videos", profil.getPreferedVideoGenres().toString());
+		this.profilMap.put("prefered_videos_genres", profil.getPreferedVideoGenres().toString());
 		//add Profil in search Map
 		this.searchMap.put("profil_utilisateur", profilMap.toString());
 		
