@@ -32,7 +32,7 @@ public class AgentDistributeur extends Agent {
 
 	private String name;
 	private String service = "distributeur";
-	private AID aid = new AID();
+	private AID AID = new AID();
 
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
 	
@@ -173,10 +173,10 @@ public class AgentDistributeur extends Agent {
 	 */
 	protected void takeDown() {
 		try {
-			// Printout a dismissal message
-			System.out.println("l'agent " +getAID().getName()+ " s'est arrêté.");
+			LOGGER.info("L'agent " +getAID().getName()+ " s'est arrêté.");
 			DFService.deregister(this);
 		} catch (FIPAException fe) {
+			LOGGER.severe("Error during Agent Distributeur takeDown");
 			fe.printStackTrace();
 		}
 	}	

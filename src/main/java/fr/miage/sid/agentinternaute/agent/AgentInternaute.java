@@ -35,7 +35,7 @@ public class AgentInternaute extends Agent {
 	private String service = "internaute";
 	// TODO : fix warnings
 	@SuppressWarnings("unused")
-	private AID aid = new AID();
+	private AID AID = new AID();
 
     /* ========================================= Methodes ============================================== */ 
 	
