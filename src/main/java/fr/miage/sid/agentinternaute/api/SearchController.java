@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.miage.sid.agentinternaute.dto.ResultDTO;
 import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
+import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.service.ProfileService;
+import fr.miage.sid.agentinternaute.service.PurchaseService;
 import fr.miage.sid.agentinternaute.service.SearchService;
 import lombok.RequiredArgsConstructor;
 
@@ -27,10 +31,17 @@ public class SearchController {
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
 	private final SearchService service;
-
-	// TODO : fix warnings
-	@SuppressWarnings("unused")
-	private final ProfileService profilService;
+	
+	private final PurchaseService purchaseService;
+	
+	@GetMapping
+	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
+		LOGGER.info("GET purchase in /search");
+		
+		List<Purchase> purchases = purchaseService.findPurchasesProfile(id);
+		System.out.println("length : "+ purchases.toArray().length);
+			return  ResponseEntity.ok(purchases);
+	}
 
 	// TODO : fix warnings
 	@SuppressWarnings("unused")
