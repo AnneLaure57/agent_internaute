@@ -21,23 +21,29 @@ public class PurchaseService {
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
 	private final PurchaseRepository repo;
 
-	public Optional<Purchase> getPurchaseById(int id, int profileId) {
+	public Optional<Purchase> getPurchaseById(int id) {
 		LOGGER.info("Get purchase by ID " + id);
-		return repo.findByIdAndProfileId(id, profileId);
+		return repo.findById(id);
 	}
 
-	public Optional<Purchase> getPurchaseByName(Date date, int profileId) {
+	public List<Purchase> getPurchaseByName(Date date, int profileId) {
 		// TODO : LOGGER
-		return repo.findByDateAndProfileId(date, profileId);
+		return repo.findByViewDateAndProfileId(date, profileId);
 	}
 
-	public Optional<Purchase> getPurchaseByRating(Double rating, int profileId) {
+	public List<Purchase> getPurchaseByRating(Double rating, int profileId) {
 		// TODO : LOGGER
 		return repo.findByRatingAndProfileId(rating, profileId);
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
-		Purchase purchase = new Purchase(p.getRating(), p.getItemId(), p.getItemTitle(), profile);
+		Purchase purchase = new Purchase(p.getItemId(), p.getItemTitle(), p.getDistributorId(), p.getProductorId(), p.getActorsIds(), p.getDirectorsIds(), profile);
+		repo.save(purchase);
+		return purchase;
+	}
+	
+	public Purchase updatePurchase(Purchase purchase) {
+		LOGGER.info("Update purchase for " + purchase.getItemTitle());
 		repo.save(purchase);
 		return purchase;
 	}
@@ -54,9 +60,4 @@ public class PurchaseService {
 		
 		return repo.findByProfileId(id);
 	}
-
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
-	/* ========================================= Main ================================================== */ /*=========================================*/
-
 }

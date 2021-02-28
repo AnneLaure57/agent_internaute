@@ -1,5 +1,6 @@
 package fr.miage.sid.agentinternaute.api;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.miage.sid.agentinternaute.dto.ResultDTO;
 import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
@@ -43,9 +45,9 @@ public class SearchController {
 			Profile profil = newSearch.getProfile();
 			System.out.println("Je suis" + newSearch);
 			//send to distrib agent infos
-			service.search(title,movies,musics,tv_shows,newSearch.getProfile());
+			List<ResultDTO> results = service.search(title,movies,musics,tv_shows,newSearch.getProfile());
 			// TODO return list of results and not title
-			return ResponseEntity.ok().build();
+			return ResponseEntity.status(200).body(null);
 		}
 
 		return ResponseEntity.badRequest().build();

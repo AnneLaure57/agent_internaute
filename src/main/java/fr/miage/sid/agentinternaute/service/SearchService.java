@@ -4,12 +4,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
+import fr.miage.sid.agentinternaute.dto.ResultDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.repository.ProfileRepository;
 import jade.wrapper.AgentContainer;
@@ -36,7 +38,7 @@ public class SearchService {
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
 	
-	public void search(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profil) {
+	public List<ResultDTO> search(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profil) {
 		// put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		this.searchMap = new HashMap<String, String>();
@@ -73,5 +75,6 @@ public class SearchService {
             e.printStackTrace();
         }
 		// need timer ? 
+		return null;
     }
 }

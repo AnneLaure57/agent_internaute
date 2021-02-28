@@ -10,8 +10,8 @@ import fr.miage.sid.agentinternaute.entity.Purchase;
 
 public interface PurchaseRepository extends JpaRepository<Purchase, String> {
 
-	Optional<Purchase> findByIdAndProfileId(int id, int profileId);
-	Optional<Purchase> findByDateAndProfileId(Date date, int profileId);
-	Optional<Purchase> findByRatingAndProfileId(Double rating, int profileId);
+	Optional<Purchase> findById(int id);
+	List<Purchase> findByViewDateAndProfileId(Date date, int profileId);
+	List<Purchase> findByMediumRatingAndProfileId(Double rating, int profileId);
 	List<Purchase> findByProfileId(Integer profileId);
 }

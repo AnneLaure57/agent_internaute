@@ -3,11 +3,15 @@ package fr.miage.sid.agentinternaute.agent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import fr.miage.sid.agentinternaute.agent.behaviours.RateBehaviour;
+import fr.miage.sid.agentinternaute.agent.behaviours.SearchFiltersBehaviour;
+import fr.miage.sid.agentinternaute.agent.behaviours.SearchTitleBehaviour;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
@@ -21,13 +25,9 @@ import net.minidev.json.JSONObject;
 
 public class AgentInternaute extends Agent {
 	
-	/* ========================================= Global ================================================ */ /*=========================================*/
-
 	private static final long serialVersionUID = -1271454263303780513L;
 
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
-
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
 	// TODO : fix warnings
@@ -38,9 +38,7 @@ public class AgentInternaute extends Agent {
 	@SuppressWarnings("unused")
 	private AID aid = new AID();
 
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
-	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
+    /* ========================================= Methodes ============================================== */ 
 	
 	// TODO : fix warnings
 	@SuppressWarnings("serial")
@@ -70,7 +68,10 @@ public class AgentInternaute extends Agent {
 				
 			}
 		} );
-	
+		
+		addBehaviour(new RateBehaviour(this));
+		addBehaviour(new SearchTitleBehaviour(this));
+		addBehaviour(new SearchFiltersBehaviour(this));
 	}
 
 	/*
@@ -132,24 +133,6 @@ public class AgentInternaute extends Agent {
 		}
 		return null;
 	}
-
-	/*
-	 * Envoi d'un message, à former en JSON et à envoyer en String
-	 */
-	// TODO
-	@SuppressWarnings("unused")
-	private void sendMessage(String mess, AID id) {
-		try {
-			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(id);
-
-			aclMessage.setContent(mess);
-
-			super.send(aclMessage);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
 	
 	/*
 	 *  Rechercher une oeuvre ???
@@ -159,7 +142,6 @@ public class AgentInternaute extends Agent {
 	 * Envoi préférences profil, type, titre
 	 */
 	// TODO
-	@SuppressWarnings("unused")
 	private void sendSearchInformations(JSONObject messageJSON, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
@@ -240,8 +222,4 @@ public class AgentInternaute extends Agent {
 			fe.printStackTrace();
 		}
 	}	
-
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
-	/* ========================================= Main ================================================== */ /*=========================================*/
 }
