@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
+import fr.miage.sid.agentinternaute.commons.AgentTypes;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -36,7 +37,7 @@ public class AgentDistributeur extends Agent {
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
-	private String service = "distributeur";
+	private String service = AgentTypes.AGENT_DISTRIBUTEUR;
 	private AID AID = new AID();
 
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
@@ -53,7 +54,7 @@ public class AgentDistributeur extends Agent {
 		}
 		
 		// On renseigne un nom de distributeur (random)
-		this.name = "Distributeur_" + UUID.randomUUID();
+		this.name = AgentTypes.AGENT_DISTRIBUTEUR + "_" + UUID.randomUUID();
 		
 		// On l'enregistre auprès du service Jade
 		this.registerService();
@@ -151,7 +152,7 @@ public class AgentDistributeur extends Agent {
 	 * @return Return the agent with type "internaute", if it was find, otherwise return null.
 	 */
 	public DFAgentDescription getAgentInternaute() {
-		DFAgentDescription[] results = searchAgents("internaute");
+		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_INTERNAUTE);
 		if (results != null && results.length > 0) {
 			return results[0];
 		}
