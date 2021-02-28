@@ -141,7 +141,8 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Envoi préférences profil, type, titre
 	 */
-	// TODO
+	// TODO : fix warnings
+	@SuppressWarnings("unused")
 	private void sendSearchInformations(JSONObject messageJSON, AID id) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
