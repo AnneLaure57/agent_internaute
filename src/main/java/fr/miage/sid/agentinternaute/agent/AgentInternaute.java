@@ -5,9 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.miage.sid.agentinternaute.agent.behaviours.InternalComBehaviour;
-import fr.miage.sid.agentinternaute.agent.behaviours.RateBehaviour;
-import fr.miage.sid.agentinternaute.agent.behaviours.SearchFiltersBehaviour;
-import fr.miage.sid.agentinternaute.agent.behaviours.SearchTitleBehaviour;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.agent.commons.PassingTime;
 import fr.miage.sid.agentinternaute.service.ProfileService;
