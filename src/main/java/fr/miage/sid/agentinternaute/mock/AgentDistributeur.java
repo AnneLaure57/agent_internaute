@@ -53,6 +53,9 @@ public class AgentDistributeur extends Agent {
 		this.registerService();
 		LOGGER.info("Bonjour Distributeur. Vous êtes enregistré en tant que : " + this.getLocalName());
 		
+		// On accpte de communiquer
+		setEnabledO2ACommunication(true, 0);
+		
 		// Ajout d'un behaviour cyclique pour pas que l'agetn soit takeDown instantanément
 		Long timerTickerBehaviour = (long) 1000000;
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
