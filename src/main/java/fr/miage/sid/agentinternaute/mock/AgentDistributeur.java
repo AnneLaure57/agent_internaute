@@ -141,30 +141,6 @@ public class AgentDistributeur extends Agent {
 			ex.printStackTrace();
 		}
 	}
-	
-	/*
-	 *  Rechercher une oeuvre ???
-	 */
-
-	/*
-	 * Envoi préférences profil, type, titre
-	 */
-	// TODO
-	@SuppressWarnings("unused")
-	private void sendSearchInformations(JSONObject messageJSON, AID id) {
-		try {
-			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(id);
-			
-			// convert JSON --> String
-			String message = messageJSON.toString();
-			
-			aclMessage.setContent(message);
-			super.send(aclMessage);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
 
 	/**
 	 * Method takeDown : to shut down the Agent Distributeur.
