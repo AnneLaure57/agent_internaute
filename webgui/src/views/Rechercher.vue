@@ -76,7 +76,7 @@
             :value="result.rating"
           ></v-rating>
         </div>
-        <div class="d-flex flex-column justify-space-around ml-12 mr-4">
+        <div class="d-flex flex-column justify-space-around ml-12 mr-4" >
           <v-btn color="primary" @click="buy(result)">Acheter</v-btn>
           <v-btn color="primary" @click="subscribe(result)">S'abonner</v-btn>
         </div>
