@@ -53,6 +53,9 @@ public class AgentInternaute extends Agent {
 		// On s'enregistre auprès du DF
 		this.registerService();
 		
+		// On accpte de communiquer
+		setEnabledO2ACommunication(true, 0);
+		
 		// 300000 => 30 sec
 		// 1000000 => 10 min
 		Long timerTickerBehaviour = (long) 1000000;

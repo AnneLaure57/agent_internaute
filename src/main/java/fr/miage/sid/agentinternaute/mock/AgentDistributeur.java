@@ -12,7 +12,6 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
-import net.minidev.json.JSONObject;
 
 /**
  * @author Louis MASSICARD (user name : louis)
@@ -42,6 +41,11 @@ public class AgentDistributeur extends Agent {
 	 * Method setup : to register a Distributeur Agent (set a random name, cyclic behaviour and register to Jade service). 
 	 */
 	protected void setup() {
+		// On s'assure que notre Agent a bien un ID
+		if (this.AID == null) {
+			this.AID = new AID();
+		}
+		
 		// On renseigne un nom de distributeur (random)
 		this.name = "Distributeur_" + UUID.randomUUID();
 		
