@@ -31,7 +31,7 @@
         ></v-img>
         <div class="d-flex flex-column flex-grow-1 mx-4">
           <span class="title">{{ purchase.itemTitle }}</span>
-          <span>Acheté et visionné le {{ dateFromTimestamp(purchase.viewDate) }}</span>
+          <span>Acheté et visionné le {{ dateFromTimestamp(purchase.purchaseDate) }}</span>
         </div>
         <div
           class="d-flex flex-column align-center justify-space-around ml-12 mr-4"
