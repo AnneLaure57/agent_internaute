@@ -31,6 +31,8 @@ public class SearchService {
 	private final ProfileRepository repo;
 	
 	private HashMap<String, String> searchMap;
+
+	private HashMap<String, String> profilMap;
 	
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
@@ -44,6 +46,7 @@ public class SearchService {
 		// put in JSON Object
 		// without nom, age, sexe, les preferredTrucs type + title
 		this.searchMap = new HashMap<String, String>();
+		this.profilMap = new HashMap<String, String>();
 		System.out.println("fuck IA" + profil);
 
 		// we need it to say what we want
@@ -51,12 +54,7 @@ public class SearchService {
 		
 		// what we search
 		this.searchMap.put("title", title);
-		
-		// send our profile
-		this.searchMap.put("name", profil.getName());
-		this.searchMap.put("age", Integer.toString(profil.getAge()));
-		this.searchMap.put("sex", profil.getSex());
-		
+
 		// tv_shows, musics etc.
 		ArrayList<String> checkTypes = new ArrayList<String>();
 		if (movies) checkTypes.add(MOVIES);
@@ -64,12 +62,19 @@ public class SearchService {
 		if (tv_shows) checkTypes.add(TV_SHOWS);
 		this.searchMap.put("types", Arrays.toString(checkTypes.toArray()));
 		
+		// send our profile
+		this.profilMap.put("name", profil.getName());
+		this.profilMap.put("age", Integer.toString(profil.getAge()));
+		this.profilMap.put("sex", profil.getSex());
 		// TODO => OPTIMISE get preferences list => actors, directors, musics etc.
-		this.searchMap.put("prefered_actors", profil.getPreferedActors().toString());
-		this.searchMap.put("prefered_directors", profil.getPreferedDirectors().toString());
-		this.searchMap.put("prefered_musics_artists", profil.getPreferedMusicArtists().toString());
-		this.searchMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
-		this.searchMap.put("prefered_videos", profil.getPreferedVideoGenres().toString());
+		this.profilMap.put("prefered_actors", profil.getPreferedActors().toString());
+		this.profilMap.put("prefered_directors", profil.getPreferedDirectors().toString());
+		this.profilMap.put("prefered_musics_artists", profil.getPreferedMusicArtists().toString());
+		this.profilMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
+		this.profilMap.put("prefered_videos", profil.getPreferedVideoGenres().toString());
+		//add Profil in search Map
+		this.searchMap.put("profil_utilisateur", profilMap.toString());
+		
 		
 		JSONObject searchInformations = new JSONObject(searchMap);
 		
