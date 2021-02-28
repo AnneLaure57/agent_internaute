@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.commons.ACLMessageTypes;
+import fr.miage.sid.agentinternaute.commons.AgentTypes;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -36,7 +37,7 @@ public class AgentEReputation extends Agent {
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
-	private String service = "distributeur";
+	private String service = AgentTypes.AGENT_E_REPUTATION;
 	private AID AID = new AID();
 
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
@@ -53,7 +54,7 @@ public class AgentEReputation extends Agent {
 		}
 		
 		// On renseigne un nom de distributeur (random)
-		this.name = "Distributeur_" + UUID.randomUUID();
+		this.name = AgentTypes.AGENT_E_REPUTATION + "_" + UUID.randomUUID();
 		
 		// On l'enregistre auprès du service Jade
 		this.registerService();
@@ -117,7 +118,7 @@ public class AgentEReputation extends Agent {
 		try {
 			return DFService.search(this, dfd);
 		} catch (FIPAException e) {
-			LOGGER.severe("can't search the agent : " + serviceName);
+			LOGGER.severe("Can't search the agent : " + serviceName);
 			e.printStackTrace();
 			return null;
 		}
@@ -140,7 +141,7 @@ public class AgentEReputation extends Agent {
 		try {
 			DFService.register(this, dfd);
 		} catch (FIPAException e) {
-			LOGGER.severe(getLocalName() + " registration with DF unsucceeded. Reason: " + e.getMessage());
+			LOGGER.severe(getLocalName() + " registration with DF unsucceeded. Reason : " + e.getMessage());
 			doDelete();
 		}
 	}
@@ -151,7 +152,7 @@ public class AgentEReputation extends Agent {
 	 * @return Return the agent with type "internaute", if it was find, otherwise return null.
 	 */
 	public DFAgentDescription getAgentInternaute() {
-		DFAgentDescription[] results = searchAgents("internaute");
+		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_INTERNAUTE);
 		if (results != null && results.length > 0) {
 			return results[0];
 		}
