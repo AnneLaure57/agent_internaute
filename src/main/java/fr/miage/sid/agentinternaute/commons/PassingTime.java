@@ -28,6 +28,11 @@ public class PassingTime {
 ////	3h -> 6 mois
 ////	6h -> 12 mois
 ////	24h -> 4 ans
+	/**
+	 * Method checkDate : to  
+	 * 
+	 * @param tStart
+	 */
 	// TODO : fix warnings
 	@SuppressWarnings("unused")
 	private void checkDate(long tStart) {
