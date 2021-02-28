@@ -7,14 +7,15 @@ import jade.lang.acl.MessageTemplate;
 
 public class RequestBehaviour extends Behaviour {
 	
-	private int step = 0;
-	private AID bestSeller; // The agent who provides the best offer
-	private int bestPrice; // The best offered price
+	private int step;
+	private AID bestSeller; // The agent distributor who provides the best offer
+	private int bestPrice; // The best offered price from distributor
 	private int repliesCnt = 0; // The counter of replies from seller agents
 
 	@Override
 	public void action() {
 		String message = "Lords of Rings";
+		//TODO check if cases working
 		switch (step) 
 		{
 		 case 1:
