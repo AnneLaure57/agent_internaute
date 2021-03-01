@@ -13,16 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
-import fr.miage.sid.agentinternaute.dto.RatingsDTO;
-import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.service.InternalComService;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.PurchaseService;
-import jade.core.Agent;
-import jade.util.Event;
-import jade.wrapper.AgentController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,6 +27,7 @@ public class RatingsController {
 
 	private static final Logger LOGGER = Logger.getLogger(RatingsController.class.getName());
 	private final PurchaseService service;
+	@SuppressWarnings("unused")
 	private final ProfileService profileService;
 	private final InternalComService agentService;
 
