@@ -33,12 +33,16 @@ public final class JadeAgentContainer {
 					"fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
 			agent.start();
 		} catch (ControllerException e) {
-			LOGGER.log(Level.SEVERE, "Couldn't create agent " + name + ", probably already exists.");
+			LOGGER.log(Level.WARNING, "Couldn't create agent " + name + ", probably already exists.");
 		}
 	}
 
 	public void destroyNewAgentInternaute(String name) {
-
+		try {
+			agentContainer.getAgent(name).kill();
+		} catch (ControllerException e) {
+			LOGGER.log(Level.WARNING, "Couldn't destroy agent " + name + ", probably doesn't exists.");
+		}
 	}
 
 	public static JadeAgentContainer getInstance() {

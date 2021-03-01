@@ -2,19 +2,19 @@ package fr.miage.sid.agentinternaute.agent.behaviours;
 
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.agent.AgentInternaute;
 import jade.core.behaviours.SimpleBehaviour;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.lang.acl.ACLMessage;
+import jade.util.Event;
 
 public class SearchFiltersBehaviour extends SimpleBehaviour {
 
 	private boolean finished = false;
+	private Event event;
 	
 	private static final Logger LOGGER = Logger.getLogger(SearchFiltersBehaviour.class.getName());
 
-	public SearchFiltersBehaviour(AgentInternaute agentInternaute) {
-		super(agentInternaute);
+	public SearchFiltersBehaviour(Event event) {
+		super();
+		this.event = event;
 	}
 
 	@Override

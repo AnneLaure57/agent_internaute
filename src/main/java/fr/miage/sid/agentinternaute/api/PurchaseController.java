@@ -45,9 +45,10 @@ public class PurchaseController {
 //
 //        return service.findPaged(page, size);
 //    }
+	
 	@GetMapping(value = "/{id}") 
 	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
-	LOGGER.info("GET on /purchases?");
+	LOGGER.info("GET on /purchases with profile id");
 	
 	List<Purchase> purchases = service.findPurchasesProfile(id);
 	System.out.println("length : "+ purchases.toArray().length);

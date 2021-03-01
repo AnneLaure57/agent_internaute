@@ -5,14 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.miage.sid.agentinternaute.agent.behaviours.InternalComBehaviour;
-import fr.miage.sid.agentinternaute.agent.behaviours.RateBehaviour;
-import fr.miage.sid.agentinternaute.agent.behaviours.SearchFiltersBehaviour;
-import fr.miage.sid.agentinternaute.agent.behaviours.SearchTitleBehaviour;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.agent.commons.PassingTime;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -53,12 +51,11 @@ public class AgentInternaute extends Agent {
 		this.registerService();
 		LOGGER.log(Level.INFO, "Bonjour. Bienvenue sur " + this.getLocalName());
 		
-		// On accepte de communiquer
-		setEnabledO2ACommunication(true, 0);
-		
 		// Activation de O2A pour la communication avec le reste de l'application
 		setEnabledO2ACommunication(true, 0);
-		setO2AManager(new InternalComBehaviour(this));
+		Behaviour internalCommunication = new InternalComBehaviour(this);
+		setO2AManager(internalCommunication);
+		addBehaviour(internalCommunication);
 		
 		// 300000 => 30 sec
 		// 1000000 => 10 min
@@ -72,10 +69,6 @@ public class AgentInternaute extends Agent {
 				PassingTime.checkDate(tStart);				
 			}
 		});
-		
-		addBehaviour(new RateBehaviour(this));
-		addBehaviour(new SearchTitleBehaviour(this));
-		addBehaviour(new SearchFiltersBehaviour(this));
 	}
 
 	/*
@@ -145,8 +138,6 @@ public class AgentInternaute extends Agent {
 	/*
 	 * Envoi préférences profil, type, titre
 	 */
-	// TODO : fix warnings
-	@SuppressWarnings("unused")
 	private void sendSearchInformations(JSONObject messageJSON, AID ID) {
 		try {
 			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
@@ -169,7 +160,7 @@ public class AgentInternaute extends Agent {
 	protected void takeDown() {
 		try {
 			// Printout a dismissal message
-			System.out.println("L'agent " +getAID().getName()+ " s'est arrêté.");
+			System.out.println("L'agent " + getAID().getName() + " s'est arrêté.");
 			DFService.deregister(this);
 		} catch (FIPAException fe) {
 			fe.printStackTrace();

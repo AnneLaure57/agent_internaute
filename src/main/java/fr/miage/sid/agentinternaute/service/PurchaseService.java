@@ -17,15 +17,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PurchaseService {
-	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
 
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-
 	private final PurchaseRepository repo;
-
-	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	public Optional<Purchase> getPurchaseById(int ID) {
 		LOGGER.info("Get purchase by ID " + ID);
@@ -39,34 +34,45 @@ public class PurchaseService {
 
 	public List<Purchase> getPurchaseByRating(Double rating, int profileID) {
 		LOGGER.info("Get purchase by rating " + rating + "(profile ID : " + profileID + ")");
-		// TODO : code commenté car ne compile pas !
-		return null;
-		// return repo.findByRatingAndProfileId(rating, profileID);
+		return repo.findByMediumRatingAndProfileId(rating, profileID);
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
-		Purchase purchase = new Purchase(p.getItemId(), p.getItemType(), p.getItemTitle(), p.getDistributorId(), p.getProductorId(), p.getArtistsIds(), p.getActorsIds(), p.getDirectorsIds(), profile);
-		repo.save(purchase);
-		return purchase;
-	}
-	
-	public Purchase updatePurchase(Purchase purchase) {
-		LOGGER.info("Update purchase for " + purchase.getItemTitle());
+		Purchase purchase = new Purchase(p.getItemId(), p.getItemType(), p.getItemTitle(), p.getDistributorId(),
+				p.getProductorId(), p.getArtistsIds(), p.getActorsIds(), p.getDirectorsIds(), profile);
 		repo.save(purchase);
 		return purchase;
 	}
 
+	public Purchase updatePurchase(Purchase updated) {
+		LOGGER.info("Update purchase for " + updated.getItemTitle());
+		Optional<Purchase> opt = getPurchaseById(updated.getId());
+		if (opt.isPresent()) {
+			Purchase purchase = opt.get();
+			purchase.setMediumRating(updated.getMediumRating());
+			purchase.setDistributorRating(updated.getDistributorRating());
+			purchase.setProductorRating(updated.getProductorRating());
+			purchase.setArtistsRating(updated.getArtistsRating());
+			purchase.setActorsRating(updated.getActorsRating());
+			purchase.setDirectorsRating(updated.getDirectorsRating());
+			
+			repo.save(purchase);
+			return purchase;
+		}
+		return null;
+	}
+
 	public Iterable<Purchase> findPaged(int page, int size) {
-		
+
 		// TODO : LOGGER
 		if (page < 0)
 			page = 0;
 
 		return repo.findAll(PageRequest.of(page, size)).getContent();
 	}
-	
-	public List<Purchase> findPurchasesProfile(Integer ID) {
-		
-		return repo.findByProfileId(ID);
+
+	public List<Purchase> findPurchasesProfile(Integer profileId) {
+
+		return repo.findByProfileId(profileId);
 	}
 }

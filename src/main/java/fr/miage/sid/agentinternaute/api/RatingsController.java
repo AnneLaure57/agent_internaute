@@ -28,33 +28,34 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/ratings", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@CrossOrigin 
+@CrossOrigin
 public class RatingsController {
 
 	private static final Logger LOGGER = Logger.getLogger(RatingsController.class.getName());
 	private final PurchaseService service;
 	private final ProfileService profileService;
 	private final InternalComService agentService;
-			
+
 	@PostMapping
 	@Transactional
-    public ResponseEntity<?> send(@RequestBody RatingsDTO r) {
+	public ResponseEntity<?> send(@RequestBody Purchase purchase) {
 		LOGGER.info("POST on /ratings");
-		Optional<Purchase> purchase = service.getPurchaseById(r.getPurchaseId());
-		if(purchase.isPresent()) {
-			// Update purchase
-			Purchase p = purchase.get();
-			p.setMediumRating(r.getMediumRating());
-			p.setDistributorRating(r.getDistributorRating());
-			p.setProductorRating(r.getProductorRating());
-			p.setActorsRating(r.getActorsRating());
-			p.setActorsRating(r.getActorsRating());
-			p.setDirectorsRating(r.getDirectorsRating());
-			service.updatePurchase(p);
-			
-			// Send to erepute
-			agentService.sendRatingsToAgent(p.getProfile(), r);
-			return ResponseEntity.ok().build();
+		if (purchase != null) {
+			// Get full purchase with profile
+			Optional<Purchase> fullpurchase = service.getPurchaseById(purchase.getId());
+			if (fullpurchase.isPresent()) {
+				// Get agent name from full purchase
+				String agentName = fullpurchase.get().getProfile().getName();
+				
+				// Update purchase
+				service.updatePurchase(purchase);
+
+				// Send to erepute
+				String response = agentService.sendRatingsToAgent(agentName, purchase);
+				return ResponseEntity.ok().body(response);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
 		}
 		return ResponseEntity.badRequest().build();
 	}

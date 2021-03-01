@@ -10,6 +10,7 @@ import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,5 +96,16 @@ public class ProfilController {
 				.buildAndExpand(savedProfile.getId()).toUri();
 
 		return ResponseEntity.status(200).location(location).body(savedProfile);
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<?> logout(@PathVariable int id) {
+		LOGGER.info("DELETE on /profile/" + id + " will only kill the agent");
+		Optional<Profile> profileOptional = service.getProfileById(id);
+		if(profileOptional.isPresent()) {
+			JadeAgentContainer.getInstance().destroyNewAgentInternaute(profileOptional.get().getName());
+		}
+
+		return ResponseEntity.ok().build();
 	}
 }

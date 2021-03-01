@@ -27,8 +27,6 @@ public class SearchService {
 
 	private HashMap<String, String> profilMap;
 	
-	/* ========================================= Methodes ============================================== */ /*=========================================*/
-
 	public Iterable<Profile> findPaged(int page, int size) {
 		if (page < 0) page = 0;
 
