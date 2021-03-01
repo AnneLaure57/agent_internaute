@@ -9,6 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
+import fr.miage.sid.agentinternaute.entity.Actor;
+import fr.miage.sid.agentinternaute.entity.Artist;
+import fr.miage.sid.agentinternaute.entity.Director;
+import fr.miage.sid.agentinternaute.entity.Genre;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.repository.PurchaseRepository;
@@ -38,24 +42,25 @@ public class PurchaseService {
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
-		Purchase purchase = new Purchase(p.getItemId(), p.getItemType(), p.getItemTitle(), p.getDistributorId(),
-				p.getProductorId(), p.getArtistsIds(), p.getActorsIds(), p.getDirectorsIds(), profile);
+		Purchase purchase = new Purchase(p.getItemType(), p.getItemId(), p.getPrice(), p.getTitre(), p.getDescription(),
+				p.getDateSortie(), p.getNote(), p.getDistributeur(), p.getProducteur(), p.getGenres(), p.getActeurs(),
+				p.getRealisateurs(), p.getArtistes(), profile);
 		repo.save(purchase);
 		return purchase;
 	}
 
 	public Purchase updatePurchase(Purchase updated) {
-		LOGGER.info("Update purchase for " + updated.getItemTitle());
+		LOGGER.info("Update purchase for " + updated.getTitre());
 		Optional<Purchase> opt = getPurchaseById(updated.getId());
 		if (opt.isPresent()) {
 			Purchase purchase = opt.get();
-			purchase.setMediumRating(updated.getMediumRating());
-			purchase.setDistributorRating(updated.getDistributorRating());
-			purchase.setProductorRating(updated.getProductorRating());
-			purchase.setArtistsRating(updated.getArtistsRating());
-			purchase.setActorsRating(updated.getActorsRating());
-			purchase.setDirectorsRating(updated.getDirectorsRating());
-			
+			purchase.setItemRating(updated.getItemRating());
+			purchase.setDistributeurRating(updated.getDistributeurRating());
+			purchase.setProducteurRating(updated.getProducteurRating());
+			purchase.setArtistes(updated.getArtistes());
+			purchase.setActeurs(updated.getActeurs());
+			purchase.setRealisateurs(updated.getRealisateurs());
+
 			repo.save(purchase);
 			return purchase;
 		}
