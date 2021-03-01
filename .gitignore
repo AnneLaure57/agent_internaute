@@ -42,3 +42,4 @@ APDescription.txt
 MTPs-Main-Container.txt
 database.mv.db
 /database.*
+tools/db-dump.sql
