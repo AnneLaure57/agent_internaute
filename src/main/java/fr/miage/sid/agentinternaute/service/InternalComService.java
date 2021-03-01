@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
+import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
@@ -36,10 +37,11 @@ public class InternalComService {
 	}
 	
 	public String sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
-		
-		String agentName = profile.getName();
 		// Construct JSON message
 		JSONObject searchMessage = new JSONObject();
+		
+		// we need it to say what we want	
+		searchMessage.put("request", ACLMessageTypes.REQUEST_SEARCH);
 
 		// what we search
 		searchMessage.put("title", title);
@@ -98,7 +100,8 @@ public class InternalComService {
 
 			searchMessage.put("user_profile", userProfile);
 		}
-		
+		System.out.println(searchMessage.toString());
+		String agentName = profile.getName();
 		return sendToAgent(1, searchMessage.toString(), agentName, 15);
 	}
 
