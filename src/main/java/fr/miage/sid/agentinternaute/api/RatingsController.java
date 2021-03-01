@@ -27,6 +27,7 @@ public class RatingsController {
 
 	private static final Logger LOGGER = Logger.getLogger(RatingsController.class.getName());
 	private final PurchaseService service;
+	@SuppressWarnings("unused")
 	private final ProfileService profileService;
 	private final InternalComService agentService;
 

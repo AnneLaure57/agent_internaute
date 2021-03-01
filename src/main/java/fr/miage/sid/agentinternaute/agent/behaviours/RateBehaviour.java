@@ -10,6 +10,7 @@ import jade.util.Event;
 
 public class RateBehaviour extends SimpleBehaviour {
 
+	private static final long serialVersionUID = 5457637194175352400L;
 	private boolean finished = false;
 	private Event event;
 
