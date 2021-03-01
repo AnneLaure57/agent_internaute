@@ -38,6 +38,7 @@ public class InternalComService {
 	
 	public String sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
 		
+		String agentName = profile.getName();
 		// Construct JSON message
 		JSONObject searchMessage = new JSONObject();
 
@@ -99,7 +100,7 @@ public class InternalComService {
 			searchMessage.put("user_profile", userProfile);
 		}
 		
-		return sendToAgent(1, searchMessage.toString(), AgentTypes.AGENT_DISTRIBUTEUR, 15);
+		return sendToAgent(1, searchMessage.toString(), agentName, 15);
 	}
 
 	public String sendRatingsToAgent(String agentName, Purchase purchase) {
