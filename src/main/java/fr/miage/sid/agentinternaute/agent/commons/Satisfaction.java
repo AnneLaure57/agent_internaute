@@ -6,8 +6,10 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Satisfaction {
 	
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = Logger.getLogger(Satisfaction.class.getName());
 	
+	@SuppressWarnings("unused")
 	public String satisfactionCalcul(Profile profile) {
 		
 		String satisfation = null;

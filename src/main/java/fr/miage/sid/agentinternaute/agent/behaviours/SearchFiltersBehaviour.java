@@ -7,9 +7,12 @@ import jade.util.Event;
 
 public class SearchFiltersBehaviour extends SimpleBehaviour {
 
+	private static final long serialVersionUID = -6264068510790501411L;
 	private boolean finished = false;
+	@SuppressWarnings("unused")
 	private Event event;
 	
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = Logger.getLogger(SearchFiltersBehaviour.class.getName());
 
 	public SearchFiltersBehaviour(Event event) {
