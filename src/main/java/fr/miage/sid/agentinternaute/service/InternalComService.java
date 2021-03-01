@@ -1,13 +1,12 @@
 package fr.miage.sid.agentinternaute.service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
+import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.dto.RatingsDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
@@ -24,7 +23,6 @@ public class InternalComService {
 		AgentController agentController;
 		try {
 			agentController = JadeAgentContainer.getInstance().getAgentContainer().getAgent(agentName);
-			System.out.println("-----------------------------------> " + agentController.getName());
 			Event event = new Event(eventType, this, jsonString);
 			agentController.putO2AObject(event, AgentController.ASYNC);
 			return (String) event.waitUntilProcessed(timeout * 1000);
@@ -32,6 +30,10 @@ public class InternalComService {
 			System.err.println("Failed to send object to " + agentName + " : " + e.getMessage());
 			return null;
 		}
+	}
+	
+	public Object sendSearchTitleToAgent(String request) {
+		return sendToAgent(1, request, AgentTypes.AGENT_DISTRIBUTEUR, 15);
 	}
 
 	public String sendRatingsToAgent(String agentName, Purchase purchase) {

@@ -26,6 +26,8 @@ public class AgentInternaute extends Agent {
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
 	private String name;
+	// TODO : fix it
+	@SuppressWarnings("unused")
 	private ProfileService profileService;
 	private String service = AgentTypes.AGENT_INTERNAUTE;
 	private AID AID = new AID();
@@ -62,6 +64,8 @@ public class AgentInternaute extends Agent {
 		Long timerTickerBehaviour = (long) 1000000;
 		
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
+			private static final long serialVersionUID = 9192646164357857629L;
+
 			protected void onTick() {
 				/********** WITHOUT BEHAVIOUR *****/
 				long tStart = System.currentTimeMillis();

@@ -9,6 +9,8 @@ import jade.util.Event;
 public class InternalComBehaviour extends CyclicBehaviour {
 	
 	private static final Logger LOGGER = Logger.getLogger(InternalComBehaviour.class.getName());
+	
+	private static final long serialVersionUID = 7707849724284945599L;
 
 	public InternalComBehaviour(AgentInternaute agentInternaute) {
 		super(agentInternaute);

@@ -18,9 +18,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SearchService {
-	
+	/* ========================================= Global ================================================ */ /*=========================================*/
+
 	private final static String MOVIES = "movies", MUSICS = "musics", TV_SHOWS = "tv_shows";
 	
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
+
 	private final ProfileRepository repo;
 	
 	private HashMap<String, String> searchMap;
@@ -62,18 +65,23 @@ public class SearchService {
 		this.profilMap.put("prefered_directors", profil.getPreferedDirectors().toString());
 		this.profilMap.put("prefered_musics_artists", profil.getPreferedMusicArtists().toString());
 		this.profilMap.put("prefered_musics_genres", profil.getPreferedMusicGenres().toString());
-		this.profilMap.put("prefered_videos", profil.getPreferedVideoGenres().toString());
+		this.profilMap.put("prefered_videos_genres", profil.getPreferedVideoGenres().toString());
 		//add Profil in search Map
-		this.searchMap.put("profil_utilisateur", profilMap.toString());
+		this.searchMap.put("user_profile", profilMap.toString());
 		
 		
 		JSONObject searchInformations = new JSONObject(searchMap);
+		
+		System.out.println(searchInformations.toString());
 		
 		try {
 			// On envoie tout à nos agents distributeurs sous JSON Object
 //            AgentContainer agentContainer = JadeAgentContainer.getInstance().getAgentContainer();
 //            agentContainer.getAgent("distributeur").putO2AObject("fr.miage.sid.agentinternaute.agent.AgentInternaute" + searchInformations, false);
 //            agentContainer.getAgent("distributeur").putO2AObject(this, false);
+            
+			InternalComService internalFunctions = new InternalComService();
+			internalFunctions.sendSearchTitleToAgent(searchInformations.toString());
             
             // TODO How send to distrib with function with function sendMessageJSON in agentInternaute
         } catch (Exception e) {
