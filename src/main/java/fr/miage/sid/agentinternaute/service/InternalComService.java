@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
-import fr.miage.sid.agentinternaute.dto.RatingsDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
 import jade.util.Event;
