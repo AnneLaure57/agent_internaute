@@ -6,7 +6,8 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class RequestBehaviour extends SimpleBehaviour {
-	
+
+	private static final long serialVersionUID = -7640679757105942415L;
 	private int step;
 	private AID bestSeller; // The agent distributor who provides the best offer
 	private int bestPrice; // The best offered price from distributor
