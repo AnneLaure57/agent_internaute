@@ -1,7 +1,7 @@
 package fr.miage.sid.agentinternaute.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,47 +30,55 @@ public class Purchase {
 	@GenericGenerator(name = "generator", strategy = "increment")
 	@GeneratedValue(generator = "generator")
 	private Integer id;
-	private String itemId;
 	private String itemType;
-	private String itemTitle;
-	private Date purchaseDate;
-
-	// Notes de l'internaute
-	private Double mediumRating;
-	private HashMap<Integer, Double> distributorRating;
-	private HashMap<Integer, Double> productorRating;
-	private HashMap<Integer, Double> artistsRating;
-	private HashMap<Integer, Double> actorsRating;
-	private HashMap<Integer, Double> directorsRating;
-
+	private Integer itemId;
+	private Double itemRating;
+	private Double price;
+	private Date viewDate;
+	private String titre;
+	
+	@Lob
+	private String description;
+	
+	private Integer dateSortie;
+	private Double note;
+	private String distributeurId;
+	private Double distributeurRating;
+	private String producteurId;
+	private Double producteurRating;
+	private ArrayList<Genre> genres;
+	private ArrayList<Actor> acteurs;
+	private ArrayList<Director> realisateurs;
+	private ArrayList<Artist> artistes;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "profile_id", referencedColumnName = "id")
 	@JsonIgnore
 	private Profile profile;
 
-	public Purchase(String itemId, String itemType, String itemTitle, Integer distributorId, Integer productorId, List<Integer> artistsIds, List<Integer> actorsIds, List<Integer> directorsIds, Profile profile) {
+	public Purchase(String itemType, Integer itemId, Double price, String titre, String description, Integer dateSortie, Double note,
+			String distributeur, String producteur, ArrayList<Genre> genres, ArrayList<Actor> acteurs, ArrayList<Director> realisateurs,
+			ArrayList<Artist> artistes, Profile profile) {
 		super();
-		this.purchaseDate = new Date();		
-		this.itemId = itemId;
 		this.itemType = itemType;
-		this.itemTitle = itemTitle;
+		this.itemId = itemId;
+		this.itemRating = 0.0;
+		this.viewDate = new Date();
+		this.price = price;
+		this.titre = titre;
+		this.description = description;
+		this.dateSortie = dateSortie;
+		this.note = note;
+		this.distributeurId = distributeur;
+		this.distributeurRating = 0.0;
+		this.producteurId = producteur;
+		this.producteurRating = 0.0;
+		this.genres = genres;
+		this.acteurs = acteurs;
+		this.realisateurs = realisateurs;
+		this.artistes = artistes;
 		this.profile = profile;
-
-		this.mediumRating = 0.0;
-		
-		this.distributorRating = new HashMap<Integer, Double>();
-		this.distributorRating.put(distributorId, 0.0);
-		
-		this.productorRating = new HashMap<Integer, Double>();
-		this.productorRating.put(productorId, 0.0);
-		
-		this.artistsRating =  new HashMap<Integer, Double>();
-		for(Integer artistId: artistsIds)  this.artistsRating.put(artistId, 0.0);
-		
-		this.actorsRating =  new HashMap<Integer, Double>();
-		for(Integer actorId: actorsIds)  this.actorsRating.put(actorId, 0.0);
-		
-		this.directorsRating =  new HashMap<Integer, Double>();
-		for(Integer directorId: directorsIds)  this.directorsRating.put(directorId, 0.0);
 	}
+	
+	
 }

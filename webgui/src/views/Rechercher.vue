@@ -3,6 +3,7 @@
     style="width: 100%; height: 100%; background-color: #efefef"
     class="d-flex flex-column align-center justify-space-between flex-grow-1"
   >
+    <!-- Recherche -->
     <div class="d-flex ma-5 justify-space-between" style="width: 80%">
       <v-card width="45%">
         <v-card-title>Rechercher un titre spécifique</v-card-title>
@@ -14,22 +15,28 @@
             append-outer-icon="mdi-magnify"
             @click:append-outer="search(searchfield, movies, tv_shows, musics)"
           ></v-text-field>
-          <v-checkbox v-model="movies" label="Films" class="mx-4"></v-checkbox>
-          <v-checkbox
-            v-model="tv_shows"
-            label="Séries"
-            class="mx-4"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="musics"
-            label="Musique"
-            class="mx-4"
-          ></v-checkbox>
+          <div class="d-flex">
+            <v-checkbox
+              v-model="movies"
+              label="Films"
+              class="mx-4"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="tv_shows"
+              label="Séries"
+              class="mx-4"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="musics"
+              label="Musique"
+              class="mx-4"
+            ></v-checkbox>
+          </div>
         </v-card-text>
         <v-card-actions v-if="error">
           <span class="subtitle-2 red--text mx-2 pa-0">
             Vous devez choisir au moins un type de media
-            </span>
+          </span>
         </v-card-actions>
       </v-card>
 
@@ -46,6 +53,7 @@
       </v-card>
     </div>
 
+    <!-- Results -->
     <div style="width: 80%" class="d-flex ma-5">
       <h2 v-if="results.length > 0">Résultats</h2>
     </div>
@@ -61,30 +69,40 @@
           contain
           max-height="200px"
           max-width="200px"
-          width="200px"
+          width="150px"
           src="../assets/img/default.png"
         ></v-img>
-        <div class="d-flex flex-column flex-grow-1 mx-4">
-          <span class="title">{{ result.title }}</span>
-          <span>{{ result.year }}</span>
+        <div class="d-flex flex-column justify-space-between flex-grow-1 mx-4">
+          <div class="d-flex flex-column">
+            <span class="title">{{ result.titre }} ({{ result.dateSortie }})</span>
+          </div>
+          <div class="d-flex flex-column">
+            <div><span class="subtitle-2">Acteurs: </span>
+              <span v-for="(actor, index) in result.acteurs" :key="actor.id">{{ actor.prenom }} {{ actor.nom }}<span v-if="(index+1) != result.acteurs.length">, </span></span>
+            </div>
+            <div><span class="subtitle-2">Réalisateur: </span><span v-for="(director, index) in result.realisateurs" :key="director.id">{{ director.prenom }} {{ director.nom }}<span v-if="(index+1) != result.realisateurs.length">, </span></span></div>
+            <div><span class="subtitle-2">Distributeur: </span><span v-for="distributor in result.distributor" :key="distributor.id">{{ distributor.nom }}</span></div>
+          </div>
+          <div>
+            <v-rating
+              empty-icon="mdi-star-outline"
+              full-icon="mdi-star"
+              half-icon="mdi-star-half"
+              length="5"
+              size="24"
+              readonly
+              color="yellow darken-3"
+              background-color="grey darken-1"
+              :value="result.rating"
+            ></v-rating>
+          </div>
         </div>
-        <div>
-          <v-rating
-            empty-icon="mdi-star-outline"
-            full-icon="mdi-star"
-            half-icon="mdi-star-half"
-            length="5"
-            size="24"
-            color="yellow darken-3"
-            background-color="grey darken-1"
-            :value="result.rating"
-          ></v-rating>
-        </div>
+
         <div
           v-if="!purchases.some((data) => data == result.id)"
           class="d-flex flex-column justify-space-around ml-12 mr-4"
         >
-          <v-btn color="primary" @click="buy(result)">Acheter</v-btn>
+          <v-btn outlined color="primary" @click="buy(result)" v-if="result.price">Acheter</v-btn>
           <v-btn color="primary" @click="subscribe(result)">S'abonner</v-btn>
         </div>
       </v-card-text>
@@ -104,41 +122,7 @@ export default {
       tv_shows: false,
       musics: false,
       purchases: [],
-      results: [
-        {
-          id: 1234,
-          title: "Le parrain",
-          type: "movie",
-          year: 1972,
-          rating: 4.5,
-          distributorId: 1,
-          productorId: 1,
-          actorsIds: [1, 2],
-          directorsIds: [1],
-        },
-        {
-          id: 3214,
-          title: "Le parrain 2",
-          type: "movie",
-          year: 1974,
-          rating: 4.5,
-          distributorId: 1,
-          productorId: 2,
-          actorsIds: [1, 2],
-          directorsIds: [1],
-        },
-        {
-          id: 3234,
-          title: "Les bronzés",
-          type: "movie",
-          year: 1978,
-          rating: 3.7,
-          distributorId: 2,
-          productorId: 2,
-          actorsIds: [1, 2],
-          directorsIds: [2],
-        },
-      ],
+      results: [],
       newPurchase: null,
       error: false,
     };
