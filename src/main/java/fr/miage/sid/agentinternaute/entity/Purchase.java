@@ -1,14 +1,15 @@
 package fr.miage.sid.agentinternaute.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -35,17 +36,20 @@ public class Purchase {
 	private Double price;
 	private Date viewDate;
 	private String titre;
+	
+	@Lob
 	private String description;
+	
 	private Integer dateSortie;
 	private Double note;
 	private String distributeurId;
 	private Double distributeurRating;
 	private String producteurId;
 	private Double producteurRating;
-	private List<Genre> genres;
-	private List<Actor> acteurs;
-	private List<Director> realisateurs;
-	private List<Artist> artistes;
+	private ArrayList<Genre> genres;
+	private ArrayList<Actor> acteurs;
+	private ArrayList<Director> realisateurs;
+	private ArrayList<Artist> artistes;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "profile_id", referencedColumnName = "id")
@@ -53,8 +57,8 @@ public class Purchase {
 	private Profile profile;
 
 	public Purchase(String itemType, Integer itemId, Double price, String titre, String description, Integer dateSortie, Double note,
-			String distributeur, String producteur, List<Genre> genres, List<Actor> acteurs, List<Director> realisateurs,
-			List<Artist> artistes, Profile profile) {
+			String distributeur, String producteur, ArrayList<Genre> genres, ArrayList<Actor> acteurs, ArrayList<Director> realisateurs,
+			ArrayList<Artist> artistes, Profile profile) {
 		super();
 		this.itemType = itemType;
 		this.itemId = itemId;

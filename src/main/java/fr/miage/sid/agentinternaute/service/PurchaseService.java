@@ -33,16 +33,16 @@ public class PurchaseService {
 
 	public List<Purchase> getPurchaseByDate(Date date, int profileID) {
 		LOGGER.info("Get purchase by date " + date);
-		return repo.findByPurchaseDateAndProfileId(date, profileID);
+		return repo.findByViewDateAndProfileId(date, profileID);
 	}
 
 	public List<Purchase> getPurchaseByRating(Double rating, int profileID) {
 		LOGGER.info("Get purchase by rating " + rating + "(profile ID : " + profileID + ")");
-		return repo.findByMediumRatingAndProfileId(rating, profileID);
+		return repo.findByItemRatingAndProfileId(rating, profileID);
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
-		Purchase purchase = new Purchase(p.getItemType(), p.getItemId(), p.getPrice(), p.getTitre(), p.getDescription(),
+		Purchase purchase = new Purchase(p.getItemType(), p.getId(), p.getPrix(), p.getTitre(), p.getDescription(),
 				p.getDateSortie(), p.getNote(), p.getDistributeur(), p.getProducteur(), p.getGenres(), p.getActeurs(),
 				p.getRealisateurs(), p.getArtistes(), profile);
 		repo.save(purchase);
