@@ -6,7 +6,7 @@
     <div class="d-flex ma-5 justify-space-between" style="width: 80%">
       <v-card width="45%">
         <v-card-title>Rechercher un titre spécifique</v-card-title>
-        <v-card-text class="d-flex flex-wrap">
+        <v-card-text class="d-flex flex-wrap py-2">
           <v-text-field
             class="mr-8"
             v-model="searchfield"
@@ -26,7 +26,11 @@
             class="mx-4"
           ></v-checkbox>
         </v-card-text>
-        <v-card-actions></v-card-actions>
+        <v-card-actions v-if="error">
+          <span class="subtitle-2 red--text mx-2 pa-0">
+            Vous devez choisir au moins un type de media
+            </span>
+        </v-card-actions>
       </v-card>
 
       <div class="d-flex align-center justify-center">
@@ -76,7 +80,10 @@
             :value="result.rating"
           ></v-rating>
         </div>
-        <div v-if="!(purchases.some(data => data == result.id))" class="d-flex flex-column justify-space-around ml-12 mr-4" >
+        <div
+          v-if="!purchases.some((data) => data == result.id)"
+          class="d-flex flex-column justify-space-around ml-12 mr-4"
+        >
           <v-btn color="primary" @click="buy(result)">Acheter</v-btn>
           <v-btn color="primary" @click="subscribe(result)">S'abonner</v-btn>
         </div>
@@ -133,6 +140,7 @@ export default {
         },
       ],
       newPurchase: null,
+      error: false,
     };
   },
 
@@ -147,17 +155,20 @@ export default {
 
   methods: {
     search() {
-      let newSearch = {
-        searchField: this.searchfield,
-        movies: this.movies,
-        tvShows: this.tv_shows,
-        musics: this.musics,
-        profileId: this.profile.id,
-      };
-
-      this.$axios.post("/search", newSearch).then((response) => {
-        this.results = response.data;
-      });
+      if (!this.movies && !this.tv_shows && !this.musics) {
+        this.error = true;
+      } else {
+        let newSearch = {
+          searchField: this.searchfield,
+          movies: this.movies,
+          tvShows: this.tv_shows,
+          musics: this.musics,
+          profileId: this.profile.id,
+        };
+        this.$axios.post("/search", newSearch).then((response) => {
+          this.results = response.data;
+        });
+      }
     },
 
     buy(result) {
@@ -168,8 +179,9 @@ export default {
         profileId: this.profile.id,
         distributorId: result.distributorId,
         productorId: result.productorId,
-        actorsIds: result.actorsIds,
-        directorsIds: result.directorsIds,
+        artistsIds: result.artistsIds ? result.artistsIds : [],
+        actorsIds: result.actorsIds ? result.actorsIds : [],
+        directorsIds: result.directorsIds ? result.directorsIds : [],
       };
       // Ajout dans le tableau des purchases pour cacher les boutons
       this.purchases.push(result.id);
@@ -190,11 +202,9 @@ export default {
     getPurchases() {
       this.$axios.get("/purchases/" + this.profile.id).then(
         (response) => {
-          
-          response.data.forEach(element => {
+          response.data.forEach((element) => {
             this.purchases.push(element.itemId);
           });
-
         },
         (error) => {
           console.log(error);

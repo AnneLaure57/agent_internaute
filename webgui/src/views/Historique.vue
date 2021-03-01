@@ -60,7 +60,7 @@
     >
       <v-card>
         <v-card-title
-          >Donner vos notes pour {{ editPurchase.title }}</v-card-title
+          >Donner vos notes pour {{ editPurchase.itemTitle }}</v-card-title
         >
         <v-card-text>
           <h4>Note générale de l'oeuvre</h4>
@@ -209,22 +209,14 @@ export default {
     },
 
     sendRatings() {
-      let ratings = {
-        purchaseId: this.editPurchase.id,
-        itemType: this.editPurchase.itemType,
-        itemId: this.editPurchase.itemId,
-        mediumRating: this.editPurchase.mediumRating,
-        distributorRating: this.editPurchase.distributorRating,
-        productorRating: this.editPurchase.productorRating,
-        artistsRating: this.editPurchase.artistsRating,
-        actorsRating: this.editPurchase.actorsRating,
-        directorsRating: this.editPurchase.directorsRating,
-      }
-      this.$axios.put("/ratings", ratings).then(
+      this.$axios.post("/ratings", this.editPurchase).then(
         (response) => {
+          this.getPurchases();
+          this.dlg_ratings = false
           console.log(response.data);
         },
         (error) => {
+          this.dlg_ratings = false
           console.log(error);
         }
       );

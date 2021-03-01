@@ -3,10 +3,10 @@
     <!-- App bar -->
     <v-app-bar app flat clipped-left dark color="black">
       <v-toolbar-title class="link ml-6" @click="goToHome()">
-        <span>Agent internaute</span>        
+        <span>Agent internaute</span>
       </v-toolbar-title>
 
-      <v-icon dark  class="link ml-6" @click="goToHome()">mdi-magnify</v-icon>
+      <v-icon dark class="link ml-6" @click="goToHome()">mdi-magnify</v-icon>
 
       <v-spacer></v-spacer>
 
@@ -83,7 +83,7 @@ export default {
   },
 
   mounted() {
-    if(this.profile == null) this.$router.push({ name: "login" });
+    if (this.profile == null) this.$router.push({ name: "login" });
   },
 
   methods: {
@@ -92,6 +92,7 @@ export default {
     },
 
     logout() {
+      this.$axios.delete("/profil/" + this.profile.id); // Only try to kill agent
       this.$store.commit("setProfile", null);
       this.$router.push({ name: "login" });
     },
