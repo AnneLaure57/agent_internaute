@@ -18,9 +18,9 @@ import fr.miage.sid.agentinternaute.dto.ResultDTO;
 import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
+import fr.miage.sid.agentinternaute.service.InternalComService;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.PurchaseService;
-import fr.miage.sid.agentinternaute.service.SearchService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,7 +31,7 @@ public class SearchController {
 
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
-	private final SearchService service;
+	private final InternalComService serviceInternal;
 	private final ProfileService profileService;
 	private final PurchaseService purchaseService;
 
@@ -59,9 +59,9 @@ public class SearchController {
 				System.out.println("Je suis" + newSearch);
 				
 				//send to distrib agent infos
-				List<ResultDTO> results = service.search(title,movies,musics,tv_shows, profile.get());
+				String result = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
 				
-				// TODO return list of results and not title
+				// TODO return list of results and not null
 				return ResponseEntity.status(200).body(null);
 			}
 		}
