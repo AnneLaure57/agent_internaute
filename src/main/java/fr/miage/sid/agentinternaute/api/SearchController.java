@@ -160,6 +160,9 @@ public class SearchController {
 				
 				s.streamerStrategy(profile.get(), res);
 				
+				System.out.println("Tu es là : SearchController !");
+				System.out.println(result);
+				
 				return ResponseEntity.status(200).body("WAIT");
 				//return ResponseEntity.status(200).body(response.toString());
 			}

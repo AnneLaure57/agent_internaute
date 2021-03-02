@@ -56,10 +56,11 @@ public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 		// On récupère l'ACL message
 		ACLMessage message = myAgent.receive();
 		if (message != null) {
-
+			LOGGER.info("-----------------------------------------------------------");
+			LOGGER.info("You wait for a message from : " + this.distributor.getName());
+			LOGGER.info("You receive a message from : " + message.getSender());
 			// Logique métier : on veut un ACLMessage.INFORM et 
 			if (message.getPerformative() == ACLMessage.INFORM && message.getSender().equals(this.distributor.getName())) {
-				LOGGER.info("You receive a message from : " + message.getSender());
 
 				// On récupère le JSON
 				String content = message.getContent();
@@ -68,6 +69,7 @@ public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 				// On ajoute le nom du distributeur
 				JSON.put("distributeur", message.getSender());
 				this.response.put(JSON);
+				this.done();
 			}
 		}
 	}
