@@ -45,14 +45,18 @@ public class JSONMock {
 		/* ========================================= Abo 1  ============================================== */ /*=========================================*/
 
 		subscription1.put("id", "35871");
-		subscription1.put("duree", 35);
-		subscription1.put("id", 20.35);
+		subscription1.put("duree", 70);
+		subscription1.put("prix", 40.05);
 		
 		/* ========================================= Abo 2  ============================================== */ /*=========================================*/
 		
 		subscription2.put("id", "35415");
-		subscription2.put("duree", 70);
-		subscription2.put("id", 40.05);
+		subscription2.put("duree", 35);
+		subscription2.put("prix", 20.35);
+		
+		subscription2.put("id", "34489");
+		subscription2.put("duree", 35);
+		subscription2.put("prix", 28.35);
 		
 		/* ========================================= Movies ============================================== */ /*=========================================*/
 					

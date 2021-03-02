@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.miage.sid.agentinternaute.agent.mock.distributeur.JSONMock;
+import fr.miage.sid.agentinternaute.agent.strategy.Streamer;
 import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
@@ -60,16 +62,17 @@ public class SearchController {
 				System.out.println("Je suis" + newSearch);
 				
 				//send to distrib agent infos
-				//String result = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				String result = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
 				
 				// TODO return list of results and not null
 				
 				// Mock response
-				/*JSONArray response = new JSONArray();
+				JSONArray response = new JSONArray();
+				JSONArray abonnements = new JSONArray();
 //				JSONObject distributor = new JSONObject();
 //				distributor.put("distributor", "d1");
 //				response.put(distributor);
-				JSONObject movie1 = new JSONObject();
+				/*JSONObject movie1 = new JSONObject();
 				movie1.put("id", "1006");
 				movie1.put("titre", "Harry Potter et la chambre des secrets");
 				movie1.put("description", "Alors que l\u0027oncle Vernon, la tante Pétunia et son cousin Dudley re?oivent d\u0027importants invités ? d?ner, Harry Potter est contraint de passer la soirée dans sa chambre. Dobby, un elfe, fait alors son apparition. Il lui annonce que de terribles dangers menacent l\u0027école de Poudlard et qu\u0027il ne doit pas y retourner en septembre. Harry refuse de le croire.\u003cbr /\u003eMais sitôt la rentrée des classes effectuée, ce dernier entend une voix malveillante. Celle-ci lui dit que la redoutable et légendaire Chambre des secrets est ? nouveau ouverte, permettant ainsi ? l\u0027héritier de Serpentard de semer le chaos ? Poudlard. Les victimes, retrouvées pétrifiées par une force mystérieuse, se succ?dent dans les couloirs de l\u0027école, sans que les professeurs - pas m?me le populaire Gilderoy Lockhart - ne parviennent ? endiguer la menace. Aidé de Ron et Hermione, Harry doit agir au plus vite pour sauver Poudlard.");
@@ -148,6 +151,14 @@ public class SearchController {
 				realisateurs2.put(realisateur21);
 				movie2.put("realisateurs", realisateurs2);
 				response.put(movie2);*/
+				
+				JSONMock js = new JSONMock();
+				
+				JSONObject res = js.searchTitleJSONresponse();
+				
+				Streamer s = new Streamer();
+				
+				s.streamerStrategy(profile.get(), res);
 				
 				return ResponseEntity.status(200).body("WAIT");
 				//return ResponseEntity.status(200).body(response.toString());
