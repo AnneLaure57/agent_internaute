@@ -79,7 +79,7 @@ public class AgentDistributeur extends Agent {
 					String content = message.getContent();
 					JSONObject JSON = new JSONObject(content);
 					LOGGER.info(content);
-					LOGGER.info(JSON.toString());
+					
 					
 					// Logique métier
 					if (message.getPerformative() == ACLMessage.REQUEST) {
@@ -88,7 +88,12 @@ public class AgentDistributeur extends Agent {
 							LOGGER.severe("It missing the main key : 'request'.");
 						}
 						
-						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
+						LOGGER.info(JSON.getString("request"));
+						LOGGER.info(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue());
+						LOGGER.info("Test : " + (JSON.getString("request") == ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()));
+						
+						
+						if (JSON.getString("request") == ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
 							
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();
@@ -97,6 +102,7 @@ public class AgentDistributeur extends Agent {
 							oeuvres.add("Toto");
 							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
 							JSONObject response = new JSONObject(responsehMap);
+							LOGGER.info(response.toString());
 							
 //							DFAgentDescription internaute = getAgentInternaute();
 //							sendMessage(response.toString(), internaute.getName());
