@@ -88,7 +88,7 @@ public class AgentDistributeur extends Agent {
 							LOGGER.severe("It missing the main key : 'request'.");
 						}
 						
-						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
+						if (JSON.get("request") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
 							
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();

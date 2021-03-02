@@ -54,7 +54,7 @@ public class Streamer {
 		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
 		
 		//return the first offer
-		//take the less expensive with the biggest duration
+		//take the biggest duration
 		int bestDuration = 0;
 		
 		for (OfferDTO o : offers) {
@@ -69,12 +69,18 @@ public class Streamer {
 	}
 	
 	//method main
-	public void streamerStrategy (Profile profil, String response) {
+	// Not final verison
+	public JSONObject streamerStrategy (Profile profil, String response) {
+		OfferDTO result = null;
+		
 		// check the preferences of the user profile
 		if (!checkPreferences(profil)) {
-			// compare offers with the string message from distributors (can be change it necessary to JSON)
-			compareOffers(response);
+			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
+			result = compareOffers(response);
 		}
+		//return result into JSONObject
+		JSONObject jsonResult = new JSONObject(result);
+		return jsonResult;
 	}
 	
 }
