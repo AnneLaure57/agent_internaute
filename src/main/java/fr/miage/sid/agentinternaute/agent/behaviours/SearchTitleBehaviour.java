@@ -6,6 +6,7 @@ import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.lang.acl.ACLMessage;
 import jade.util.Event;
 
 public class SearchTitleBehaviour extends SimpleBehaviour {
@@ -39,26 +40,36 @@ public class SearchTitleBehaviour extends SimpleBehaviour {
 		  
 		  //TODO add timer Long timerStart = System.currentTimeMillis();
 		  
-		  LOGGER.severe("distributeurs" + distributors); for (DFAgentDescription
-		  distributor : distributors) {
+		  LOGGER.severe("distributeurs" + distributors);
 		  
-		  // Send message to distributor agent ACLMessage request = new
-		  ACLMessage(ACLMessage.REQUEST); request.addReceiver(distributor.getName());
-		  //request.setContent(title);
-		  request.setContent("message from searchService"); myAgent.send(request);
+		  for (DFAgentDescription distributor : distributors) {
 		  
-		  Long timerEnd = System.currentTimeMillis();
+			  // Send message to distributor agent
+			  ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+			  request.addReceiver(distributor.getName());
+			  request.setContent(title);
+			  request.setContent("message from searchService"); myAgent.send(request);
 		  
-		  // Wait for answer 1 minute if ((timerStart - timerEnd) < 60000) { ACLMessage
-		  msg = myAgent.receive(); if (msg != null) { System.out.println(" - " +
-		  myAgent.getLocalName() + " <- " + msg.getContent());
+			  Long timerEnd = System.currentTimeMillis();
 		  
-		  ACLMessage reply = msg.createReply();
-		  reply.setPerformative(ACLMessage.INFORM); reply.setContent(" Pong");
-		  myAgent.send(reply); finished = true; } block(); } }
-		  */
-		@SuppressWarnings("unused")
+			  // Wait for answer 1 minute if ((timerStart - timerEnd) < 60000) { ACLMessage
+			  msg = myAgent.receive();
+			  if (msg != null) { 
+				  System.out.println(" - " +myAgent.getLocalName() + " <- " + msg.getContent());
+		  
+				  ACLMessage reply = msg.createReply();
+				  reply.setPerformative(ACLMessage.INFORM); reply.setContent(" Pong");
+				  myAgent.send(reply); finished = true; } 
+			  block(); }
+	  		}
+	  	*/
+		System.out.println("***************************");
+		System.out.println("***************************");
+		System.out.println("SearchTitleBehaviour");
 		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
+		for (DFAgentDescription distributor : distributors) {
+			AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.REQUEST, (String) event.getParameter(0), distributor.getName());
+		}
 	}
 
 	@Override

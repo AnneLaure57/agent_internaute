@@ -84,6 +84,11 @@ public class AgentDistributeur extends Agent {
 						}
 						
 						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
+							
+							LOGGER.info("************************************************************");
+							LOGGER.info("************************************************************");
+							LOGGER.info("************************************************************");
+							
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();
 							oeuvres.add("Titi");
