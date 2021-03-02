@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
+import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.AID;
 import jade.core.Agent;
@@ -92,36 +93,14 @@ public class AgentEReputation extends Agent {
 							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
 							JSONObject response = new JSONObject(responsehMap);
 							
-							DFAgentDescription internaute = getAgentInternaute();
-							sendMessage(response.toString(), internaute.getName());
+//							DFAgentDescription internaute = getAgentInternaute();
+							AID senderAID = message.getSender();
+							AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.AGREE, response.toString(), senderAID);
 						}
 					}
 				}
 			}
 		});
-	}
-
-	/**
-	 * Method searchAgents : to search an other agent by name.
-	 * 
-	 * @param serviceName The name of the other agent to search.
-	 * @return Return an array of DFAgentDescription. 
-	 */
-	private DFAgentDescription[] searchAgents(String serviceName) {
-		// On créé le portrait robot de l'objet Jade que l'on cherche 
-		DFAgentDescription dfd = new DFAgentDescription();
-		ServiceDescription sd = new ServiceDescription();
-		sd.setType(serviceName);
-		dfd.addServices(sd);
-		
-		// On essaie de récupérer les agents qui match auprès du Directory Facilitator
-		try {
-			return DFService.search(this, dfd);
-		} catch (FIPAException e) {
-			LOGGER.severe("Can't search the agent : " + serviceName);
-			e.printStackTrace();
-			return null;
-		}
 	}
 	
 	/**
@@ -145,38 +124,6 @@ public class AgentEReputation extends Agent {
 			doDelete();
 		}
 	}
-	
-	/**
-	 * Method getAgentInternaute : to find the agent with type "internaute".
-	 * 
-	 * @return Return the agent with type "internaute", if it was find, otherwise return null.
-	 */
-	public DFAgentDescription getAgentInternaute() {
-		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_INTERNAUTE.getValue());
-		if (results != null && results.length > 0) {
-			return results[0];
-		}
-		return null;
-	}
-	
-	/**
-	 * Method sendMessage : to send a JSON message (into a Java String) to a specific agent (find by it's ID).
-	 * 
-	 * @param message JSON message (into a Java String) to send.
-	 * @param ID The ID of the agent who will receive the message.
-	 */
-	private void sendMessage(String message, AID ID) {
-		try {
-			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(ID);
-
-			aclMessage.setContent(message);
-
-			super.send(aclMessage);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
 
 	/**
 	 * Method takeDown : to shut down the Agent Distributeur.
@@ -189,9 +136,9 @@ public class AgentEReputation extends Agent {
 			LOGGER.severe("Error during Agent Distributeur takeDown");
 			fe.printStackTrace();
 		}
-	}	
+	}
 
 	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-
+	
 	/* ========================================= Main ================================================== */ /*=========================================*/
 }
