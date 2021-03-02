@@ -15,16 +15,16 @@ import jade.lang.acl.ACLMessage;
  * @since %G% - %U% (%I%)
  *
  */
-public class SearchTitleBehaviour extends CyclicBehaviour {
+public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 	/* ========================================= Global ================================================ */ /*=========================================*/
 	
 	private static final long serialVersionUID = 1456892866260756940L;
 	
-	private static final Logger LOGGER = Logger.getLogger(SearchTitleBehaviour.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(HandleSearchTitleBehaviour.class.getName());
 	
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
 
-	public SearchTitleBehaviour(AgentDistributeur agentDistributeur) {
+	public HandleSearchTitleBehaviour(AgentDistributeur agentDistributeur) {
 		super(agentDistributeur);
 	}
 	
