@@ -34,7 +34,7 @@ public class PurchaseDTO {
 	public static Comparator<PurchaseDTO> ComparatorDate = new Comparator<PurchaseDTO>() {
 		@Override
 		public int compare(PurchaseDTO p1, PurchaseDTO p2) {
-			return (p1.getDateSortie().compareTo(p2.getDateSortie()));
+			return p1.getDateSortie().compareTo(p2.getDateSortie());
 		}
 	};
 }
