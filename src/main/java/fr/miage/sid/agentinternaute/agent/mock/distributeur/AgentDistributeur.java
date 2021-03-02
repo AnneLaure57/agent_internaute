@@ -1,25 +1,16 @@
-package fr.miage.sid.agentinternaute.agent.mock;
+package fr.miage.sid.agentinternaute.agent.mock.distributeur;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import org.json.JSONObject;
-
-import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
-import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.lang.acl.ACLMessage;
 
 /**
  * @author Louis MASSICARD (user name : louis)
@@ -64,44 +55,8 @@ public class AgentDistributeur extends Agent {
 		// On accpte de communiquer
 		setEnabledO2ACommunication(true, 0);
 
-		addBehaviour(new CyclicBehaviour() {
-			private static final long serialVersionUID = 1456892866260756940L;
-
-			@Override
-			public void action() {
-				// On récupère l'ACL message
-				ACLMessage message = myAgent.receive();
-				if (message != null) {
-					// On récupère le JSON
-					String content = message.getContent();
-					JSONObject JSON = new JSONObject(content);
-					
-					// Logique métier
-					if (message.getPerformative() == ACLMessage.REQUEST) {
-						// On vérifie que l'on a ce q'il nous faut
-						if (! JSON.has("request")) {
-							LOGGER.severe("It missing the main key : 'request'.");
-						}
-						
-						if (JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue())) {
-							// Création d'une Mock réponse
-							Map<String, String> responsehMap = new HashMap<String, String>();
-							ArrayList<String> oeuvres = new ArrayList<String>();
-							oeuvres.add("Titi");
-							oeuvres.add("Tata");
-							oeuvres.add("Toto");
-							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
-							
-							// JSON response to String 
-							JSONObject response = new JSONObject(responsehMap);
-							
-							// Reply
-							AgentAndACLMessageUtils.replyMessage(myAgent, ACLMessage.INFORM, response.toString(), message);
-						}
-					}
-				}
-			}
-		});
+		Behaviour internalCommunication = new SearchTitleBehaviour(this);
+		setO2AManager(internalCommunication);
 	}
 	
 	/**
