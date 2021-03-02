@@ -50,7 +50,8 @@ public class ParallelSearchTitleBehaviour extends ParallelBehaviour {
 //			this.addSubBehaviour(new HandleSearchTitleBehaviour(response, distributor));
 			
 			this.addSubBehaviour(new CyclicBehaviour() {
-				
+				private static final long serialVersionUID = 3671564596258417254L;
+
 				@Override
 				public void action() {
 					// On récupère l'ACL message
