@@ -65,12 +65,18 @@ public class AgentDistributeur extends Agent {
 
 		addBehaviour(new CyclicBehaviour() {
 			private static final long serialVersionUID = 1456892866260756940L;
+			private boolean finished = false;
 
 			@Override
 			public void action() {
+				
+				
 				// On récupère l'ACL message
 				ACLMessage message = myAgent.receive();
 				if (message != null) {
+					LOGGER.info("************************************************************");
+					LOGGER.info("************************************************************");
+					LOGGER.info("************************************************************");
 
 					// On récupère le JSON
 					String content = message.getContent();
@@ -85,10 +91,6 @@ public class AgentDistributeur extends Agent {
 						
 						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
 							
-							LOGGER.info("************************************************************");
-							LOGGER.info("************************************************************");
-							LOGGER.info("************************************************************");
-							
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();
 							oeuvres.add("Titi");
@@ -101,8 +103,14 @@ public class AgentDistributeur extends Agent {
 							sendMessage(response.toString(), internaute.getName());
 						}
 					}
+					finished = true;
 				}
 			}
+			
+//			@Override
+//			public boolean done() {
+//				return finished;
+//			}
 		});
 	}
 

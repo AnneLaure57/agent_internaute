@@ -66,15 +66,16 @@ public class SearchTitleBehaviour extends SimpleBehaviour {
 		System.out.println("***************************");
 		System.out.println("***************************");
 		System.out.println("SearchTitleBehaviour");
+		System.out.println(event.getParameter(0));
 		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
 		for (DFAgentDescription distributor : distributors) {
 			AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.REQUEST, (String) event.getParameter(0), distributor.getName());
 		}
+		finished = true;
 	}
 
 	@Override
 	public boolean done() {
 		return finished;
 	}
-
 }
