@@ -57,6 +57,7 @@ public class SearchTitleBehaviour extends SimpleBehaviour {
 		  reply.setPerformative(ACLMessage.INFORM); reply.setContent(" Pong");
 		  myAgent.send(reply); finished = true; } block(); } }
 		  */
+		@SuppressWarnings("unused")
 		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
 	}
 
