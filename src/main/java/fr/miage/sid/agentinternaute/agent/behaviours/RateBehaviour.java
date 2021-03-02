@@ -2,7 +2,8 @@ package fr.miage.sid.agentinternaute.agent.behaviours;
 
 import org.json.JSONObject;
 
-import fr.miage.sid.agentinternaute.agent.AgentInternaute;
+import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
+import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
@@ -23,7 +24,7 @@ public class RateBehaviour extends SimpleBehaviour {
 	public void action() {
 
 		// Send message to e-reputation agent
-		DFAgentDescription ereput = ((AgentInternaute) myAgent).getAgentReputation();
+		DFAgentDescription ereput = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_E_REPUTATION.getValue())[0];
 		
 		// L'objet envoyé dans l'event est le premier paramètre, c'est notre json "stringifié"
 		System.out.println((String) event.getParameter(0));
