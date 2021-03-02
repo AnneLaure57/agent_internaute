@@ -56,8 +56,7 @@ public class Streamer {
             offers.add(offer);  
         }
 		
-		//sort by duration
-		Collections.sort(offers, OfferDTO.ComparatorDur);
-
+		//sort by duration and price
+		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
 	}
 }
