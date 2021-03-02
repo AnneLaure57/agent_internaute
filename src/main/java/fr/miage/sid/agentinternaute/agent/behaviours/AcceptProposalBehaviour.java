@@ -1,6 +1,6 @@
 package fr.miage.sid.agentinternaute.agent.behaviours;
 
-import jade.core.Agent;
+
 import jade.core.behaviours.SimpleBehaviour;
 import jade.util.Event;
 
@@ -8,6 +8,7 @@ public class AcceptProposalBehaviour extends SimpleBehaviour {
 
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("unused")
 	private Event event;
 
 	public AcceptProposalBehaviour(Event event) {

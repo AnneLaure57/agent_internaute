@@ -16,21 +16,33 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.lang.acl.ACLMessage;
-import net.minidev.json.JSONObject;
-
 public class AgentInternaute extends Agent {
 
 	private static final long serialVersionUID = -1271454263303780513L;
 
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
+	
+	
+	
+	
+	
+	
 	private String name;
 	// TODO : fix it
 	@SuppressWarnings("unused")
 	private ProfileService profileService;
 	private String service = AgentTypes.AGENT_INTERNAUTE.getValue();
 	private AID AID = new AID();
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Setup method of agent
@@ -76,24 +88,6 @@ public class AgentInternaute extends Agent {
 	}
 
 	/*
-	 * Recherche d'un type d'agent
-	 */
-	private DFAgentDescription[] searchAgents(String serviceName) {
-
-		DFAgentDescription dfd = new DFAgentDescription();
-		ServiceDescription sd = new ServiceDescription();
-		sd.setType(serviceName);
-		dfd.addServices(sd);
-
-		try {
-			return DFService.search(this, dfd);
-		} catch (FIPAException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	/*
 	 * Enregistrement auprès du Directory Facilitator
 	 */
 	private void registerService() {
@@ -113,52 +107,6 @@ public class AgentInternaute extends Agent {
 		}
 	}
 	
-	/*
-	 * Recherche d'un agent e-reputation
-	 */
-	public DFAgentDescription getAgentReputation() {
-		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_E_REPUTATION.getValue());
-		if (results != null && results.length > 0) {
-			return results[0];
-		}
-		return null;
-	}
-
-	/*
-	 * Recherche des agents distributeurs
-	 */
-	public DFAgentDescription[] getAgentsDistributeurs() {
-		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_DISTRIBUTEUR.getValue());
-		if (results != null && results.length > 0) {
-			return results;
-		}
-		return null;
-	}
-	
-	/*
-	 *  Rechercher une oeuvre ???
-	 */
-
-	/*
-	 * Envoi préférences profil, type, titre
-	 */
-	// TODO
-	@SuppressWarnings("unused")
-	private void sendSearchInformations(JSONObject messageJSON, AID ID) {
-		try {
-			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(ID);
-			
-			// convert JSON --> String
-			String message = messageJSON.toString();
-			
-			aclMessage.setContent(message);
-			super.send(aclMessage);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
 	/*
 	/*
 	 * Déférérencement dans l'annuaire
