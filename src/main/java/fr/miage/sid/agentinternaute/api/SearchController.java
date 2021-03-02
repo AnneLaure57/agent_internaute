@@ -153,12 +153,12 @@ public class SearchController {
 				response.put(movie2);*/
 				
 				JSONDistributeur1 js = new JSONDistributeur1();
-				
 				JSONObject res = js.searchTitleJSONresponse();
 				
 				Streamer s = new Streamer();
+				JSONObject newRes = s.streamerStrategy(profile.get(), res);
 				
-				s.streamerStrategy(profile.get(), res);
+				res.put("best_result",newRes);
 				
 				System.out.println("Tu es là : SearchController !");
 				System.out.println(result);
