@@ -6,6 +6,18 @@ package fr.miage.sid.agentinternaute.agent.commons;
  * @since %G% - %U% (%I%)
  *
  */
-public class AgentTypes {
-	public final static String AGENT_INTERNAUTE = "internaute", AGENT_DISTRIBUTEUR = "distributeur", AGENT_E_REPUTATION = "e-reputationr";
+public enum AgentTypes {
+	AGENT_INTERNAUTE ("internaute"),
+	AGENT_DISTRIBUTEUR ("distributeur"),
+	AGENT_E_REPUTATION ("e-reputationr");
+	
+	private final String value;
+	
+	AgentTypes(String value) {
+        this.value = value;
+    }
+
+	public String getValue() {
+		return value;
+	}
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
-import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
 import fr.miage.sid.agentinternaute.entity.Actor;
 import fr.miage.sid.agentinternaute.entity.Artist;
@@ -55,7 +54,7 @@ public class InternalComService {
 		JSONObject searchMessage = new JSONObject();
 		
 		// we need it to say what we want	
-		searchMessage.put("request", ACLMessageTypes.REQUEST_SEARCH);
+		searchMessage.put("request", ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue());
 
 		// what we search
 		searchMessage.put("title", title);

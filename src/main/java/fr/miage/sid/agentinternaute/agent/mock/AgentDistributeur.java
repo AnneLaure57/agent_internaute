@@ -37,7 +37,7 @@ public class AgentDistributeur extends Agent {
 	/* ========================================= Attributs ============================================= */ /*=========================================*/
 
 	private String name;
-	private String service = AgentTypes.AGENT_DISTRIBUTEUR;
+	private String service = AgentTypes.AGENT_DISTRIBUTEUR.getValue();
 	private AID AID = new AID();
 
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
@@ -83,7 +83,7 @@ public class AgentDistributeur extends Agent {
 							LOGGER.severe("It missing the main key : 'request'.");
 						}
 						
-						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH) {
+						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();
 							oeuvres.add("Titi");
@@ -152,7 +152,7 @@ public class AgentDistributeur extends Agent {
 	 * @return Return the agent with type "internaute", if it was find, otherwise return null.
 	 */
 	public DFAgentDescription getAgentInternaute() {
-		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_INTERNAUTE);
+		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_INTERNAUTE.getValue());
 		if (results != null && results.length > 0) {
 			return results[0];
 		}

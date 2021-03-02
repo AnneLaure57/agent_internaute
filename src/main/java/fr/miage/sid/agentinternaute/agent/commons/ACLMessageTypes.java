@@ -6,6 +6,17 @@ package fr.miage.sid.agentinternaute.agent.commons;
  * @since %G% - %U% (%I%)
  *
  */
-public class ACLMessageTypes {
-	public final static String REQUEST_SEARCH = "search", REQUEST_PURCHASE = "purchase";
+public enum ACLMessageTypes {
+	REQUEST_SEARCH_TITLE ("search"),
+	REQUEST_PURCHASE ("purchase");
+	
+	private final String value;
+	
+	ACLMessageTypes(String value) {
+        this.value = value;
+    }
+
+	public String getValue() {
+		return value;
+	}
 }

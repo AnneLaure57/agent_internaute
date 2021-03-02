@@ -8,12 +8,20 @@ import jade.util.Event;
 public class SearchTitleBehaviour extends SimpleBehaviour {
 
 	private static final long serialVersionUID = -7471857252699739681L;
+	@SuppressWarnings("unused")
+	private static final Logger LOGGER = Logger.getLogger(SearchFiltersBehaviour.class.getName());
+
+	
+	
+	
 	private boolean finished = false;
 	@SuppressWarnings("unused")
 	private Event event;
 
-	@SuppressWarnings("unused")
-	private static final Logger LOGGER = Logger.getLogger(SearchFiltersBehaviour.class.getName());
+	
+	
+	
+	
 
 	public SearchTitleBehaviour(Event event) {
 		super();

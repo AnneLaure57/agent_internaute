@@ -29,7 +29,7 @@ public class AgentInternaute extends Agent {
 	// TODO : fix it
 	@SuppressWarnings("unused")
 	private ProfileService profileService;
-	private String service = AgentTypes.AGENT_INTERNAUTE;
+	private String service = AgentTypes.AGENT_INTERNAUTE.getValue();
 	private AID AID = new AID();
 	
 	/**
@@ -117,7 +117,7 @@ public class AgentInternaute extends Agent {
 	 * Recherche d'un agent e-reputation
 	 */
 	public DFAgentDescription getAgentReputation() {
-		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_E_REPUTATION);
+		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_E_REPUTATION.getValue());
 		if (results != null && results.length > 0) {
 			return results[0];
 		}
@@ -128,7 +128,7 @@ public class AgentInternaute extends Agent {
 	 * Recherche des agents distributeurs
 	 */
 	public DFAgentDescription[] getAgentsDistributeurs() {
-		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_DISTRIBUTEUR);
+		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_DISTRIBUTEUR.getValue());
 		if (results != null && results.length > 0) {
 			return results;
 		}
