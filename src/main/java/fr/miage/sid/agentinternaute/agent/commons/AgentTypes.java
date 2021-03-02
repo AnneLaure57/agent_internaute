@@ -9,7 +9,7 @@ package fr.miage.sid.agentinternaute.agent.commons;
 public enum AgentTypes {
 	AGENT_INTERNAUTE ("internaute"),
 	AGENT_DISTRIBUTEUR ("distributeur"),
-	AGENT_E_REPUTATION ("e-reputationr");
+	AGENT_E_REPUTATION ("e-reputation");
 	
 	private final String value;
 	

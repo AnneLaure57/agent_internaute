@@ -116,19 +116,19 @@ public class InternalComService {
 
 		// Construct JSON message
 		JSONObject message = new JSONObject();
-		message.put("agent name", agentName);
+		message.put("agent", agentName);
 
 		JSONObject media = new JSONObject();
 		media.put(Integer.toString(purchase.getItemId()), Double.toString(purchase.getItemRating()));
-		message.put("media", media);
+		message.put("oeuvre", media);
 
 		JSONObject distributor = new JSONObject();
 		distributor.put(purchase.getProducteurId(), Double.toString(purchase.getProducteurRating()));
-		message.put("distributor", distributor);
+		message.put("distributeurs", distributor);
 
 		JSONObject productor = new JSONObject();
 		productor.put(purchase.getDistributeurId(), Double.toString(purchase.getDistributeurRating()));
-		message.put("productor", productor);
+		message.put("producteurs", productor);
 
 		if (purchase.getItemType().equals("music")) {
 			JSONObject artists = new JSONObject();
@@ -141,13 +141,13 @@ public class InternalComService {
 			for (Actor entry : purchase.getActeurs()) {
 				actors.put(Integer.toString(entry.getId()), Double.toString(entry.getRating()));
 			}
-			message.put("actors rating", actors);
+			message.put("acteurs", actors);
 
 			JSONObject directors = new JSONObject();
 			for (Director entry : purchase.getRealisateurs()) {
 				directors.put(Integer.toString(entry.getId()), Double.toString(entry.getRating()));
 			}
-			message.put("directors rating", directors);
+			message.put("realisateurs", directors);
 		}
 
 		// Send it to the agent
