@@ -1,6 +1,7 @@
-package fr.miage.sid.agentinternaute.agent.strategies;
+package fr.miage.sid.agentinternaute.agent.strategy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.json.JSONArray;
@@ -20,13 +21,7 @@ public class Streamer {
 		return pref;
 	}
 	
-	//getAllOffers
-	//Check part abonnement
-	//get duree et prix
-	//compare
-	//take the less expensive with the biggest duration
-	
-	public void compareOffers(String response) {
+	public OfferDTO compareOffers(String response) {
 		JSONObject json = new JSONObject(response);
 		//String subscribe = json.getString("abonnements");
 
@@ -55,5 +50,21 @@ public class Streamer {
 		
 		//sort by duration and price
 		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
+		
+		//return the first offer
+		//take the less expensive with the biggest duration
+		int bestDuration = 0;
+		
+		for (OfferDTO o : offers) {
+			if (o.getDuration() > bestDuration) {
+				bestDuration = o.getDuration();
+			}
+		}
+		
+		//return the element
+		int index = Arrays.asList(offers).indexOf(bestDuration);
+		return offers.get(index);
 	}
+	
+	
 }
