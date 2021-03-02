@@ -10,31 +10,33 @@ import jade.lang.acl.ACLMessage;
 import jade.util.Event;
 
 public class SearchTitleBehaviour extends SimpleBehaviour {
-
+	/* ========================================= Global ================================================ */ /*=========================================*/
+	
 	private static final long serialVersionUID = -7471857252699739681L;
-	@SuppressWarnings("unused")
-	private static final Logger LOGGER = Logger.getLogger(SearchFiltersBehaviour.class.getName());
-
 	
+	private static final Logger LOGGER = Logger.getLogger(SearchTitleBehaviour.class.getName());
 	
+	/* ========================================= Attributs ============================================= */ /*=========================================*/
 	
 	private boolean finished = false;
-	@SuppressWarnings("unused")
 	private Event event;
-
 	
-	
-	
-	
+	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
 
 	public SearchTitleBehaviour(Event event) {
 		super();
 		this.event = event;
 	}
+	
+	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	@Override
 	public void action() {
+		LOGGER.info("Send ACL Messages to all distributors agents.");
 		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
+		
+		myAgent.addBehaviour(new ParallelSearchTitleBehaviour(event, distributors));
+		
 		for (DFAgentDescription distributor : distributors) {
 			AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.REQUEST, (String) event.getParameter(0), distributor.getName());
 		}

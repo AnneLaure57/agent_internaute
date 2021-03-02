@@ -83,33 +83,16 @@ public class InternalComService {
 			userProfile.put("prefered_musics_genres", profile.getPreferedMusicGenres().toString());
 			userProfile.put("prefered_videos_genres", profile.getPreferedVideoGenres().toString());
 
-			// Get preferences list => actors
-			/*
-			 * JSONObject actors = new JSONObject(); for(Integer id :
-			 * profile.getPreferedActors()) { actors.put("actor_id",id); }
-			 * userProfile.put("prefered_actors", actors); // Get preferences list =>
-			 * directors JSONObject directors = new JSONObject(); for(Integer id :
-			 * profile.getPreferedDirectors()) { actors.put("director_id",id); }
-			 * userProfile.put("prefered_directors", directors); // Get preferences list =>
-			 * musics JSONObject musicsArtists = new JSONObject(); for(Integer id :
-			 * profile.getPreferedMusicArtists()) { musicsArtists.put("music_artist_id",id);
-			 * } userProfile.put("prefered_musics_artists", musicsArtists); // Get
-			 * preferences list => musicGenres JSONObject musicsGenre = new JSONObject();
-			 * for(Integer id : profile.getPreferedMusicGenres()) {
-			 * musicsGenre.put("music_genre_id",id); }
-			 * userProfile.put("prefered_musics_genres", musicsGenre); // Get preferences
-			 * list => musicGenres JSONObject videosGenre = new JSONObject(); for(Integer id
-			 * : profile.getPreferedVideoGenres()) { videosGenre.put("video_genre_id",id); }
-			 * userProfile.put("prefered_videos_genres", videosGenre);
-			 */
-
 			searchMessage.put("user_profile", userProfile);
 		}
 
 		System.out.println(searchMessage.toString());
 		String agentName = profile.getName();
 		
-		return sendToAgent(1, searchMessage.toString(), agentName, 15);
+		String temp = sendToAgent(1, searchMessage.toString(), agentName, 15);
+		System.out.println("Tu es là : InternalComService !");
+		System.out.println(temp);
+		return temp;
 	}
 
 	public String sendRatingsToAgent(String agentName, Purchase purchase) {

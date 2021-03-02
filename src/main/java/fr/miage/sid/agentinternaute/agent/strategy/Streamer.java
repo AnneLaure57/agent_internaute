@@ -15,7 +15,7 @@ public class Streamer {
 	//method compareOffers
 	private OfferDTO compareOffers(JSONObject response) {
 		//String subscribe = json.getString("abonnements");
-		System.out.println("notre json" + response);
+		//System.out.println("notre json" + response);
 		JSONArray subscribes = response.getJSONArray("abonnements");
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
@@ -59,7 +59,7 @@ public class Streamer {
 		
 		//System.out.println("index : " +  Collections.sort(offers, OfferDTO.ComparatorDurPrice));
 	
-		System.out.println("index : " + offers.get(0));
+		//System.out.println("index : " + offers.get(0));
 
 		return offers.get(0);
 	}
@@ -68,10 +68,8 @@ public class Streamer {
 	// Not final verison
 	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
 		OfferDTO result = null;
-		System.out.println("je susis ici");
 		// check the preferences of the user profile
 		if (profil.isPreferDownloadsForVideos() == false) {
-			System.out.println("je susis ici");
 			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
 			result = compareOffers(response);
 		}

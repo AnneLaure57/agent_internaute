@@ -40,7 +40,7 @@ public final class JadeAgentContainer {
 		profile.setParameter(Profile.MAIN_PORT, "1099");
 		this.agentContainer = rt.createAgentContainer(profile);
 		this.initAgentDistributeurMock(1);
-//		this.initAgentDistributeurMock(2);
+		this.initAgentDistributeurMock(2);
 		this.initAgentEReputationMock(1);
 	}
 
