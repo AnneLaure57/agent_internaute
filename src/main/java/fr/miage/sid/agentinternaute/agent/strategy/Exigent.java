@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import fr.miage.sid.agentinternaute.dto.OfferDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 
-public class Streamer {
+public class Exigent {
 	
 	//method check preferences
 	private Boolean checkPreferences(Profile profil) {
@@ -21,7 +21,7 @@ public class Streamer {
 		}
 		return pref;
 	}
-	
+
 	//method compareOffers
 	private OfferDTO compareOffers(JSONObject response) {
 		JSONObject json = new JSONObject(response);
@@ -67,7 +67,7 @@ public class Streamer {
 		int index = Arrays.asList(offers).indexOf(bestDuration);
 		return offers.get(index);
 	}
-	
+		
 	//method main
 	// Not final verison
 	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
@@ -77,10 +77,12 @@ public class Streamer {
 		if (!checkPreferences(profil)) {
 			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
 			result = compareOffers(response);
+		} else {
+			
 		}
 		//return result into JSONObject
 		JSONObject jsonResult = new JSONObject(result);
 		return jsonResult;
 	}
-	
+
 }
