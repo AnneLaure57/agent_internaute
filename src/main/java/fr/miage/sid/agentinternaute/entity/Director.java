@@ -1,5 +1,6 @@
 package fr.miage.sid.agentinternaute.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,24 +19,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Director {
+public class Director implements Serializable  {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GenericGenerator(name="generator", strategy="increment")
 	@GeneratedValue(generator="generator")
-	private Integer id;
-	
 	private String directorId;
 
-	@Column(unique = true)
-	private String name;
+	private Integer id;
 	
-	private Double rating;
+	private String prenom;
 
-	public Director(String directorId, String nom, String prenom) {
-		super();
-		this.directorId = directorId;
-		this.name = name;
-		this.rating = 0.0;
-	}
+	private String nom;
+	
+	private Double rating = 0.0;
 }

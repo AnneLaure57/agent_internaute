@@ -58,7 +58,7 @@ public class SearchController {
 				System.out.println("Je suis" + newSearch);
 				
 				//send to distrib agent infos
-				String result = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				//String result = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
 				
 				// TODO return list of results and not null
 				
@@ -73,6 +73,7 @@ public class SearchController {
 				movie1.put("description", "Alors que l\u0027oncle Vernon, la tante Pétunia et son cousin Dudley re?oivent d\u0027importants invités ? d?ner, Harry Potter est contraint de passer la soirée dans sa chambre. Dobby, un elfe, fait alors son apparition. Il lui annonce que de terribles dangers menacent l\u0027école de Poudlard et qu\u0027il ne doit pas y retourner en septembre. Harry refuse de le croire.\u003cbr /\u003eMais sitôt la rentrée des classes effectuée, ce dernier entend une voix malveillante. Celle-ci lui dit que la redoutable et légendaire Chambre des secrets est ? nouveau ouverte, permettant ainsi ? l\u0027héritier de Serpentard de semer le chaos ? Poudlard. Les victimes, retrouvées pétrifiées par une force mystérieuse, se succ?dent dans les couloirs de l\u0027école, sans que les professeurs - pas m?me le populaire Gilderoy Lockhart - ne parviennent ? endiguer la menace. Aidé de Ron et Hermione, Harry doit agir au plus vite pour sauver Poudlard.");
 				movie1.put("prix", 5);
 				movie1.put("dateSortie", 2002);
+				movie1.put("note", 3.5);
 				
 				JSONArray genres = new JSONArray();
 				JSONObject genre1 = new JSONObject();

@@ -11,7 +11,7 @@
         class="ma-0 pa-0"
         :to="{ name: 'rechercher' }"
       >
-        Retour à l'accueil
+        Retour à la recherche
       </v-btn>
     </div>
 
@@ -26,81 +26,79 @@
           contain
           max-height="200px"
           max-width="200px"
-          width="200px"
+          width="150px"
           src="../assets/img/default.png"
         ></v-img>
-        <div class="d-flex flex-column flex-grow-1 mx-4">
-          <span class="title">{{ purchase.itemTitle }}</span>
-          <span>Acheté et visionné le {{ dateFromTimestamp(purchase.purchaseDate) }}</span>
+        <div class="d-flex flex-column justify-space-between flex-grow-1 mx-4">
+          <div class="d-flex flex-column">
+            <span class="title"
+              >{{ purchase.titre }} ({{ purchase.dateSortie }})</span
+            >
+          </div>
+          <div class="d-flex flex-column">
+            <div>
+              <span class="subtitle-2">Acteurs: </span>
+              <span v-for="(actor, index) in purchase.acteurs" :key="actor.id"
+                >{{ actor.prenom }} {{ actor.nom
+                }}<span v-if="index + 1 != purchase.acteurs.length"
+                  >,
+                </span></span
+              >
+            </div>
+            <div>
+              <span class="subtitle-2">Réalisateur: </span
+              ><span
+                v-for="(director, index) in purchase.realisateurs"
+                :key="director.id"
+                >{{ director.prenom }} {{ director.nom
+                }}<span v-if="index + 1 != purchase.realisateurs.length"
+                  >,
+                </span></span
+              >
+            </div>
+            <div>
+              <span class="subtitle-2">Distributeur: </span
+              ><span
+                v-for="distributor in purchase.distributor"
+                :key="distributor.id"
+                >{{ distributor.nom }}</span
+              >
+            </div>
+          </div>
+          <div>
+            <v-rating
+              empty-icon="mdi-star-outline"
+              full-icon="mdi-star"
+              half-icon="mdi-star-half"
+              length="5"
+              size="24"
+              readonly
+              color="yellow darken-3"
+              background-color="grey darken-1"
+              :value="purchase.rating"
+            ></v-rating>
+          </div>
         </div>
+
         <div
           class="d-flex flex-column align-center justify-space-around ml-12 mr-4"
         >
-          <span>Note des internautes</span>
-          <v-rating
-            empty-icon="mdi-star-outline"
-            full-icon="mdi-star"
-            half-icon="mdi-star-half"
-            length="5"
-            size="24"
-            color="yellow darken-3"
-            background-color="grey darken-1"
-            :value="purchase.rating"
-          ></v-rating>
-          <v-btn color="primary" @click="openRatePurchaseDialog(purchase)">Noter</v-btn>
+          <div>Vu le {{ dateFromTimestamp(purchase.viewDate) }}</div>
+          <v-btn color="primary" @click="openRatePurchaseDialog(purchase)"
+            >Noter</v-btn
+          >
         </div>
       </v-card-text>
     </v-card>
 
-    <v-dialog
-      v-model="dlg_ratings"
-      width="600px"
-      persistent
-      v-if="editPurchase"
-    >
+    <v-dialog v-model="dlg_ratings" width="600px" persistent v-if="editPurchase">
       <v-card>
         <v-card-title
-          >Donner vos notes pour {{ editPurchase.itemTitle }}</v-card-title
+          >{{ editPurchase.titre }}</v-card-title
         >
         <v-card-text>
-          <h4>Note générale de l'oeuvre</h4>
-          <v-rating
-            empty-icon="mdi-star-outline"
-            full-icon="mdi-star"
-            half-icon="mdi-star-half"
-            length="5"
-            size="24"
-            color="yellow darken-3"
-            background-color="grey darken-1"
-            v-model="editPurchase.mediumRating"
-          ></v-rating>
-
-          <h4>Note du distributeur</h4>
-          <v-rating
-            empty-icon="mdi-star-outline"
-            full-icon="mdi-star"
-            half-icon="mdi-star-half"
-            length="5"
-            size="24"
-            color="yellow darken-3"
-            background-color="grey darken-1"
-            v-model="editPurchase.distributorRating"
-          ></v-rating>
-
-          <h4>Note du producteur</h4>
-          <v-rating
-            empty-icon="mdi-star-outline"
-            full-icon="mdi-star"
-            half-icon="mdi-star-half"
-            length="5"
-            size="24"
-            color="yellow darken-3"
-            background-color="grey darken-1"
-            v-model="editPurchase.productorRating"
-          ></v-rating>
-
-          <h4>Notes des artistes</h4>
-          <div v-for="medium in editPurchase.artistsRating" :key="medium.id">
+          <div class="d-flex flex-wrap align-center">
+            <h4 class="primary--text">Note générale de l'oeuvre</h4>
             <v-rating
               empty-icon="mdi-star-outline"
               full-icon="mdi-star"
@@ -109,12 +107,15 @@
               size="24"
               color="yellow darken-3"
               background-color="grey darken-1"
-              v-model="medium.artistsRating"
+              v-model="editPurchase.itemRating"
             ></v-rating>
           </div>
 
-          <h4>Notes des acteurs</h4>
-          <div v-for="medium in editPurchase.actorsRating" :key="medium.id">
+          <h4 class="primary--text mt-4">Note du distributeur</h4>
+          <div class="d-flex flex-wrap align-center">
+            <span class="subtitle-2 mr-6">{{
+              editPurchase.distributeurId
+            }}</span>
             <v-rating
               empty-icon="mdi-star-outline"
               full-icon="mdi-star"
@@ -123,12 +124,13 @@
               size="24"
               color="yellow darken-3"
               background-color="grey darken-1"
-              v-model="medium.actorsRating"
+              v-model="editPurchase.distributeurRating"
             ></v-rating>
           </div>
 
-          <h4>Notes des réalisateurs</h4>
-          <div v-for="medium in editPurchase.directorsRating" :key="medium.id">
+          <h4 class="primary--text mt-4">Note du producteur</h4>
+          <div class="d-flex flex-wrap align-center">
+            <span class="subtitle-2 mr-6">{{ editPurchase.producteurId }}</span>
             <v-rating
               empty-icon="mdi-star-outline"
               full-icon="mdi-star"
@@ -137,8 +139,76 @@
               size="24"
               color="yellow darken-3"
               background-color="grey darken-1"
-              v-model="medium.directorsRating"
+              v-model="editPurchase.producteurRating"
             ></v-rating>
+          </div>
+          <div v-if="editPurchase.artistes">
+            <h4 class="primary--text mt-4">Notes des artistes</h4>
+            <div
+              v-for="artist in editPurchase.artistes"
+              :key="artist.id"
+              class="d-flex flex-wrap align-center"
+            >
+              <span class="subtitle-2 mr-6"
+                >{{ artiste.prenom }} {{ artiste.nom }}</span
+              >
+              <v-rating
+                empty-icon="mdi-star-outline"
+                full-icon="mdi-star"
+                half-icon="mdi-star-half"
+                length="5"
+                size="24"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                v-model="artist.rating"
+              ></v-rating>
+            </div>
+          </div>
+
+          <div v-if="editPurchase.acteurs">
+            <h4 class="primary--text mt-4">Notes des acteurs</h4>
+            <div
+              v-for="acteur in editPurchase.acteurs"
+              :key="acteur.id"
+              class="d-flex flex-wrap align-center"
+            >
+              <span class="subtitle-2 mr-6"
+                >{{ acteur.prenom }} {{ acteur.nom }}</span
+              >
+              <v-rating
+                empty-icon="mdi-star-outline"
+                full-icon="mdi-star"
+                half-icon="mdi-star-half"
+                length="5"
+                size="24"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                v-model="acteur.rating"
+              ></v-rating>
+            </div>
+          </div>
+
+          <div v-if="editPurchase.realisateurs">
+            <h4 class="primary--text mt-4">Notes des réalisateurs</h4>
+            <div
+              v-for="realisateur in editPurchase.realisateurs"
+              :key="realisateur.id"
+              class="d-flex flex-wrap align-center"
+            >
+              <span class="subtitle-2 mr-6"
+                >{{ realisateur.prenom }} {{ realisateur.nom }}</span
+              >
+              <v-rating
+                empty-icon="mdi-star-outline"
+                full-icon="mdi-star"
+                half-icon="mdi-star-half"
+                length="5"
+                size="24"
+                color="yellow darken-3"
+                background-color="grey darken-1"
+                v-model="realisateur.rating"
+              ></v-rating>
+            </div>
           </div>
         </v-card-text>
 
@@ -147,9 +217,7 @@
           <v-btn text color="primary" @click="dlg_ratings = false"
             >Fermer</v-btn
           >
-          <v-btn text color="primary" @click="sendRatings()"
-            >Envoyer</v-btn
-          >
+          <v-btn text color="primary" @click="sendRatings()">Envoyer</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -177,7 +245,7 @@ export default {
   },
 
   mounted() {
-    if(this.profile == null) this.$router.push({ name: "login" });
+    if (this.profile == null) this.$router.push({ name: "login" });
     this.getPurchases();
   },
 
@@ -212,11 +280,11 @@ export default {
       this.$axios.post("/ratings", this.editPurchase).then(
         (response) => {
           this.getPurchases();
-          this.dlg_ratings = false
+          this.dlg_ratings = false;
           console.log(response.data);
         },
         (error) => {
-          this.dlg_ratings = false
+          this.dlg_ratings = false;
           console.log(error);
         }
       );

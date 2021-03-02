@@ -74,14 +74,39 @@
         ></v-img>
         <div class="d-flex flex-column justify-space-between flex-grow-1 mx-4">
           <div class="d-flex flex-column">
-            <span class="title">{{ result.titre }} ({{ result.dateSortie }})</span>
+            <span class="title"
+              >{{ result.titre }} ({{ result.dateSortie }})</span
+            >
           </div>
           <div class="d-flex flex-column">
-            <div><span class="subtitle-2">Acteurs: </span>
-              <span v-for="(actor, index) in result.acteurs" :key="actor.id">{{ actor.prenom }} {{ actor.nom }}<span v-if="(index+1) != result.acteurs.length">, </span></span>
+            <div>
+              <span class="subtitle-2">Acteurs: </span>
+              <span v-for="(actor, index) in result.acteurs" :key="actor.id"
+                >{{ actor.prenom }} {{ actor.nom
+                }}<span v-if="index + 1 != result.acteurs.length"
+                  >,
+                </span></span
+              >
             </div>
-            <div><span class="subtitle-2">Réalisateur: </span><span v-for="(director, index) in result.realisateurs" :key="director.id">{{ director.prenom }} {{ director.nom }}<span v-if="(index+1) != result.realisateurs.length">, </span></span></div>
-            <div><span class="subtitle-2">Distributeur: </span><span v-for="distributor in result.distributor" :key="distributor.id">{{ distributor.nom }}</span></div>
+            <div>
+              <span class="subtitle-2">Réalisateur: </span
+              ><span
+                v-for="(director, index) in result.realisateurs"
+                :key="director.id"
+                >{{ director.prenom }} {{ director.nom
+                }}<span v-if="index + 1 != result.realisateurs.length"
+                  >,
+                </span></span
+              >
+            </div>
+            <div>
+              <span class="subtitle-2">Distributeur: </span
+              ><span
+                v-for="distributor in result.distributor"
+                :key="distributor.id"
+                >{{ distributor.nom }}</span
+              >
+            </div>
           </div>
           <div>
             <v-rating
@@ -102,8 +127,21 @@
           v-if="!purchases.some((data) => data == result.id)"
           class="d-flex flex-column justify-space-around ml-12 mr-4"
         >
-          <v-btn outlined color="primary" @click="buy(result)" v-if="result.price">Acheter</v-btn>
-          <v-btn color="primary" @click="subscribe(result)">S'abonner</v-btn>
+          <v-btn
+            outlined
+            color="primary"
+            @click="buy(result)"
+            :disabled="!result.prix"
+            min-width="150px"
+            >{{
+              result.prix != null
+                ? "Acheter " + result.prix + "€"
+                : "Pas d'achat"
+            }}</v-btn
+          >
+          <v-btn color="primary" min-width="150px" @click="subscribe(result)"
+            >S'abonner</v-btn
+          >
         </div>
       </v-card-text>
     </v-card>
@@ -157,23 +195,29 @@ export default {
 
     buy(result) {
       let newPurchase = {
-        itemId: result.id,
-        itemType: result.type,
-        itemTitle: result.title,
+        prix: result.prix,
+        itemType: result.itemType,
+        id: result.id,
+        titre: result.titre,
+        description: result.description,
+        dateSortie: result.dateSortie,
+        note: result.note,
+        distributeur: result.distributeur,
+        producteur: result.producteur,
+        genres: result.genres,
+        acteurs: result.acteurs,
+        realisateurs: result.realisateurs,
+        artistes: result.artistes,
         profileId: this.profile.id,
-        distributorId: result.distributorId,
-        productorId: result.productorId,
-        artistsIds: result.artistsIds ? result.artistsIds : [],
-        actorsIds: result.actorsIds ? result.actorsIds : [],
-        directorsIds: result.directorsIds ? result.directorsIds : [],
       };
       // Ajout dans le tableau des purchases pour cacher les boutons
       this.purchases.push(result.id);
 
-      console.log(newPurchase);
       this.$axios.post("/purchases", newPurchase).then(
-        (response) => {
-          console.log(response.data);
+        () => {
+          this.$axios.get("/profil/" + this.profile.id).then((response) => {
+            this.$store.commit("setProfile", response.data);
+          });
         },
         (error) => {
           console.log(error);

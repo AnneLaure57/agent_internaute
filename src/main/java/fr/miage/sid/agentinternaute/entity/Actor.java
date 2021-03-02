@@ -1,7 +1,6 @@
 package fr.miage.sid.agentinternaute.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,24 +17,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Actor {
+public class Actor implements Serializable  {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GenericGenerator(name="generator", strategy="increment")
 	@GeneratedValue(generator="generator")
-	private Integer id;
-	
 	private String actorId;
 
-	@Column(unique = true)
-	private String name;
+	private Integer id;
 	
-	private Double rating;
-
-	public Actor(String actorId, String name) {
-		super();
-		this.actorId = actorId;
-		this.name = name;
-		this.rating = 0.0;
-	}
+	private String prenom;
+	private String nom;
+	
+	private Double rating = 0.0;
 }

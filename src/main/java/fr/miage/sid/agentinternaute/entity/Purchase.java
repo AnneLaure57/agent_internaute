@@ -1,8 +1,8 @@
 package fr.miage.sid.agentinternaute.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,7 +24,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Purchase {
+public class Purchase implements Serializable  {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")
@@ -46,9 +48,17 @@ public class Purchase {
 	private Double distributeurRating;
 	private String producteurId;
 	private Double producteurRating;
+	
+	@Lob
 	private ArrayList<Genre> genres;
+	
+	@Lob
 	private ArrayList<Actor> acteurs;
+	
+	@Lob
 	private ArrayList<Director> realisateurs;
+	
+	@Lob
 	private ArrayList<Artist> artistes;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

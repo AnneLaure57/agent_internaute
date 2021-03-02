@@ -1,5 +1,6 @@
 package fr.miage.sid.agentinternaute.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Profile {
+public class Profile implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GenericGenerator(name="generator", strategy="increment")
@@ -35,10 +38,10 @@ public class Profile {
 
 	private String sex;
 	private Integer age;
-	private Integer currentConsumptionTime;
+	private Double currentConsumptionTime;
 	private Integer averageConsumptionTime;
-	private Integer currentExpenses;
-	private Integer maxBudget;
+	private Double currentExpenses;
+	private Double maxBudget;
 
 	@Lob
 	private ArrayList<Integer> preferedVideoGenres;
@@ -59,12 +62,14 @@ public class Profile {
 	@JsonIgnore
 	private List<Purchase> moviesWatched;
 
-	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Integer maxBudget) {
+	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Double maxBudget) {
 		super();
 		this.name = name;
 		this.sex = sex;
 		this.age = age;
+		this.currentConsumptionTime = 0.0;
 		this.averageConsumptionTime = averageConsumptionTime;
+		this.currentExpenses = 0.0;
 		this.maxBudget = maxBudget;
 		this.preferedVideoGenres = new ArrayList<Integer>();
 		this.preferedDirectors = new ArrayList<Integer>();

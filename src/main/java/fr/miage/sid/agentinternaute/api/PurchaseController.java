@@ -23,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
+import fr.miage.sid.agentinternaute.service.InternalComService;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class PurchaseController {
 	private static final Logger LOGGER = Logger.getLogger(PurchaseController.class.getName());
 	private final PurchaseService service;
 	private final ProfileService serviceProfile;
+	private final InternalComService agentService;
 
 //	@GetMapping
 //    public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
@@ -58,13 +60,26 @@ public class PurchaseController {
 	@PostMapping
 	@Transactional
     public ResponseEntity<?> create(@RequestBody PurchaseDTO p) {
-		LOGGER.info("POST on /purchases");
+		LOGGER.info("POST on /purchases for profile " + p.getProfileId());
 		Optional<Profile> profile = serviceProfile.getProfileById(p.getProfileId());
-		if(profile.isPresent()) {
-			Purchase savedPurchase = service.createPurchase(p, profile.get());
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("")
-					.buildAndExpand(savedPurchase.getId()).toUri();
-			return ResponseEntity.status(201).location(location).body(savedPurchase);
+		if(profile.isPresent()) {			
+			// Send to distributor
+			String response = agentService.sendAcceptProposalToAgent(profile.get().getName(), p);
+			
+			// To remove later, for dev purpose
+			response = "{status: \"ok\"}";
+				
+			if(response != null) { // TO IMPROVE
+				// Persist infos
+				Purchase savedPurchase = service.createPurchase(p, profile.get());
+				URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("")
+						.buildAndExpand(savedPurchase.getId()).toUri();
+				
+				// Send response to to UI
+				return ResponseEntity.ok().body(response);
+			} else {
+				return ResponseEntity.notFound().build();
+			}	
 		}
 		return ResponseEntity.badRequest().build();
 	}

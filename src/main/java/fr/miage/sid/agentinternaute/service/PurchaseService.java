@@ -9,12 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
-import fr.miage.sid.agentinternaute.entity.Actor;
-import fr.miage.sid.agentinternaute.entity.Artist;
-import fr.miage.sid.agentinternaute.entity.Director;
-import fr.miage.sid.agentinternaute.entity.Genre;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
+import fr.miage.sid.agentinternaute.repository.ProfileRepository;
 import fr.miage.sid.agentinternaute.repository.PurchaseRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +22,7 @@ public class PurchaseService {
 	private final Logger LOGGER = Logger.getLogger(PurchaseService.class.getName());
 
 	private final PurchaseRepository repo;
+	private final ProfileRepository profileRepo;
 
 	public Optional<Purchase> getPurchaseById(int ID) {
 		LOGGER.info("Get purchase by ID " + ID);
@@ -42,10 +40,19 @@ public class PurchaseService {
 	}
 
 	public Purchase createPurchase(PurchaseDTO p, Profile profile) {
+
+		// Persist in db
 		Purchase purchase = new Purchase(p.getItemType(), p.getId(), p.getPrix(), p.getTitre(), p.getDescription(),
 				p.getDateSortie(), p.getNote(), p.getDistributeur(), p.getProducteur(), p.getGenres(), p.getActeurs(),
 				p.getRealisateurs(), p.getArtistes(), profile);
 		repo.save(purchase);
+
+		// Update profile time and money
+		profile.setCurrentConsumptionTime(profile.getCurrentConsumptionTime() + 1.5); // + 1h30
+		profile.setCurrentExpenses(profile.getCurrentExpenses() + purchase.getPrice()); // + prix de l'oeuvre ou de
+																						// l'abonnement
+		profileRepo.save(profile);
+
 		return purchase;
 	}
 

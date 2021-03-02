@@ -25,18 +25,21 @@ public class InternalComBehaviour extends CyclicBehaviour {
 		// 0 -> Ratings
 		// 1 -> Recherche par titre
 		// 2 -> Recherche par filtres
+		// 3 -> Envoi acceptation de proposition
 		
 		// On dispatche à nos autres behaviours en fonction du type de l'event
 		if (event != null) {
 			if(event.getType() == 0) {
 				// Envoi des notes
-				System.out.println("-------------------------------------> Envoi des notes");
 				myAgent.addBehaviour(new RateBehaviour(event));
 			} else if(event.getType() == 1) {
 				// Envoi d'une recherche avec titre
 				myAgent.addBehaviour(new SearchTitleBehaviour(event));
 			} else if(event.getType() == 2) {
 				// Envoi d'une recherche avec filtres
+				myAgent.addBehaviour(new SearchFiltersBehaviour(event));
+			} else if(event.getType() == 3) {
+				// Accepter une proposition d'oeuvre d'un distributeur
 				myAgent.addBehaviour(new SearchFiltersBehaviour(event));
 			} else {
 				LOGGER.warning("Wrong event type was sent !");

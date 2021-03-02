@@ -9,6 +9,16 @@
       <v-icon dark class="link ml-6" @click="goToHome()">mdi-magnify</v-icon>
 
       <v-spacer></v-spacer>
+      <div class="d-flex align-center mx-12" v-if="profile">
+        <v-icon color="primary" class="mx-4">mdi-timer</v-icon>
+        <span>{{ profile.currentConsumptionTime }} / {{ profile.averageConsumptionTime }} h</span>
+        </div>
+
+      <div class="d-flex align-centermx-12" v-if="profile">
+        <v-icon color="primary" class="mx-4">mdi-currency-eur</v-icon>
+        <span>{{ profile.currentExpenses }} / {{ profile.maxBudget }} €</span>
+      </div>
+      <v-spacer></v-spacer>
 
       <v-menu offset-y bottom v-if="profile">
         <template v-slot:activator="{ on }">

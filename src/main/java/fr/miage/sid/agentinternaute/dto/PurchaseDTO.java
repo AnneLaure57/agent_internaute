@@ -17,7 +17,7 @@ public class PurchaseDTO {
 	
 	private Double prix;
 	private String itemType;
-	private Integer id;
+	private Integer id; // id du truc qu'on achète côté distributeur
 	private String titre;
 	private String description;
 	private Integer dateSortie;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
+import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
 import fr.miage.sid.agentinternaute.entity.Actor;
 import fr.miage.sid.agentinternaute.entity.Artist;
 import fr.miage.sid.agentinternaute.entity.Director;
@@ -47,8 +48,9 @@ public class InternalComService {
 		}
 	}
 
-	public String sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
-		
+	public String sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows,
+			Profile profile) {
+
 		String agentName = profile.getName();
 
 		// Construct JSON message
@@ -103,7 +105,7 @@ public class InternalComService {
 
 			searchMessage.put("user_profile", userProfile);
 		}
-		
+
 		return sendToAgent(1, searchMessage.toString(), agentName, 15);
 	}
 
@@ -147,5 +149,14 @@ public class InternalComService {
 
 		// Send it to the agent
 		return sendToAgent(0, message.toString(), agentName, 10);
+	}
+
+	public String sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {
+		// Construct JSON message
+		JSONObject message = new JSONObject();
+		// TODO
+
+		// Send it to the agent
+		return sendToAgent(3, message.toString(), agentName, 10);
 	}
 }

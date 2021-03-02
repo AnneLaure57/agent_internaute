@@ -11,7 +11,7 @@
         class="ma-0 pa-0"
         :to="{ name: 'rechercher' }"
       >
-        Retour à l'accueil
+        Retour à la recherche
       </v-btn>
     </div>
 
