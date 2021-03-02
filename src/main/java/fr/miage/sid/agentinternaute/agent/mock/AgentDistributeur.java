@@ -71,10 +71,15 @@ public class AgentDistributeur extends Agent {
 				// On récupère l'ACL message
 				ACLMessage message = myAgent.receive();
 				if (message != null) {
+					LOGGER.info("************************************************************");
+					LOGGER.info("************************************************************");
+					LOGGER.info("************************************************************");
 
 					// On récupère le JSON
 					String content = message.getContent();
 					JSONObject JSON = new JSONObject(content);
+					LOGGER.info(content);
+					LOGGER.info(JSON.toString());
 					
 					// Logique métier
 					if (message.getPerformative() == ACLMessage.REQUEST) {
@@ -84,6 +89,7 @@ public class AgentDistributeur extends Agent {
 						}
 						
 						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
+							
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();
 							oeuvres.add("Titi");
@@ -92,8 +98,8 @@ public class AgentDistributeur extends Agent {
 							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
 							JSONObject response = new JSONObject(responsehMap);
 							
-							DFAgentDescription internaute = getAgentInternaute();
-							sendMessage(response.toString(), internaute.getName());
+//							DFAgentDescription internaute = getAgentInternaute();
+//							sendMessage(response.toString(), internaute.getName());
 						}
 					}
 				}

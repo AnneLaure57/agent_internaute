@@ -60,7 +60,7 @@ public class SearchController {
 				System.out.println("Je suis" + newSearch);
 				
 				//send to distrib agent infos
-				//String result = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				String result = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
 				
 				// TODO return list of results and not null
 				

@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.agent.behaviours;
+package fr.miage.sid.agentinternaute.agent.behaviour;
 
 import jade.core.AID;
 import jade.core.behaviours.SimpleBehaviour;
