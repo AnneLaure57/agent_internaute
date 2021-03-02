@@ -25,6 +25,7 @@ public class Exigent {
 	//method compareOffers
 	private OfferDTO compareOffers(JSONObject response) {
 		JSONObject json = new JSONObject(response);
+		//TODO get oeuvres JSONArray
 		//String subscribe = json.getString("abonnements");
 
 		JSONArray subscribes = json.getJSONArray("abonnements");
