@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
+import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.AID;
 import jade.core.Agent;
@@ -71,15 +72,9 @@ public class AgentDistributeur extends Agent {
 				// On récupère l'ACL message
 				ACLMessage message = myAgent.receive();
 				if (message != null) {
-					LOGGER.info("************************************************************");
-					LOGGER.info("************************************************************");
-					LOGGER.info("************************************************************");
-
 					// On récupère le JSON
 					String content = message.getContent();
 					JSONObject JSON = new JSONObject(content);
-					LOGGER.info(content);
-					
 					
 					// Logique métier
 					if (message.getPerformative() == ACLMessage.REQUEST) {
@@ -88,52 +83,25 @@ public class AgentDistributeur extends Agent {
 							LOGGER.severe("It missing the main key : 'request'.");
 						}
 						
-						LOGGER.info(JSON.getString("request"));
-						LOGGER.info(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue());
-						LOGGER.info("Test : " + (JSON.getString("request") == ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()));
-						
-						
-						if (JSON.getString("request") == ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
-							
+						if (JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue())) {
+							// Création d'une Mock réponse
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();
 							oeuvres.add("Titi");
 							oeuvres.add("Tata");
 							oeuvres.add("Toto");
 							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
-							JSONObject response = new JSONObject(responsehMap);
-							LOGGER.info(response.toString());
 							
-//							DFAgentDescription internaute = getAgentInternaute();
-//							sendMessage(response.toString(), internaute.getName());
+							// JSON response to String 
+							JSONObject response = new JSONObject(responsehMap);
+							
+							// Reply
+							AgentAndACLMessageUtils.replyMessage(myAgent, ACLMessage.INFORM, response.toString(), message);
 						}
 					}
 				}
 			}
 		});
-	}
-
-	/**
-	 * Method searchAgents : to search an other agent by name.
-	 * 
-	 * @param serviceName The name of the other agent to search.
-	 * @return Return an array of DFAgentDescription. 
-	 */
-	private DFAgentDescription[] searchAgents(String serviceName) {
-		// On créé le portrait robot de l'objet Jade que l'on cherche 
-		DFAgentDescription dfd = new DFAgentDescription();
-		ServiceDescription sd = new ServiceDescription();
-		sd.setType(serviceName);
-		dfd.addServices(sd);
-		
-		// On essaie de récupérer les agents qui match auprès du Directory Facilitator
-		try {
-			return DFService.search(this, dfd);
-		} catch (FIPAException e) {
-			LOGGER.severe("can't search the agent : " + serviceName);
-			e.printStackTrace();
-			return null;
-		}
 	}
 	
 	/**
@@ -155,38 +123,6 @@ public class AgentDistributeur extends Agent {
 		} catch (FIPAException e) {
 			LOGGER.severe(getLocalName() + " registration with DF unsucceeded. Reason: " + e.getMessage());
 			doDelete();
-		}
-	}
-	
-	/**
-	 * Method getAgentInternaute : to find the agent with type "internaute".
-	 * 
-	 * @return Return the agent with type "internaute", if it was find, otherwise return null.
-	 */
-	public DFAgentDescription getAgentInternaute() {
-		DFAgentDescription[] results = searchAgents(AgentTypes.AGENT_INTERNAUTE.getValue());
-		if (results != null && results.length > 0) {
-			return results[0];
-		}
-		return null;
-	}
-	
-	/**
-	 * Method sendMessage : to send a JSON message (into a Java String) to a specific agent (find by it's ID).
-	 * 
-	 * @param message JSON message (into a Java String) to send.
-	 * @param ID The ID of the agent who will receive the message.
-	 */
-	private void sendMessage(String message, AID ID) {
-		try {
-			ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
-			aclMessage.addReceiver(ID);
-
-			aclMessage.setContent(message);
-
-			super.send(aclMessage);
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 	}
 
