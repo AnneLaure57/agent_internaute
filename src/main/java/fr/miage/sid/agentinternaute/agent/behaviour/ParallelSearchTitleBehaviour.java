@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 
 import jade.core.behaviours.ParallelBehaviour;
-import jade.core.behaviours.SequentialBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.util.Event;
 
@@ -16,7 +15,7 @@ import jade.util.Event;
  *
  * Ex de doc : https://djug.developpez.com/java/jade/behaviours/
  */
-public class ParallelSearchTitleBehaviour extends SequentialBehaviour {
+public class ParallelSearchTitleBehaviour extends ParallelBehaviour {
 	/* ========================================= Global ================================================ */ /*=========================================*/
 
 	private static final long serialVersionUID = 4023562697885420376L;
@@ -34,7 +33,7 @@ public class ParallelSearchTitleBehaviour extends SequentialBehaviour {
 	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
 
 	public ParallelSearchTitleBehaviour(Event event, DFAgentDescription[] distributors) {
-//		super(ParallelBehaviour.WHEN_ALL);
+		super(ParallelBehaviour.WHEN_ALL);
 //		this.event = event;
 //		this.distributors = distributors;
 //		this.response = new JSONArray();
