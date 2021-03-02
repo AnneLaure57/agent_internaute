@@ -13,8 +13,20 @@ public final class JadeAgentContainer {
 
 	private static final Logger LOGGER = Logger.getLogger(JadeAgentContainer.class.getName());
 	private static JadeAgentContainer INSTANCE;
+	
+	
+	
 	private AgentContainer agentContainer;
 	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 */
 	private JadeAgentContainer() {
 		jade.core.Runtime rt = jade.core.Runtime.instance();
 		rt.setCloseVM(true);
@@ -26,17 +38,22 @@ public final class JadeAgentContainer {
 		this.agentContainer = rt.createAgentContainer(profile);
 	}
 
+	/**
+	 * @param name
+	 */
 	public void createNewAgentInternaute(String name) {
 		try {
 			Object[] arguments = { name };
-			AgentController agent = this.agentContainer.createNewAgent(name,
-					"fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
+			AgentController agent = this.agentContainer.createNewAgent(name, "fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
 			agent.start();
 		} catch (ControllerException e) {
 			LOGGER.log(Level.WARNING, "Couldn't create agent " + name + ", probably already exists.");
 		}
 	}
 
+	/**
+	 * @param name
+	 */
 	public void destroyNewAgentInternaute(String name) {
 		try {
 			agentContainer.getAgent(name).kill();
@@ -45,13 +62,21 @@ public final class JadeAgentContainer {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	public static JadeAgentContainer getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new JadeAgentContainer();
 		}
 		return INSTANCE;
 	}
-
+	
 	public static void setINSTANCE(JadeAgentContainer instance) {
 		INSTANCE = instance;
 	}
