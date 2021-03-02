@@ -2,7 +2,10 @@ package fr.miage.sid.agentinternaute.agent.behaviours;
 
 import java.util.logging.Logger;
 
+import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
+import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.behaviours.SimpleBehaviour;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.util.Event;
 
 public class SearchTitleBehaviour extends SimpleBehaviour {
@@ -54,7 +57,7 @@ public class SearchTitleBehaviour extends SimpleBehaviour {
 		  reply.setPerformative(ACLMessage.INFORM); reply.setContent(" Pong");
 		  myAgent.send(reply); finished = true; } block(); } }
 		  */
-		 
+		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
 	}
 
 	@Override
