@@ -15,19 +15,19 @@ public class Satisfaction {
 		String satisfation = null;
 		
 		//ratio time 
-		Double ratioTime = (double) (profile.getCurrentConsumptionTime() / profile.getAverageConsumptionTime());
+		Double ratioTime = (double) ((profile.getCurrentConsumptionTime() / profile.getAverageConsumptionTime()) * 100);
 		
 		// ratio money
-		Double ratioMoney = (double) (profile.getCurrentExpenses() / profile.getMaxBudget());
+		Double ratioMoney = (double) (( profile.getMaxBudget() / profile.getCurrentExpenses()) * 100);
 		
 		//TODO ratio offers later
 
 		int ratioPurchases = 0;
 		
 		if (ratioTime > 1 & ratioMoney > 1) {
-			return satisfation = " La satisfaction pour le ratio de temps est de " + ratioTime + ", ratio dépenses : " + ratioMoney;
+			return satisfation = " La satisfaction pour le ratio de temps est de " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
 		} else {
-			return satisfation = " La satisfaction est insuffisante. Ratio de temps est de " + ratioTime + ", ratio dépenses : " + ratioMoney;
+			return satisfation = " La satisfaction est insuffisante. Ratio de temps est de " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
 		}
 	}
 }
