@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * @since %G% - %U% (%I%)
  *
  */
-public class JSONMock {
+public class JSONDistributeur1 {
 	
 	public static JSONObject searchTitleJSONresponse () {
 		

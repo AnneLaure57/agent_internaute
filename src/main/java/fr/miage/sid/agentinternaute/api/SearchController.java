@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.miage.sid.agentinternaute.agent.mock.distributeur.JSONMock;
+import fr.miage.sid.agentinternaute.agent.mock.distributeur.JSONDistributeur1;
 import fr.miage.sid.agentinternaute.agent.strategy.Streamer;
 import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
@@ -152,7 +152,7 @@ public class SearchController {
 				movie2.put("realisateurs", realisateurs2);
 				response.put(movie2);*/
 				
-				JSONMock js = new JSONMock();
+				JSONDistributeur1 js = new JSONDistributeur1();
 				
 				JSONObject res = js.searchTitleJSONresponse();
 				

@@ -48,7 +48,7 @@ public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 				
 				if (JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue())) {
 					// Création d'une Mock réponse
-					JSONObject response = JSONMock.searchTitleJSONresponse();
+					JSONObject response = JSONDistributeur1.searchTitleJSONresponse();
 					
 					// Reply
 					AgentAndACLMessageUtils.replyMessage(myAgent, ACLMessage.INFORM, response.toString(), message);
