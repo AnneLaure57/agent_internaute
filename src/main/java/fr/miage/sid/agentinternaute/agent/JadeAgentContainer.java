@@ -3,6 +3,9 @@ package fr.miage.sid.agentinternaute.agent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
+import fr.miage.sid.agentinternaute.agent.mock.AgentDistributeur;
+import fr.miage.sid.agentinternaute.agent.mock.AgentEReputation;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.AgentContainer;
@@ -36,6 +39,9 @@ public final class JadeAgentContainer {
 		profile.setParameter(Profile.MAIN_HOST, "localhost");
 		profile.setParameter(Profile.MAIN_PORT, "1099");
 		this.agentContainer = rt.createAgentContainer(profile);
+		this.initAgentDistributeurMock(1);
+		this.initAgentDistributeurMock(2);
+		this.initAgentEReputationMock(1);
 	}
 
 	/**
@@ -44,7 +50,6 @@ public final class JadeAgentContainer {
 	public void createNewAgentInternaute(String name) {
 		try {
 			Object[] arguments = { name };
-//			AgentController agent = this.agentContainer.createNewAgent(name, "fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
 			AgentController agent = this.agentContainer.createNewAgent(name, AgentInternaute.class.getName(), arguments);
 			agent.start();
 		} catch (ControllerException e) {
@@ -63,6 +68,39 @@ public final class JadeAgentContainer {
 		}
 	}
 
+	
+	/**
+	 * @param ourAgentInternaute
+	 */
+	public void initAgentDistributeurMock(int distribeurNumber) {
+		String name = AgentTypes.AGENT_DISTRIBUTEUR + "_Mock_" + distribeurNumber;
+		try {
+			Object[] arguments = { name };
+			AgentController agent = this.agentContainer.createNewAgent(name, AgentDistributeur.class.getName(), arguments);
+			agent.start();
+		} catch (ControllerException e) {
+			LOGGER.log(Level.WARNING, "Couldn't create agent " + name + ", probably already exists.");
+		}
+	}
+	
+	/**
+	 * @param ourAgentInternaute
+	 */
+	public void initAgentEReputationMock(int eReputationNumber) {
+		String name = AgentTypes.AGENT_E_REPUTATION + "_Mock_" + eReputationNumber;
+		try {
+			Object[] arguments = { name };
+			AgentController agent = this.agentContainer.createNewAgent(name, AgentEReputation.class.getName(), arguments);
+			agent.start();
+		} catch (ControllerException e) {
+			LOGGER.log(Level.WARNING, "Couldn't create agent " + name + ", probably already exists.");
+		}
+	}
+	
+
+
+	
+	
 	
 	
 	
