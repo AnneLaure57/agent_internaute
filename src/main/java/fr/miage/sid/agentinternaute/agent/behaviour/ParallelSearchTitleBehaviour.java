@@ -3,9 +3,12 @@ package fr.miage.sid.agentinternaute.agent.behaviour;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.lang.acl.ACLMessage;
 import jade.util.Event;
 
 /**
@@ -44,7 +47,33 @@ public class ParallelSearchTitleBehaviour extends ParallelBehaviour {
 		LOGGER.info("Call the ParallelSearchTitleBehaviour.");
 		
 		for (DFAgentDescription distributor : distributors) {
-			this.addSubBehaviour(new HandleSearchTitleBehaviour(response, distributor));
+//			this.addSubBehaviour(new HandleSearchTitleBehaviour(response, distributor));
+			
+			this.addSubBehaviour(new CyclicBehaviour() {
+				
+				@Override
+				public void action() {
+					// On récupère l'ACL message
+					ACLMessage message = myAgent.receive();
+					if (message != null) {
+						LOGGER.info("-----------------------------------------------------------");
+						LOGGER.info("You wait for a message from : " + distributor.getName());
+						LOGGER.info("You receive a message from : " + message.getSender());
+						// Logique métier : on veut un ACLMessage.INFORM et 
+						if (message.getPerformative() == ACLMessage.INFORM && message.getSender().equals(distributor.getName())) {
+
+							// On récupère le JSON
+							String content = message.getContent();
+							JSONObject JSON = new JSONObject(content);
+							
+							// On ajoute le nom du distributeur
+							JSON.put("distributeur", message.getSender());
+							response.put(JSON);
+							this.done();
+						}
+					}
+				}
+			});
 		}
 		
 		System.out.println("Tu es là : ParallelSearchTitleBehaviour !");
