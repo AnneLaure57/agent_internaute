@@ -59,7 +59,7 @@ public class Streamer {
 		
 		//System.out.println("index : " +  Collections.sort(offers, OfferDTO.ComparatorDurPrice));
 	
-		System.out.println("index : " + offers.get(0));
+		//System.out.println("index : " + offers.get(0));
 
 		return offers.get(0);
 	}
