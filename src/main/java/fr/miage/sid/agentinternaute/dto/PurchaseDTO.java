@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.dto;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import fr.miage.sid.agentinternaute.entity.Actor;
 import fr.miage.sid.agentinternaute.entity.Artist;
@@ -29,4 +30,11 @@ public class PurchaseDTO {
 	private ArrayList<Director> realisateurs;
 	private ArrayList<Artist> artistes;
 	private Integer profileId;
+	
+	public static Comparator<PurchaseDTO> ComparatorDate = new Comparator<PurchaseDTO>() {
+		@Override
+		public int compare(PurchaseDTO p1, PurchaseDTO p2) {
+			return p1.getDateSortie().compareTo(p2.getDateSortie());
+		}
+	};
 }

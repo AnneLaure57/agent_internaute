@@ -4,8 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
-import fr.miage.sid.agentinternaute.agent.mock.AgentDistributeur;
-import fr.miage.sid.agentinternaute.agent.mock.AgentEReputation;
+import fr.miage.sid.agentinternaute.agent.mock.distributeur.AgentDistributeur;
+import fr.miage.sid.agentinternaute.agent.mock.ereputation.AgentEReputation;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.wrapper.AgentContainer;

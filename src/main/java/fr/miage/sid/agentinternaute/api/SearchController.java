@@ -65,7 +65,7 @@ public class SearchController {
 				// TODO return list of results and not null
 				
 				// Mock response
-				JSONArray response = new JSONArray();
+				/*JSONArray response = new JSONArray();
 //				JSONObject distributor = new JSONObject();
 //				distributor.put("distributor", "d1");
 //				response.put(distributor);
@@ -147,9 +147,10 @@ public class SearchController {
 				realisateur21.put("prenom", "Richard");
 				realisateurs2.put(realisateur21);
 				movie2.put("realisateurs", realisateurs2);
-				response.put(movie2);
+				response.put(movie2);*/
 				
-				return ResponseEntity.status(200).body(response.toString());
+				return ResponseEntity.status(200).body("WAIT");
+				//return ResponseEntity.status(200).body(response.toString());
 			}
 		}
 

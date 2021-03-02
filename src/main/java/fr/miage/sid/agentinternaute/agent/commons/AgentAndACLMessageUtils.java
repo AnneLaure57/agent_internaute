@@ -64,5 +64,24 @@ public class AgentAndACLMessageUtils {
 			ex.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Method replyMessage : to reply a JSON message (into a Java String) to a specific agent (find by it's ID).
+	 * 
+	 * @param message JSON message (into a Java String) to reply.
+	 * @param ID The ID of the agent who will receive the message.
+	 */
+	public static void replyMessage(Agent agent, int ACLMessageType, String message, ACLMessage initialMessage) {
+		try {
+			ACLMessage aclMessage = initialMessage.createReply();
+			
+			aclMessage.setPerformative(ACLMessageType);
+			aclMessage.setContent(message);
+
+			agent.send(aclMessage);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }
  

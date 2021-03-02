@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.agent.mock;
+package fr.miage.sid.agentinternaute.agent.mock.ereputation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
