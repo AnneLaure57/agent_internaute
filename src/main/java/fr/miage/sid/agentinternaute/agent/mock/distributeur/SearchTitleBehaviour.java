@@ -1,9 +1,5 @@
-package fr.miage.sid.agentinternaute.agent.mock.distributeur;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+package fr.miage.sid.agentinternaute.agent.mock.distributeur;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
@@ -52,15 +48,7 @@ public class SearchTitleBehaviour extends CyclicBehaviour {
 				
 				if (JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue())) {
 					// Création d'une Mock réponse
-					Map<String, String> responsehMap = new HashMap<String, String>();
-					ArrayList<String> oeuvres = new ArrayList<String>();
-					oeuvres.add("Titi");
-					oeuvres.add("Tata");
-					oeuvres.add("Toto");
-					responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
-					
-					// JSON response to String 
-					JSONObject response = new JSONObject(responsehMap);
+					JSONObject response = JSONMock.searchTitleJSONresponse();
 					
 					// Reply
 					AgentAndACLMessageUtils.replyMessage(myAgent, ACLMessage.INFORM, response.toString(), message);
