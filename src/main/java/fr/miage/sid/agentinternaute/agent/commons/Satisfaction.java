@@ -12,6 +12,8 @@ public class Satisfaction {
 	@SuppressWarnings("unused")
 	public String satisfactionCalcul(Profile profile) {
 		
+		//TODO review calcul  vérifier qui va en haut et qui va en bas
+		
 		String satisfation = null;
 		
 		//ratio time 
@@ -21,10 +23,9 @@ public class Satisfaction {
 		Double ratioMoney = (double) (( profile.getMaxBudget() / profile.getCurrentExpenses()) * 100);
 		
 		//TODO ratio offers later
-
 		int ratioPurchases = 0;
 		
-		if (ratioTime > 1 & ratioMoney > 1) {
+		if (ratioTime > 80 & ratioMoney > 1) {
 			return satisfation = " La satisfaction pour le ratio de temps est de " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
 		} else {
 			return satisfation = " La satisfaction est insuffisante. Ratio de temps est de " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";

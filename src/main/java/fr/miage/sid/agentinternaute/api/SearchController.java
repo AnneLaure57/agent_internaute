@@ -153,12 +153,12 @@ public class SearchController {
 				response.put(movie2);*/
 				
 				JSONMock js = new JSONMock();
-				
 				JSONObject res = js.searchTitleJSONresponse();
 				
 				Streamer s = new Streamer();
+				JSONObject newRes = s.streamerStrategy(profile.get(), res);
 				
-				s.streamerStrategy(profile.get(), res);
+				res.put("best_result",newRes);
 				
 				return ResponseEntity.status(200).body("WAIT");
 				//return ResponseEntity.status(200).body(response.toString());
