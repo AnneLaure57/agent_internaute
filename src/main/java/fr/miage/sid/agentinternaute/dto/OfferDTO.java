@@ -25,13 +25,17 @@ public class OfferDTO {
 		@Override
 		public int compare(OfferDTO o1, OfferDTO o2) {
 			int duration = o1.getDuration() - o2.getDuration();
+			
 			// If duration is same for the offers
 			if(duration == 0) { 
-			//check price
-	          return o1.getPrice().compareTo(o2.getPrice());
+				//check price
+				return o1.getPrice().compareTo(o2.getPrice());
 	        } else { 
 	          // duration is not null
 	          // sort by duration
+	        	if (duration < 0 || duration > 0) {
+	        		return (int) (o1.getPrice()- o2.getPrice());
+	        	}
 	          return (int) (o1.getDuration()- o2.getDuration());
 	        }
 		}
