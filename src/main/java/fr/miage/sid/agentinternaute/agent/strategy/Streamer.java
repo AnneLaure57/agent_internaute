@@ -12,6 +12,7 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Streamer {
 	
+	//method check preferences
 	public Boolean checkPreferences(Profile profil) {
 		boolean pref = false;
 		if (!profil.isPreferDownloadsForVideos()) {
@@ -21,6 +22,7 @@ public class Streamer {
 		return pref;
 	}
 	
+	//method compareOffers
 	public OfferDTO compareOffers(String response) {
 		JSONObject json = new JSONObject(response);
 		//String subscribe = json.getString("abonnements");
@@ -66,5 +68,13 @@ public class Streamer {
 		return offers.get(index);
 	}
 	
+	//method main
+	public void streamerStrategy (Profile profil, String response) {
+		// check the preferences of the user profile
+		if (!checkPreferences(profil)) {
+			// compare offers with the string message from distributors (can be change it necessary to JSON)
+			compareOffers(response);
+		}
+	}
 	
 }
