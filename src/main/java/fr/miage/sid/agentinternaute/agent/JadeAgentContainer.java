@@ -44,7 +44,8 @@ public final class JadeAgentContainer {
 	public void createNewAgentInternaute(String name) {
 		try {
 			Object[] arguments = { name };
-			AgentController agent = this.agentContainer.createNewAgent(name, "fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
+//			AgentController agent = this.agentContainer.createNewAgent(name, "fr.miage.sid.agentinternaute.agent.AgentInternaute", arguments);
+			AgentController agent = this.agentContainer.createNewAgent(name, AgentInternaute.class.getName(), arguments);
 			agent.start();
 		} catch (ControllerException e) {
 			LOGGER.log(Level.WARNING, "Couldn't create agent " + name + ", probably already exists.");
