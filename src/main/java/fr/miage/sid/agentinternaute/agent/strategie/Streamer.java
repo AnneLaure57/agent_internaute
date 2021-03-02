@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.agent.strategies;
+package fr.miage.sid.agentinternaute.agent.strategie;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -4,7 +4,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fr.miage.sid.agentinternaute.agent.behaviours.InternalComBehaviour;
+import fr.miage.sid.agentinternaute.agent.behaviour.InternalComBehaviour;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.agent.commons.PassingTime;
 import fr.miage.sid.agentinternaute.service.ProfileService;

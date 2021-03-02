@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.agent.behaviours;
+package fr.miage.sid.agentinternaute.agent.behaviour;
 
 import org.json.JSONObject;
 
