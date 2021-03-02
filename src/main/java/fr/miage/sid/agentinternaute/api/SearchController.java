@@ -32,6 +32,7 @@ public class SearchController {
 
 	private static final Logger LOGGER = Logger.getLogger(SearchController.class.getName());
 
+	@SuppressWarnings("unused")
 	private final InternalComService serviceInternal;
 	private final ProfileService profileService;
 	private final PurchaseService purchaseService;
@@ -45,6 +46,7 @@ public class SearchController {
 		return ResponseEntity.ok(purchases);
 	}
 
+	@SuppressWarnings("unused")
 	@PostMapping
 	public ResponseEntity<?> search(@RequestBody SearchDTO newSearch) {
 		LOGGER.info("GET on /search");

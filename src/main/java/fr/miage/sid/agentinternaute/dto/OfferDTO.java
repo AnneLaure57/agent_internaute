@@ -1,6 +1,5 @@
 package fr.miage.sid.agentinternaute.dto;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 import lombok.AllArgsConstructor;
