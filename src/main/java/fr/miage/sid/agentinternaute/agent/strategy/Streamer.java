@@ -24,10 +24,9 @@ public class Streamer {
 	
 	//method compareOffers
 	private OfferDTO compareOffers(JSONObject response) {
-		JSONObject json = new JSONObject(response);
 		//String subscribe = json.getString("abonnements");
 
-		JSONArray subscribes = json.getJSONArray("abonnements");
+		JSONArray subscribes = response.getJSONArray("abonnements");
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
 		

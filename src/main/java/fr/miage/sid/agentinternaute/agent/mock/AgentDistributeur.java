@@ -21,7 +21,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 
 /**
- * @author Louis MASSICARD (user name : louis)
+ * @author Louis MASSICARD (user name : louis aka las kokinas)
  * @version 
  * @since %G% - %U% (%I%)
  *
@@ -71,23 +71,24 @@ public class AgentDistributeur extends Agent {
 				// On récupère l'ACL message
 				ACLMessage message = myAgent.receive();
 				if (message != null) {
+					LOGGER.info("************************************************************");
+					LOGGER.info("************************************************************");
+					LOGGER.info("************************************************************");
 
 					// On récupère le JSON
 					String content = message.getContent();
 					JSONObject JSON = new JSONObject(content);
+					LOGGER.info(content);
+					LOGGER.info(JSON.toString());
 					
 					// Logique métier
 					if (message.getPerformative() == ACLMessage.REQUEST) {
-						// On vérifie que l'on a ce qu'il nous faut
+						// On vérifie que l'on a ce q'il nous faut
 						if (! JSON.has("request")) {
 							LOGGER.severe("It missing the main key : 'request'.");
 						}
 						
-						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
-							
-							LOGGER.info("************************************************************");
-							LOGGER.info("************************************************************");
-							LOGGER.info("************************************************************");
+						if (JSON.get("request") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
 							
 							Map<String, String> responsehMap = new HashMap<String, String>();
 							ArrayList<String> oeuvres = new ArrayList<String>();
@@ -97,8 +98,8 @@ public class AgentDistributeur extends Agent {
 							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
 							JSONObject response = new JSONObject(responsehMap);
 							
-							DFAgentDescription internaute = getAgentInternaute();
-							sendMessage(response.toString(), internaute.getName());
+//							DFAgentDescription internaute = getAgentInternaute();
+//							sendMessage(response.toString(), internaute.getName());
 						}
 					}
 				}

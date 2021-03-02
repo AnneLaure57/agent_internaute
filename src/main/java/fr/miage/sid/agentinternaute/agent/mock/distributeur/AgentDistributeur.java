@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -52,11 +51,7 @@ public class AgentDistributeur extends Agent {
 		this.registerService();
 		LOGGER.info("Bonjour Distributeur. Vous êtes enregistré en tant que : " + this.getLocalName());
 		
-		// On accpte de communiquer
-		setEnabledO2ACommunication(true, 0);
-
-		Behaviour internalCommunication = new SearchTitleBehaviour(this);
-		setO2AManager(internalCommunication);
+		addBehaviour(new HandleSearchTitleBehaviour(this));
 	}
 	
 	/**
