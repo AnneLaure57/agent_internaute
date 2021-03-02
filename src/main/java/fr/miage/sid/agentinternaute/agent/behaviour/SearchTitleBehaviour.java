@@ -34,41 +34,6 @@ public class SearchTitleBehaviour extends SimpleBehaviour {
 
 	@Override
 	public void action() {
-
-		/*
-		  DFAgentDescription[] distributors = ((AgentInternaute) myAgent).getAgentsDistributeurs();
-		  
-		  //TODO add timer Long timerStart = System.currentTimeMillis();
-		  
-		  LOGGER.severe("distributeurs" + distributors);
-		  
-		  for (DFAgentDescription distributor : distributors) {
-		  
-			  // Send message to distributor agent
-			  ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-			  request.addReceiver(distributor.getName());
-			  request.setContent(title);
-			  request.setContent("message from searchService"); 
-			  myAgent.send(request);
-		  
-			  Long timerEnd = System.currentTimeMillis();
-		  
-			  // Wait for answer 1 minute if ((timerStart - timerEnd) < 60000) { 
-			  ACLMessage msg = myAgent.receive();
-			  if (msg != null) { 
-				  System.out.println(" - " +myAgent.getLocalName() + " <- " + msg.getContent());
-		  
-				  ACLMessage reply = msg.createReply();
-				  reply.setPerformative(ACLMessage.INFORM);
-				  reply.setContent("Pong");
-				  myAgent.send(reply); finished = true; } 
-			  block(); }
-	  		}
-	  	*/
-		System.out.println("***************************");
-		System.out.println("***************************");
-		System.out.println("SearchTitleBehaviour");
-		System.out.println(event.getParameter(0));
 		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
 		for (DFAgentDescription distributor : distributors) {
 			AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.REQUEST, (String) event.getParameter(0), distributor.getName());
