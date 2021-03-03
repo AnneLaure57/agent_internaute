@@ -86,18 +86,6 @@ public final class JadeAgentContainer {
 		}
 	}
 	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public static JadeAgentContainer getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new JadeAgentContainer();

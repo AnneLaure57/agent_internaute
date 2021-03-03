@@ -1,32 +1,35 @@
 package fr.miage.sid.agentinternaute.agent.commons;
 
-import java.util.logging.Logger;
-
 import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Satisfaction {
 	
-	//private static final Logger LOGGER = Logger.getLogger(Satisfaction.class.getName());
-	
 	public String satisfactionCalcul(Profile profile) {
 		
-		//TODO review calcul  vérifier qui va en haut et qui va en bas
-		
+		@SuppressWarnings("unused")
 		String satisfation = null;
 		
-		//ratio time 
-		Double ratioTime = (double) ((profile.getCurrentConsumptionTime() / profile.getAverageConsumptionTime()) * 100);
+		// ratio time
+		//curentConsom / averageConsom
+		Double 	ratioTime = (double) ((profile.getCurrentConsumptionTime() / profile.getAverageConsumptionTime()) * 100);
 		
 		// ratio money
-		Double ratioMoney = (double) (( profile.getMaxBudget() / profile.getCurrentExpenses()) * 100);
+		//curentConsom / averageConsom
+		Double ratioMoney = (double) (( profile.getCurrentExpenses() / profile.getMaxBudget()) * 100);
 		
-		//TODO ratio offers later
-		int ratioPurchases = 0;
-		
-		if (ratioTime > 80 & ratioMoney > 1) {
-			return satisfation = " La satisfaction pour le ratio de temps est de " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
+		if (ratioTime >= 95 && ratioMoney >= 95) {
+			return satisfation = " Service impeccable. Ratio temps : " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
+		} else if (ratioTime >= 90 && ratioMoney >= 90) {
+			return satisfation = " Très satisfait(e) du service proposé. Ratio temps : " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
+		//70 to 90 and not 80 to 90 or 70 to 80
+		} else if (ratioTime >= 70 && ratioMoney >= 70) {
+			return satisfation = " Satisfait(e) du service proposé. Ratio temps : " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
+		} else if (ratioTime >= 60 && ratioMoney >= 60) {
+			return satisfation = " Moyennement satisfait(e) du service proposé. Ratio temps : " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
+		} else if (ratioTime >= 50 && ratioMoney >= 50) {
+			return satisfation = " Peu satisfait(e) du service proposé. Ratio temps : " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
 		} else {
-			return satisfation = " La satisfaction est insuffisante. Ratio de temps est de " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
+			return satisfation = " Pas satisfait(e) du service proposé. Ratio temps : " + ratioTime + "%, ratio dépenses : " + ratioMoney + "%";
 		}
 	}
 }

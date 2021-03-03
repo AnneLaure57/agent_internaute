@@ -1,7 +1,6 @@
 package fr.miage.sid.agentinternaute.strategy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.json.JSONArray;
