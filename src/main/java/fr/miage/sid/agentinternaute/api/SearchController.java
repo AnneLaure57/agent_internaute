@@ -60,8 +60,8 @@ public class SearchController {
 				
 				// Send request to internaute agent
 				
-				// Ligne de claire qu'on dois garder à la fin 
-				//JSONArray response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				
+				JSONArray response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
 				
 				
 				JSONDistributeur1 js = new JSONDistributeur1();
