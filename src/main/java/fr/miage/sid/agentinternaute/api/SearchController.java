@@ -63,7 +63,28 @@ public class SearchController {
 				
 				// Send request to internaute agent
 				JSONObject response = serviceInternal.sendSearchTitleToAgent(title, movies, musics,tv_shows, profile.get());
-
+				
+				JSONObject newRes = null ;
+				if(profile.get().getStrategy().equals("Econome")) {
+					 Econome e = new Econome();
+					 newRes = e.economeResponse(response, profile.get());
+					 System.out.println("je suis l'econome" + newRes.toString());
+				}
+				
+				if(profile.get().getStrategy().equals("Exigent")) {
+					Exigent e = new Exigent();
+					newRes = e.exigentStrategy(profile.get(), response);
+					System.out.println("je suis l'exigent" + newRes.toString());
+				}
+				
+				if(profile.get().getStrategy().equals("Streamer")) {
+					Streamer s = new Streamer();
+					newRes = s.streamerStrategy(profile.get(), response);	
+					System.out.println("je suis streamer" + newRes.toString());
+				}
+				
+				response.put("best_result",newRes);
+				
 				if(response != null) {
 					return ResponseEntity.status(200).body(response.toString());
 				}
