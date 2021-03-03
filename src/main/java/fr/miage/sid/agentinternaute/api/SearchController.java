@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,7 @@ public class SearchController {
 				System.out.println("Controleur -> recherche : " + newSearch);
 				
 				// Send request to internaute agent
-				JSONObject response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				JSONArray response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
 				if(response != null) {
 					return ResponseEntity.status(200).body(response.toString());
 				}

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class RatingsController {
 				service.updatePurchase(purchase);
 
 				// Send to erepute
-				JSONObject response = agentService.sendRatingsToAgent(agentName, purchase);
+				JSONArray response = agentService.sendRatingsToAgent(agentName, purchase);
 				return ResponseEntity.ok().body(response);
 			} else {
 				return ResponseEntity.notFound().build();

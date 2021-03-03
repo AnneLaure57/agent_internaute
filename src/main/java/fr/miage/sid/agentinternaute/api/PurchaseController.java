@@ -49,7 +49,6 @@ public class PurchaseController {
 		return  ResponseEntity.ok(purchases);
 	}
 			
-	@SuppressWarnings("unused")
 	@PostMapping
 	@Transactional
     public ResponseEntity<?> create(@RequestBody PurchaseDTO p) {
