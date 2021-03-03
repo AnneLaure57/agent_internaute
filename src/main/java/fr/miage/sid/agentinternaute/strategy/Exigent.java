@@ -11,47 +11,35 @@ import fr.miage.sid.agentinternaute.dto.OfferDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Exigent {
-	
-	//method check preferences
-	private Boolean checkPreferences(Profile profil) {
-		boolean pref = false;
-		if (!profil.isPreferDownloadsForVideos()) {
-			profil.setPreferDownloadsForVideos(true);
-			return pref = profil.isPreferDownloadsForVideos();
-		}
-		return pref;
-	}
 
 	//method compareOffers
 	private OfferDTO compareOffers(JSONObject response) {
+		
 		JSONObject json = new JSONObject(response);
-		//TODO get oeuvres JSONArray
-		//String subscribe = json.getString("abonnements");
-
-		JSONArray subscribes = json.getJSONArray("abonnements");
+		JSONArray subscribes = json.getJSONArray("oeuvres");
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
 		
-		//First Step => get the list subcribe
+		//First Step => get the list of artworks
 		for(int i=0; i<subscribes.length(); i++){
 			//get the subscribe
 			JSONObject subscribe = (JSONObject) subscribes.get(i);
 			
 			// Get id
-			Long subID = Long.valueOf(subscribe.getString("id"));
+			Long ID = Long.valueOf(subscribe.getString("id"));
 			
 			//Get price
-            Double subPrice = Double.valueOf(subscribe.getString("prix"));
+            Double price = Double.valueOf(subscribe.getString("prix"));
             
-            //Get duration
-            int subDur = Integer.parseInt(subscribe.getString("duree"));
-            OfferDTO offer = new OfferDTO(subID, subDur, subPrice);
+            //Get release date
+            int releaseDate = Integer.parseInt(subscribe.getString("dateSortie"));
+            OfferDTO offer = new OfferDTO(ID, releaseDate, price);
             
             //on ajoute dans la liste des offres
             offers.add(offer);  
         }
 		
-		//sort by duration and price
+		//sort by release date and price
 		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
 		
 		//return the first offer
@@ -70,20 +58,20 @@ public class Exigent {
 	}
 		
 	//method main
-	// Not final verison
-	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
-		OfferDTO result = null;
-		
-		// check the preferences of the user profile
-		if (!checkPreferences(profil)) {
-			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
-			result = compareOffers(response);
-		} else {
-			
+		public JSONObject exigentStrategy (Profile profil, JSONObject response) {
+			OfferDTO result = null;
+			// check the preferences of the user profile
+			if (profil.isPreferDownloadsForVideos() == true) {
+				// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
+				result = compareOffers(response);
+			} else {
+				//If no case -> force to set download call the method
+				profil.setPreferDownloadsForVideos(true);
+				exigentStrategy(profil, response);
+			}
+			//return result into JSONObject
+			JSONObject jsonResult = new JSONObject(result);
+			return jsonResult;
 		}
-		//return result into JSONObject
-		JSONObject jsonResult = new JSONObject(result);
-		return jsonResult;
-	}
 
 }

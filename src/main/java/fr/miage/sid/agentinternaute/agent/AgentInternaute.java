@@ -78,8 +78,7 @@ public class AgentInternaute extends Agent {
 				// if the difference calculated equal 30 days = 1 month
 				if (newDiff == TimeUnit.DAYS.toMillis(30)) {
 					//check the satisfaction
-					Satisfaction s = new Satisfaction();
-					s.satisfactionCalcul(name);
+					//s.satisfactionCalcul(name);
 				}
 			}
 		});
