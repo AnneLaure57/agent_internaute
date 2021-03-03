@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.miage.sid.agentinternaute.agent.mock.distributeur.JSONDistributeur1;
 import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.service.InternalComService;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.PurchaseService;
+import fr.miage.sid.agentinternaute.strategy.Econome;
 import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
@@ -56,9 +58,19 @@ public class SearchController {
 				System.out.println("Controleur -> recherche : " + newSearch);
 				
 				// Send request to internaute agent
-				String response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
-				if(response != null) {
-					return ResponseEntity.status(200).body(response.toString());
+				//String response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				
+				JSONDistributeur1 js = new JSONDistributeur1();
+				org.json.JSONObject res = JSONDistributeur1.searchTitleJSONresponse();
+
+				  Econome s = new Econome();
+				  org.json.JSONObject newRes = s.economeResponse(res, profile.get());
+
+				  res.put("best_result",newRes);
+				
+				  System.out.println("Merde :" + res.toString());
+				if(res != null) {
+					return ResponseEntity.status(200).body(res.toString());
 				}
 				return ResponseEntity.notFound().build();
 			}
