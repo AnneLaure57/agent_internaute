@@ -42,14 +42,11 @@ public class JSONDistributeur1 {
 		JSONObject subscription2 = new JSONObject();
 		subscriptions.put(subscription2);
 		
-		JSONObject subscription3 = new JSONObject();
-		subscriptions.put(subscription3);
-		
 		/* ========================================= Abo 1  ============================================== */ /*=========================================*/
 
 		subscription1.put("id", "35871");
 		subscription1.put("duree", 70);
-		subscription1.put("prix", 4.05);
+		subscription1.put("prix", 44.99);
 		
 		/* ========================================= Abo 2  ============================================== */ /*=========================================*/
 		

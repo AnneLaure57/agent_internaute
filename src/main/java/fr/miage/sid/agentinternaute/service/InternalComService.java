@@ -99,14 +99,14 @@ public class InternalComService {
 		message.put("oeuvre", media);
 
 		JSONObject distributor = new JSONObject();
-		distributor.put(purchase.getProducteurId(), Double.toString(purchase.getProducteurRating()));
+		distributor.put("PRODUCTEUR1", "2.5");
 		message.put("distributeurs", distributor);
 
 		JSONObject productor = new JSONObject();
 		productor.put(purchase.getDistributeurId(), Double.toString(purchase.getDistributeurRating()));
 		message.put("producteurs", productor);
 
-		if (purchase.getItemType().equals("music")) {
+		if (purchase.getItemType() != null && purchase.getItemType().equals("music")) {
 			JSONObject artists = new JSONObject();
 			for (Artist entry : purchase.getArtistes()) {
 				artists.put(Integer.toString(entry.getId()), Double.toString(entry.getRating()));

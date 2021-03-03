@@ -23,44 +23,57 @@ import jade.lang.acl.ACLMessage;
 
 /**
  * @author Louis MASSICARD (user name : louis)
- * @version 
+ * @version
  * @since %G% - %U% (%I%)
  *
  */
 public class AgentEReputation extends Agent {
-	
-	/* ========================================= Global ================================================ */ /*=========================================*/
+
+	/*
+	 * ========================================= Global
+	 * ================================================
+	 */ /* ========================================= */
 
 	private static final long serialVersionUID = -1271454263303780513L;
 
 	private static final Logger LOGGER = Logger.getLogger(AgentEReputation.class.getName());
 
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
+	/*
+	 * ========================================= Attributs
+	 * =============================================
+	 */ /* ========================================= */
 
 	private String name;
 	private String service = AgentTypes.AGENT_E_REPUTATION.getValue();
 	private AID AID = new AID();
 
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
-	
-    /* ========================================= Methodes ============================================== */ /*=========================================*/
-	
+	/*
+	 * ========================================= Constructeurs
+	 * =========================================
+	 */ /* ========================================= */
+
+	/*
+	 * ========================================= Methodes
+	 * ==============================================
+	 */ /* ========================================= */
+
 	/**
-	 * Method setup : to register a E réputation Agent (set a random name, cyclic behaviour and register to Jade service). 
+	 * Method setup : to register a E réputation Agent (set a random name, cyclic
+	 * behaviour and register to Jade service).
 	 */
 	protected void setup() {
 		// On s'assure que notre Agent a bien un ID
 		if (this.AID == null) {
 			this.AID = new AID();
 		}
-		
-		// On renseigne un nom de distributeur (random)
+
+		// On renseigne un nom d'agent (random)
 		this.name = AgentTypes.AGENT_E_REPUTATION + "_" + UUID.randomUUID();
-		
+
 		// On l'enregistre auprès du service Jade
 		this.registerService();
 		LOGGER.info("Bonjour E Réputation. Vous êtes enregistré en tant que : " + this.getLocalName());
-		
+
 		// On accpte de communiquer
 		setEnabledO2ACommunication(true, 0);
 
@@ -76,35 +89,30 @@ public class AgentEReputation extends Agent {
 					// On récupère le JSON
 					String content = message.getContent();
 					JSONObject JSON = new JSONObject(content);
-					
+
 					// Logique métier
 					if (message.getPerformative() == ACLMessage.INFORM) {
-						// On vérifie que l'on a ce q'il nous faut
-						if (! JSON.has("request")) {
-							LOGGER.severe("It missing the main key : 'request'.");
-						}
 						
-						if (JSON.get("resquest") ==  ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) {
-							Map<String, String> responsehMap = new HashMap<String, String>();
-							ArrayList<String> oeuvres = new ArrayList<String>();
-							oeuvres.add("Titi");
-							oeuvres.add("Tata");
-							oeuvres.add("Toto");
-							responsehMap.put("types", Arrays.toString(oeuvres.toArray()));
-							JSONObject response = new JSONObject(responsehMap);
-							
-//							DFAgentDescription internaute = getAgentInternaute();
-							AID senderAID = message.getSender();
-							AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.AGREE, response.toString(), senderAID);
-						}
+						LOGGER.info("=============================================================");
+						LOGGER.info(name + " a bien reçu les notes");
+						LOGGER.info(content);
+						LOGGER.info("=============================================================");
+						
+
+						JSONObject response = new JSONObject();
+						response.put("status", "ok");
+
+						AID senderAID = message.getSender();
+						AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.AGREE, response.toString(), senderAID);
 					}
 				}
 			}
 		});
 	}
-	
+
 	/**
-	 * Method registerService : to regiser our Distributeur agent to the Directory Facilitator.
+	 * Method registerService : to regiser our Distributeur agent to the Directory
+	 * Facilitator.
 	 */
 	private void registerService() {
 		// On créé notre agent profile
@@ -130,7 +138,7 @@ public class AgentEReputation extends Agent {
 	 */
 	protected void takeDown() {
 		try {
-			LOGGER.info("L'agent " +getAID().getName()+ " s'est arrêté.");
+			LOGGER.info("L'agent " + getAID().getName() + " s'est arrêté.");
 			DFService.deregister(this);
 		} catch (FIPAException fe) {
 			LOGGER.severe("Error during Agent Distributeur takeDown");
@@ -138,7 +146,13 @@ public class AgentEReputation extends Agent {
 		}
 	}
 
-	/* ========================================= Accesseurs ============================================ */ /*=========================================*/
-	
-	/* ========================================= Main ================================================== */ /*=========================================*/
+	/*
+	 * ========================================= Accesseurs
+	 * ============================================
+	 */ /* ========================================= */
+
+	/*
+	 * ========================================= Main
+	 * ==================================================
+	 */ /* ========================================= */
 }
