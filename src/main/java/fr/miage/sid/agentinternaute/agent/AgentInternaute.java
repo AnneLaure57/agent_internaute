@@ -1,12 +1,20 @@
 package fr.miage.sid.agentinternaute.agent;
 
+import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.miage.sid.agentinternaute.agent.behaviour.InternalComBehaviour;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import fr.miage.sid.agentinternaute.agent.commons.PassingTime;
+import fr.miage.sid.agentinternaute.agent.commons.Satisfaction;
+import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import jade.core.AID;
 import jade.core.Agent;
@@ -55,18 +63,24 @@ public class AgentInternaute extends Agent {
 		setO2AManager(internalCommunication);
 		addBehaviour(internalCommunication);
 		
+		/********** CHECK SATISFACTION *****/
 		// 300000 => 30 sec
 		// 1000000 => 10 min
-		Long timerTickerBehaviour = (long) 1000000;
+		// 10000 => 10
+		long timerTickerBehaviour = (long) 1000000;
+		//Start now
+		long tStart = System.currentTimeMillis();
 		
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
 			private static final long serialVersionUID = 9192646164357857629L;
-
 			protected void onTick() {
-				/********** WITHOUT BEHAVIOUR *****/
-				long tStart = System.currentTimeMillis();
-				System.out.println("Coucou, je suis up");
-				PassingTime.checkDate(tStart);				
+				Long newDiff = PassingTime.checkDate(tStart);
+				// if the difference calculated equal 30 days = 1 month
+				if (newDiff == TimeUnit.DAYS.toMillis(30)) {
+					//check the satisfaction
+					Satisfaction s = new Satisfaction();
+					s.satisfactionCalcul(name);
+				}
 			}
 		});
 	}

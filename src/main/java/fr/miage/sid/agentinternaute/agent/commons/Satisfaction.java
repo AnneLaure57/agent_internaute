@@ -1,10 +1,19 @@
 package fr.miage.sid.agentinternaute.agent.commons;
 
+import java.util.Optional;
+
 import fr.miage.sid.agentinternaute.entity.Profile;
+import fr.miage.sid.agentinternaute.service.ProfileService;
 
 public class Satisfaction {
 	
-	public String satisfactionCalcul(Profile profile) {
+	private ProfileService service;
+	
+	public String satisfactionCalcul(String name) {
+		
+		Optional<Profile> p = service.getProfileByName(name);
+		
+		Profile profile = p.get();
 		
 		@SuppressWarnings("unused")
 		String satisfation = null;

@@ -70,7 +70,7 @@ public class PassingTime {
 		
 //		si la diff est de 30 min -> 1 mois sont écoulés
 		} else if (diff == TimeUnit.MINUTES.toMillis(30)) {
-			newDiff = TimeUnit.DAYS.toMillis(3 * 30);
+			newDiff = TimeUnit.DAYS.toMillis(30);
 		
 //	 	si la diff est de 1 min -> 1 j sont écoulés
 		} else if (diff == TimeUnit.MINUTES.toMillis(1)) {
