@@ -1,6 +1,7 @@
 package fr.miage.sid.agentinternaute.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -42,9 +43,12 @@ public class Satisfaction implements Serializable {
 	private Profile profile;
 	
 	private Double meanSatisfaction;
+	
+	private Date date;
 
 	public Satisfaction(Profile profile, Double meanSatisfaction) {
 		this.profile = profile;
 		this.meanSatisfaction = meanSatisfaction;
+		this.date = new Date();
 	}
 }

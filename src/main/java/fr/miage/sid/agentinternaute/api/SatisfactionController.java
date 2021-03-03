@@ -51,10 +51,10 @@ public class SatisfactionController {
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
 	@GetMapping(value = "/{id}") 
-	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer ID) {
-	LOGGER.info("GET on /satisfactions with profile ID : " + ID);
+	public ResponseEntity<?> getSatisfactionsProfile(@PathVariable Integer id) {
+		LOGGER.info("GET on /satisfactions with profile ID : " + id);
 	
-	List<Satisfaction> satisfactions = service.findSatisfactionsProfile(ID);
+		List<Satisfaction> satisfactions = service.findSatisfactionsProfile(id);
 		return  ResponseEntity.ok(satisfactions);
 	}
 			

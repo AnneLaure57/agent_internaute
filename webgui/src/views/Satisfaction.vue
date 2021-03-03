@@ -35,7 +35,7 @@
 
 		mounted() {
             this.$axios.get("/satisfaction/" + this.profile.id).then( (response) => {
-                console.log(response);
+                console.log(response.data);
             }, () => {
                 this.satisfactions = [];
             });
