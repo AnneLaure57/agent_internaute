@@ -42,10 +42,10 @@ public class PurchaseController {
 	private final InternalComService agentService;
 	
 	@GetMapping(value = "/{id}") 
-	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
-	LOGGER.info("GET on /purchases with profile id");
+	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer ID) {
+	LOGGER.info("GET on /purchases with profile id : " + ID);
 	
-	List<Purchase> purchases = service.findPurchasesProfile(id);
+	List<Purchase> purchases = service.findPurchasesProfile(ID);
 		return  ResponseEntity.ok(purchases);
 	}
 			

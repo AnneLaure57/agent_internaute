@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Profile implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1675238169966533190L;
 
 	@Id
 	@GenericGenerator(name="generator", strategy="increment")
@@ -61,6 +61,10 @@ public class Profile implements Serializable {
 	@OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Purchase> moviesWatched;
+	
+	@OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Satisfaction> satisfactionHistory;
 
 	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Double maxBudget) {
 		super();

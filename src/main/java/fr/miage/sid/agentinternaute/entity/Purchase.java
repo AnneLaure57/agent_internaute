@@ -26,8 +26,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Purchase implements Serializable  {
 	
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -1456996900112057089L;
+	
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")
 	@GeneratedValue(generator = "generator")
