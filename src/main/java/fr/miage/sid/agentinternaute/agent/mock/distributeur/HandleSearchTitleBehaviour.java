@@ -52,8 +52,7 @@ public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 					
 					// Création d'une Mock réponse
 					JSONObject response;
-					System.out.println("Name length : " + myAgent.getName().substring(myAgent.getName().length()-2));
-					if(myAgent.getName().substring(myAgent.getName().length()-2).equals("1")) {
+					if(myAgent.getName().substring(myAgent.getName().length()-4).equals("1@P1")) {
 						response = JSONDistributeur1.searchTitleJSONresponse();
 					} else {
 						response = JSONDistributeur2.searchTitleJSONresponse();

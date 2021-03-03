@@ -88,7 +88,6 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 					// Traitement des résultats avant envoi au service
 					for(JSONObject result : results) {
 						String distributeur = result.getString("distributeur");
-						System.out.println(distributeur);
 						
 						// Récupération des données du distributeur
 						JSONArray subscriptions = result.getJSONArray("abonnements");
@@ -103,7 +102,6 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 						for (int i = 0; i < subscriptions.length(); i++) {
 							JSONObject subscription = subscriptions.getJSONObject(i);
 							subscription.put("distributeur", distributeur);
-							System.out.println("Subscription : " + subscription);
 							allsubscriptions.put(subscription);							
 						}	
 					}

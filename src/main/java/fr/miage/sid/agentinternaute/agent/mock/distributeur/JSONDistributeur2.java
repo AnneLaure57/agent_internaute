@@ -165,5 +165,4 @@ public class JSONDistributeur2 {
 			
 		return response;
 	}
-
 }
