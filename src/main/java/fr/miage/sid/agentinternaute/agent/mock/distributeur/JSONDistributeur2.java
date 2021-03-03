@@ -132,8 +132,8 @@ public class JSONDistributeur2 {
 		/* ========================================= Movie 3 ============================================= */ /*=========================================*/
 		
 		movie3.put("id", "10978");
-		movie3.put("titre", "A la main et Jaspine");
-		movie3.put("description", "Toi t'es vraiment un gros coquin ;)");
+		movie3.put("titre", "Toi + Moi");
+		movie3.put("description", "Ce n'est pas une musique ça normalement ?");
 		movie3.put("dateSortie", 2015);
 		
 		JSONArray genres3 = new JSONArray();

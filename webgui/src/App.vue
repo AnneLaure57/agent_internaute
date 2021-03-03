@@ -51,6 +51,15 @@
             </v-list-item-content>
           </v-list-item>
 
+          <v-list-item class="link" :to="{ name: 'satisfactions' }">
+            <v-list-item-icon>
+              <v-icon>mdi-heart-multiple</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Satisfactions</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
           <v-list-item @click="logout">
             <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>

@@ -50,7 +50,7 @@ public class SatisfactionController {
 
 	/* ========================================= Methodes ============================================== */ /*=========================================*/
 
-	@GetMapping() 
+	@GetMapping(value = "/{id}") 
 	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer ID) {
 	LOGGER.info("GET on /satisfactions with profile ID : " + ID);
 	
