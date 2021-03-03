@@ -388,11 +388,7 @@ export default {
       this.profile.preferedMusicGenres = this.music_genres
         .filter((obj) => obj.selected)
         .map((obj) => obj.id);
-      this.profile.strategy = this.strategies
-        .filter((obj) => obj.selected)
-        .map((obj) => obj.name);
-        // TEst
-        console.log(this.profile.preferedStrategy);
+  
       this.$axios.put("/profil/" + this.profile.id, this.profile).then(
         (response) => {
           if (response.status == 200) {

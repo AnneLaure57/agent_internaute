@@ -33,7 +33,7 @@ public class Exigent {
 			Long ID = Long.valueOf(artwork.getString("id"));
 			//Get price
 			if (artwork.has("prix")) {
-				price = (double) ((Integer) artwork.get("prix")).intValue();
+				 price = (Double) artwork.get("prix");
 			} else {
 				price = 0.0;
 			}
