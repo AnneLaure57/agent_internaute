@@ -14,25 +14,32 @@ public class Exigent {
 
 	//method compareOffers
 	private OfferDTO compareOffers(JSONObject response) {
+		//String subscribe = json.getString("abonnements");
+		//System.out.println("notre json" + response);
 		
-		JSONObject json = new JSONObject(response);
-		JSONArray subscribes = json.getJSONArray("oeuvres");
+		JSONArray subscribes = response.getJSONArray("abonnements");
+		JSONArray artworks = response.getJSONArray("oeuvres");
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
 		
+		double price = 0;
+		
 		//First Step => get the list of artworks
-		for(int i=0; i<subscribes.length(); i++){
+		for(int i=0; i<artworks.length(); i++){
 			//get the subscribe
-			JSONObject subscribe = (JSONObject) subscribes.get(i);
+			JSONObject artwork = (JSONObject) artworks.get(i);
 			
 			// Get id
-			Long ID = Long.valueOf(subscribe.getString("id"));
-			
+			Long ID = Long.valueOf(artwork.getString("id"));
 			//Get price
-            Double price = Double.valueOf(subscribe.getString("prix"));
-            
+			if (artwork.has("prix")) {
+				price = (double) ((Integer) artwork.get("prix")).intValue();
+			} else {
+				price = 0.0;
+			}
+		
             //Get release date
-            int releaseDate = Integer.parseInt(subscribe.getString("dateSortie"));
+            int releaseDate = (int) artwork.get("dateSortie");
             OfferDTO offer = new OfferDTO(ID, releaseDate, price);
             
             //on ajoute dans la liste des offres
@@ -40,35 +47,18 @@ public class Exigent {
         }
 		
 		//sort by release date and price
-		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
+		Collections.sort(offers, OfferDTO.ComparatorDatPrice);
 		
-		//return the first offer
-		//take the biggest duration
-		int bestDuration = 0;
-		
-		for (OfferDTO o : offers) {
-			if (o.getDuration() > bestDuration) {
-				bestDuration = o.getDuration();
-			}
-		}
-		
-		//return the element
-		int index = Arrays.asList(offers).indexOf(bestDuration);
-		return offers.get(index);
+		//return the last element, with the most recent date
+		return offers.get(offers.size() - 1);
 	}
 		
 	//method main
-		public JSONObject exigentStrategy (Profile profil, JSONObject response) {
+		public JSONObject exigentStrategy(Profile profil, JSONObject response) {
 			OfferDTO result = null;
-			// check the preferences of the user profile
-			if (profil.isPreferDownloadsForVideos() == true) {
-				// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
-				result = compareOffers(response);
-			} else {
-				//If no case -> force to set download call the method
-				profil.setPreferDownloadsForVideos(true);
-				exigentStrategy(profil, response);
-			}
+
+			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
+			result = compareOffers(response);
 			//return result into JSONObject
 			JSONObject jsonResult = new JSONObject(result);
 			return jsonResult;

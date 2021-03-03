@@ -5,9 +5,7 @@ import java.util.logging.Logger;
 
 import org.springframework.stereotype.Service;
 
-import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
-import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.entity.Satisfaction;
 import fr.miage.sid.agentinternaute.repository.SatisfactionRepository;
 import lombok.RequiredArgsConstructor;

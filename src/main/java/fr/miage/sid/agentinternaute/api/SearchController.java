@@ -24,6 +24,8 @@ import fr.miage.sid.agentinternaute.service.InternalComService;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.PurchaseService;
 import fr.miage.sid.agentinternaute.strategy.Econome;
+import fr.miage.sid.agentinternaute.strategy.Exigent;
+import fr.miage.sid.agentinternaute.strategy.Streamer;
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,16 +64,6 @@ public class SearchController {
 				// Send request to internaute agent
 				JSONObject response = serviceInternal.sendSearchTitleToAgent(title, movies, musics,tv_shows, profile.get());
 
-//				JSONDistributeur1 js = new JSONDistributeur1();
-//				org.json.JSONObject res = JSONDistributeur1.searchTitleJSONresponse();
-//				
-//				System.out.println("DIST 1 :");
-//				  Econome s = new Econome();
-//				  org.json.JSONObject newRes = s.economeResponse(res, profile.get());
-//
-//				  res.put("best_result",newRes);
-//				
-//				  System.out.println("Merde :" + res.toString());
 				if(response != null) {
 					return ResponseEntity.status(200).body(response.toString());
 				}
