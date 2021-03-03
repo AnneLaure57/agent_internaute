@@ -43,7 +43,7 @@ public class InternalComService {
 		}
 	}
 
-	public JSONArray sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
+	public JSONObject sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
 
 		// Construct JSON message
 		JSONObject searchMessage = new JSONObject();
@@ -85,10 +85,10 @@ public class InternalComService {
 		
 		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + searchMessage.toString() );
 		
-		return (JSONArray) sendToAgent(1, searchMessage.toString(), agentName, 10);
+		return (JSONObject) sendToAgent(1, searchMessage.toString(), agentName, 10);
 	}
 
-	public JSONArray sendRatingsToAgent(String agentName, Purchase purchase) {
+	public JSONObject sendRatingsToAgent(String agentName, Purchase purchase) {
 
 		// Construct JSON message
 		JSONObject message = new JSONObject();
@@ -129,7 +129,7 @@ public class InternalComService {
 		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + message.toString() );		
 
 		// Send it to the agent
-		return (JSONArray) sendToAgent(0, message.toString(), agentName, 10);
+		return (JSONObject) sendToAgent(0, message.toString(), agentName, 10);
 	}
 
 	public JSONObject sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {

@@ -231,9 +231,7 @@
             <div>
               <span class="subtitle-2">Distributeur: </span
               ><span
-                v-for="distributor in result.distributor"
-                :key="distributor.id"
-                >{{ distributor.nom }}</span
+                >{{ result.distributeur }}</span
               >
             </div>
           </div>
@@ -247,7 +245,7 @@
               readonly
               color="yellow darken-3"
               background-color="grey darken-1"
-              :value="result.rating"
+              :value="result.note"
             ></v-rating>
           </div>
         </div>
@@ -293,6 +291,7 @@ export default {
       musics2: false,
       purchases: [],
       results: [],
+      subscriptions: [],
       newPurchase: null,
       error: false,
       selected_video_genres: [],
@@ -332,7 +331,8 @@ export default {
         profileId: this.profile.id,
       };
       this.$axios.post("/search", newSearch).then((response) => {
-        this.results = response.data;
+        this.results = response.data.oeuvres;
+        this.subscriptions = response.data.abonnements;
       });
     },
 

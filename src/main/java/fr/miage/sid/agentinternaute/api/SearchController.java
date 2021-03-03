@@ -55,30 +55,17 @@ public class SearchController {
 			
 			if(profile.isPresent()) {
 				String title = newSearch.getSearchField();
-				Boolean movies = newSearch.getMovies();
-				Boolean musics = newSearch.getMusics();
-				Boolean tv_shows = newSearch.getTvShows();
+				boolean movies = newSearch.getMovies();
+				boolean musics = newSearch.getMusics();
+				boolean tv_shows = newSearch.getTvShows();
+				
 				System.out.println("Controleur -> recherche : " + newSearch);
 				
 				// Send request to internaute agent
-				
-				
-				JSONArray response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
-				
-				
-				JSONDistributeur1 js = new JSONDistributeur1();
-				org.json.JSONObject res = JSONDistributeur1.searchTitleJSONresponse();
-				
-				System.out.println("DIST 1 :");
-				System.out.println("json : " + res);
-				Exigent e = new Exigent();
-				org.json.JSONObject newRes = e.exigentStrategy(profile.get(), res);
+				JSONObject response = serviceInternal.sendSearchTitleToAgent(title, movies, musics,tv_shows, profile.get());
 
-				res.put("best_result",newRes);
-				
-				System.out.println("Merde :" + res.toString());
-				if(res != null) {
-					return ResponseEntity.status(200).body(res.toString());
+				if(response != null) {
+					return ResponseEntity.status(200).body(response.toString());
 				}
 				return ResponseEntity.notFound().build();
 			}

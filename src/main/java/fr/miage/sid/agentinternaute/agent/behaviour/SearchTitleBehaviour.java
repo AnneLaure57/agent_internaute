@@ -24,7 +24,8 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getLogger(SearchTitleBehaviour.class.getName());
 	
-	private JSONArray response =  new JSONArray();
+	private JSONArray allsubscriptions = new JSONArray();
+	private JSONArray alloeuvres = new JSONArray();
 	private List<JSONObject> results =  new ArrayList<>();
 
 	public SearchTitleBehaviour(Agent agent, Event event) {
@@ -74,7 +75,6 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 							}
 						}
 					}
-
 				});
 			}
 
@@ -83,11 +83,37 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 				
 				private static final long serialVersionUID = 458952544055578744L;
 
-				public void action() {
+				public void action() {					
+					
+					// Traitement des résultats avant envoi au service
 					for(JSONObject result : results) {
-						response.put(result);
+						String distributeur = result.getString("distributeur");
+						
+						// Récupération des données du distributeur
+						JSONArray subscriptions = result.getJSONArray("abonnements");
+						JSONArray oeuvres = result.getJSONArray("oeuvres");
+						
+						for (int i = 0; i < oeuvres.length(); i++) {
+							JSONObject oeuvre = oeuvres.getJSONObject(i);
+							oeuvre.put("distributeur", distributeur);
+							alloeuvres.put(oeuvre);							
+						}	
+						
+						for (int i = 0; i < subscriptions.length(); i++) {
+							JSONObject subscription = subscriptions.getJSONObject(i);
+							subscription.put("distributeur", distributeur);
+							allsubscriptions.put(subscription);							
+						}	
 					}
+					
+					// Ajout des deux arrays dans le json
+					JSONObject response = new JSONObject();
+					response.put("abonnements", allsubscriptions);
+					response.put("oeuvres", alloeuvres);
+					
 					System.out.println("Agent " + myAgent.getName() + " got results from " + results.size() + " distributors.");
+					
+					// Envoi de la reponse
 					event.notifyProcessed(response);
 				}
 			});

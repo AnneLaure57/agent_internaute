@@ -51,7 +51,12 @@ public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 					LOGGER.info("Ce distributeur vous répond : " + myAgent.getName());
 					
 					// Création d'une Mock réponse
-					JSONObject response = JSONDistributeur1.searchTitleJSONresponse();
+					JSONObject response;
+					if(myAgent.getName().substring(myAgent.getName().length()-4).equals("1@P1")) {
+						response = JSONDistributeur1.searchTitleJSONresponse();
+					} else {
+						response = JSONDistributeur2.searchTitleJSONresponse();
+					}
 					
 					// Reply
 					AgentAndACLMessageUtils.replyMessage(myAgent, ACLMessage.INFORM, response.toString(), message);
