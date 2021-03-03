@@ -79,7 +79,7 @@ public class AgentInternaute extends Agent {
 				if (newDiff == TimeUnit.DAYS.toMillis(30)) {
 					//check the satisfaction
 					Satisfaction s = new Satisfaction();
-					s.satisfactionCalcul(name);
+					//s.satisfactionCalcul(name);
 				}
 			}
 		});

@@ -9,11 +9,7 @@ public class Satisfaction {
 	
 	private ProfileService service;
 	
-	public String satisfactionCalcul(String name) {
-		
-		Optional<Profile> p = service.getProfileByName(name);
-		
-		Profile profile = p.get();
+	public String satisfactionCalcul(Profile profile) {
 		
 		@SuppressWarnings("unused")
 		String satisfation = null;
