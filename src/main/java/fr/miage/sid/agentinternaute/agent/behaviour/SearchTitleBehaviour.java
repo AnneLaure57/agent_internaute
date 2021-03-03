@@ -46,7 +46,7 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 
 				par.addSubBehaviour(new OneShotBehaviour() {
 
-					private static final long serialVersionUID = 1L;
+					private static final long serialVersionUID = -4359660041047869386L;
 
 					@Override
 					public void action() {
@@ -82,7 +82,7 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 			// On traite les résultats obtenus auprès des différents distributeurs
 			this.addSubBehaviour(new OneShotBehaviour() {
 				
-				private static final long serialVersionUID = 1L;
+				private static final long serialVersionUID = 458952544055578744L;
 
 				public void action() {
 					for(JSONObject result : results) {
