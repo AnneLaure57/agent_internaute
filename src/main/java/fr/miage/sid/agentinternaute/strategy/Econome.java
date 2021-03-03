@@ -27,7 +27,7 @@ public class Econome {
 		
 		// Si il prefère le téléchargement 
 		if(pref) {
-			System.out.println("L'utilisateur préfère le télchargemlent");
+			System.out.println("L'utilisateur préfère le téléchargement");
 			return( this.getMinPrix(oeuvres));
 			
 		}else {

@@ -29,8 +29,6 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 
 	public SearchTitleBehaviour(Agent agent, Event event) {
 		super();
-		
-		System.out.println(agent.getName());
 
 		// Récupération de la liste des distributeurs auprès du DF
 		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(agent,
@@ -40,7 +38,7 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 		if (distributors.length > 0) {
 			LOGGER.info("Send an ACL Message to " + distributors.length + " distributors agents.");
 
-			// On envoie en parallèle un requête à chaque distributeur
+			// On envoie en parallèle une requête à chaque distributeur
 			ParallelBehaviour par = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
 			this.addSubBehaviour(par);
 
@@ -56,8 +54,6 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 						aclMessage.addReceiver(distributor.getName());
 						aclMessage.setContent((String) event.getParameter(0));
 						aclMessage.setConversationId(UUID.randomUUID().toString());
-
-						System.out.println("ConversationID: " + aclMessage.getConversationId());
 
 						// On créé un template pour filter les messages de retour
 						MessageTemplate responseTemplate = MessageTemplate.and(
@@ -97,31 +93,5 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 				}
 			});
 		}
-
 	}
 }
-
-//
-//@Override
-//public void action() {
-//	DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
-//	
-//	if(distributors.length > 0) {
-//		LOGGER.info("Send an ACL Message to all distributors agents.");
-//		
-//		// Création des behaviours "receiver" pour écouter les réponses des distributeurs
-//		myAgent.addBehaviour(new ParallelSearchTitleBehaviour(event, distributors));
-//		
-//		for (DFAgentDescription distributor : distributors) {
-//			AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.REQUEST, (String) event.getParameter(0), distributor.getName());
-//		}
-//	} else {
-//		LOGGER.info("No distributors agents found.");
-//	}
-//	finished = true;
-//}
-//
-//@Override
-//public boolean done() {
-//	return finished;
-//}
