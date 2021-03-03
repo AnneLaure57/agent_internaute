@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Artist implements Serializable  {
-	
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -1682582090262364342L;
 
 	@Id
 	@GenericGenerator(name="generator", strategy="increment")

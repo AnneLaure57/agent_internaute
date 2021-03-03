@@ -5,6 +5,7 @@ import Register from '@/views/Register.vue'
 import Rechercher from '@/views/Rechercher.vue'
 import Profil from '@/views/Profil.vue'
 import Historique from '@/views/Historique.vue'
+import Satisfaction from '@/views/Satisfaction.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
         path: "/purchases",
         component: Historique,
         name: "historique"
+    },
+    {
+        path: "/satisfactions",
+        component: Satisfaction,
+        name: "satisfactions"
     },
     {
         path: "/",
