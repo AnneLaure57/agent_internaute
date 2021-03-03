@@ -28,10 +28,10 @@ public class Streamer {
 			Long subID = Long.valueOf(subscribe.getString("id"));
 			
 			//Get price
-            Double subPrice = (Double) subscribe.get("prix");
+            Double subPrice = subscribe.getDouble("prix");
             
             //Get duration
-            int subDur = (int) subscribe.get("duree");
+            Integer subDur = subscribe.getInt("duree");
             OfferDTO offer = new OfferDTO(subID, subDur, subPrice);
             
             //on ajoute dans la liste des offres

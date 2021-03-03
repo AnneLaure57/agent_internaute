@@ -1,7 +1,6 @@
 package fr.miage.sid.agentinternaute.strategy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.json.JSONArray;
@@ -22,7 +21,7 @@ public class Exigent {
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
 		
-		double price = 0;
+		Double price = 0.0;
 		
 		//First Step => get the list of artworks
 		for(int i=0; i<artworks.length(); i++){
@@ -33,13 +32,13 @@ public class Exigent {
 			Long ID = Long.valueOf(artwork.getString("id"));
 			//Get price
 			if (artwork.has("prix")) {
-				price = (double) ((Integer) artwork.get("prix")).intValue();
+				price = artwork.getDouble("prix");
 			} else {
 				price = 0.0;
 			}
 		
             //Get release date
-            int releaseDate = (int) artwork.get("dateSortie");
+            int releaseDate = artwork.getInt("dateSortie");
             OfferDTO offer = new OfferDTO(ID, releaseDate, price);
             
             //on ajoute dans la liste des offres
