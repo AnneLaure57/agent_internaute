@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-<<<<<<< HEAD
-=======
+
 import org.json.JSONArray;
->>>>>>> 6cf03c898267f98d20ef027517394445d6e898d6
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
