@@ -1,22 +1,31 @@
 <template>
-	<!-- <div
-		style="width: 100%; height: 100%; background-color: #efefef"
-		class="d-flex flex-column align-center justify-center flex-grow-1"
-	> -->
-		<v-card
-			width="50%"
-			max-width="500px"
-			class="d-flex flex-column ma-10 pa-3"
-		>
-			<v-card-title>Historique des satisfactions moyennes par mois</v-card-title>
+  <div
+    style="width: 100%; height: 100%; background-color: #efefef;"
+    class="d-flex flex-column align-center flex-grow-1"
+  >
+    <div class="d-flex align-baseline ma-6">
+      <h1 class="mr-12">Historique des satisfactions moyennes par mois</h1>
+      <v-btn
+        text
+        color="primary"
+        class="ma-0 pa-0"
+        :to="{ name: 'rechercher' }"
+      >
+        Retour à la recherche
+      </v-btn>
+    </div>
 
-			<v-card-text class="d-flex">
-				
-			</v-card-text>
-		</v-card>
-
-	<!-- </div> -->
+    <v-card
+      style="width: 60%"
+      class="ma-5"
+    >
+      <v-card-text class="d-flex justify-space-between">
+       
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
+   
 
 <script>
 	import { mapState } from "vuex";
