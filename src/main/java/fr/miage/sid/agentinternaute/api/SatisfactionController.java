@@ -1,13 +1,11 @@
 package fr.miage.sid.agentinternaute.api;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
-import org.json.JSONObject;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
 import fr.miage.sid.agentinternaute.dto.SatisfactionDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
-import fr.miage.sid.agentinternaute.entity.Purchase;
 import fr.miage.sid.agentinternaute.entity.Satisfaction;
-import fr.miage.sid.agentinternaute.service.InternalComService;
 import fr.miage.sid.agentinternaute.service.ProfileService;
-import fr.miage.sid.agentinternaute.service.PurchaseService;
 import fr.miage.sid.agentinternaute.service.SatisfactionService;
 import lombok.RequiredArgsConstructor;
 

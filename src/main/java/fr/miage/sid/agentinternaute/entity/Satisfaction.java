@@ -42,4 +42,9 @@ public class Satisfaction implements Serializable {
 	private Profile profile;
 	
 	private Double meanSatisfaction;
+
+	public Satisfaction(Profile profile, Double meanSatisfaction) {
+		this.profile = profile;
+		this.meanSatisfaction = meanSatisfaction;
+	}
 }
