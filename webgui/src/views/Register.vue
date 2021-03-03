@@ -105,7 +105,7 @@ export default {
         sex: "whoknows",
         maxBudget: 5,
         averageConsumptionTime: 1,
-        strategies: [],
+        strategy: "Econome",
       },
       rules: {
         required: (value) => !!value || "Champ requis",

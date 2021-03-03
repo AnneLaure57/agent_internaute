@@ -30,7 +30,7 @@ public class ProfileService {
 	public Profile createProfile(Profile profile) {
 		LOGGER.info("Create profile for " + profile.getName());
 		Profile newProfile = new Profile(profile.getName(), profile.getSex(), profile.getAge(),
-				profile.getAverageConsumptionTime(), profile.getMaxBudget());
+				profile.getAverageConsumptionTime(), profile.getMaxBudget(), profile.getStrategy());
 		repo.save(newProfile);
 		return newProfile;
 	}

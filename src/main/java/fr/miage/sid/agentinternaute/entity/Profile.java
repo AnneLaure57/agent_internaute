@@ -42,7 +42,7 @@ public class Profile implements Serializable {
 	private Integer averageConsumptionTime;
 	private Double currentExpenses;
 	private Double maxBudget;
-
+	private String strategy;
 	@Lob
 	private ArrayList<Integer> preferedVideoGenres;
 	@Lob
@@ -66,7 +66,7 @@ public class Profile implements Serializable {
 	@JsonIgnore
 	private List<Satisfaction> satisfactionHistory;
 
-	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Double maxBudget) {
+	public Profile(String name, String sex, Integer age, Integer averageConsumptionTime, Double maxBudget, String strategy) {
 		super();
 		this.name = name;
 		this.sex = sex;
@@ -75,6 +75,7 @@ public class Profile implements Serializable {
 		this.averageConsumptionTime = averageConsumptionTime;
 		this.currentExpenses = 0.0;
 		this.maxBudget = maxBudget;
+		this.strategy = strategy;
 		this.preferedVideoGenres = new ArrayList<Integer>();
 		this.preferedDirectors = new ArrayList<Integer>();
 		this.preferedActors = new ArrayList<Integer>();
