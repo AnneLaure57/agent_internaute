@@ -41,29 +41,12 @@ public class Streamer {
 		//sort by duration and price
 		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
 		
-		//return the first offer
-		//take the biggest duration
-		/*int bestDuration = 0;
-		//return the element
-		Long index = null;
-		for (OfferDTO o : offers) {
-			if (o.getDuration() > bestDuration) {
-				bestDuration = o.getDuration();
-				System.out.println(bestDuration);
-			}
-			index = o.getId();
-		}
-		int element = Arrays.asList(offers).indexOf(index);
-		System.out.println("index : " +  Arrays.asList(offers).indexOf(index));*/
-		
-		//System.out.println("index : " +  Collections.sort(offers, OfferDTO.ComparatorDurPrice));
-	
-		//System.out.println("index : " + offers.get(0));
-
+		//System.out.println("offres " + offers.get(0));
 		return offers.get(0);
 	}
 	
 	//method main
+	// Not final verison
 	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
 		OfferDTO result = null;
 		// check the preferences of the user profile
@@ -71,7 +54,6 @@ public class Streamer {
 			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
 			result = compareOffers(response);
 		} else {
-			//If no case -> force to set download call the method
 			profil.setPreferDownloadsForVideos(false);
 			streamerStrategy(profil, response);
 		}

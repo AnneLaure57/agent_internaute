@@ -24,6 +24,8 @@ import fr.miage.sid.agentinternaute.service.InternalComService;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 import fr.miage.sid.agentinternaute.service.PurchaseService;
 import fr.miage.sid.agentinternaute.strategy.Econome;
+import fr.miage.sid.agentinternaute.strategy.Exigent;
+import fr.miage.sid.agentinternaute.strategy.Streamer;
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,12 +70,13 @@ public class SearchController {
 				org.json.JSONObject res = JSONDistributeur1.searchTitleJSONresponse();
 				
 				System.out.println("DIST 1 :");
-				  Econome s = new Econome();
-				  org.json.JSONObject newRes = s.economeResponse(res, profile.get());
+				System.out.println("json : " + res);
+				Exigent e = new Exigent();
+				org.json.JSONObject newRes = e.exigentStrategy(profile.get(), res);
 
-				  res.put("best_result",newRes);
+				res.put("best_result",newRes);
 				
-				  System.out.println("Merde :" + res.toString());
+				System.out.println("Merde :" + res.toString());
 				if(res != null) {
 					return ResponseEntity.status(200).body(res.toString());
 				}
