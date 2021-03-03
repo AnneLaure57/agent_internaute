@@ -131,7 +131,7 @@ public class AgentDistributeur extends Agent {
 	}
 	
 	/**
-	 * Method registerService : to regiser our Distributeur agent to the Directory Facilitator.
+	 * Method registerService : to register our Distributeur agent to the Directory Facilitator.
 	 */
 	private void registerService() {
 		// On créé notre agent profile

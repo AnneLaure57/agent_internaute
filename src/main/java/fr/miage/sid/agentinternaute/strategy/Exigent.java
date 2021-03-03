@@ -1,4 +1,4 @@
-package fr.miage.sid.agentinternaute.agent.strategy;
+package fr.miage.sid.agentinternaute.strategy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,13 +10,25 @@ import org.json.JSONObject;
 import fr.miage.sid.agentinternaute.dto.OfferDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 
-public class Streamer {
+public class Exigent {
 	
+	//method check preferences
+	private Boolean checkPreferences(Profile profil) {
+		boolean pref = false;
+		if (!profil.isPreferDownloadsForVideos()) {
+			profil.setPreferDownloadsForVideos(true);
+			return pref = profil.isPreferDownloadsForVideos();
+		}
+		return pref;
+	}
+
 	//method compareOffers
 	private OfferDTO compareOffers(JSONObject response) {
+		JSONObject json = new JSONObject(response);
+		//TODO get oeuvres JSONArray
 		//String subscribe = json.getString("abonnements");
-		//System.out.println("notre json" + response);
-		JSONArray subscribes = response.getJSONArray("abonnements");
+
+		JSONArray subscribes = json.getJSONArray("abonnements");
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
 		
@@ -29,10 +41,10 @@ public class Streamer {
 			Long subID = Long.valueOf(subscribe.getString("id"));
 			
 			//Get price
-            Double subPrice = (Double) subscribe.get("prix");
+            Double subPrice = Double.valueOf(subscribe.getString("prix"));
             
             //Get duration
-            int subDur = (int) subscribe.get("duree");
+            int subDur = Integer.parseInt(subscribe.getString("duree"));
             OfferDTO offer = new OfferDTO(subID, subDur, subPrice);
             
             //on ajoute dans la liste des offres
@@ -44,38 +56,34 @@ public class Streamer {
 		
 		//return the first offer
 		//take the biggest duration
-		/*int bestDuration = 0;
-		//return the element
-		Long index = null;
+		int bestDuration = 0;
+		
 		for (OfferDTO o : offers) {
 			if (o.getDuration() > bestDuration) {
 				bestDuration = o.getDuration();
-				System.out.println(bestDuration);
 			}
-			index = o.getId();
 		}
-		int element = Arrays.asList(offers).indexOf(index);
-		System.out.println("index : " +  Arrays.asList(offers).indexOf(index));*/
 		
-		//System.out.println("index : " +  Collections.sort(offers, OfferDTO.ComparatorDurPrice));
-	
-		//System.out.println("index : " + offers.get(0));
-
-		return offers.get(0);
+		//return the element
+		int index = Arrays.asList(offers).indexOf(bestDuration);
+		return offers.get(index);
 	}
-	
+		
 	//method main
 	// Not final verison
 	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
 		OfferDTO result = null;
+		
 		// check the preferences of the user profile
-		if (profil.isPreferDownloadsForVideos() == false) {
+		if (!checkPreferences(profil)) {
 			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
 			result = compareOffers(response);
+		} else {
+			
 		}
 		//return result into JSONObject
 		JSONObject jsonResult = new JSONObject(result);
 		return jsonResult;
 	}
-	
+
 }

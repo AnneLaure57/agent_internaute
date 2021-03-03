@@ -16,20 +16,9 @@ public final class JadeAgentContainer {
 
 	private static final Logger LOGGER = Logger.getLogger(JadeAgentContainer.class.getName());
 	private static JadeAgentContainer INSTANCE;
-	
-	
-	
+
 	private AgentContainer agentContainer;
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * 
-	 */
+
 	private JadeAgentContainer() {
 		jade.core.Runtime rt = jade.core.Runtime.instance();
 		rt.setCloseVM(true);

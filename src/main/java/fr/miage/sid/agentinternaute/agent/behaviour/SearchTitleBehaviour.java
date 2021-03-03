@@ -1,50 +1,127 @@
 package fr.miage.sid.agentinternaute.agent.behaviour;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
-import jade.core.behaviours.SimpleBehaviour;
+import jade.core.Agent;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.ParallelBehaviour;
+import jade.core.behaviours.SequentialBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import jade.util.Event;
 
-public class SearchTitleBehaviour extends SimpleBehaviour {
-	/* ========================================= Global ================================================ */ /*=========================================*/
-	
-	private static final long serialVersionUID = -7471857252699739681L;
-	
+public class SearchTitleBehaviour extends SequentialBehaviour {
+
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getLogger(SearchTitleBehaviour.class.getName());
 	
-	/* ========================================= Attributs ============================================= */ /*=========================================*/
-	
-	private boolean finished = false;
-	private Event event;
-	
-	/* ========================================= Constructeurs ========================================= */ /*=========================================*/
+	private JSONArray response =  new JSONArray();
+	private List<JSONObject> results =  new ArrayList<>();
 
-	public SearchTitleBehaviour(Event event) {
+	public SearchTitleBehaviour(Agent agent, Event event) {
 		super();
-		this.event = event;
-	}
-	
-	/* ========================================= Methodes ============================================== */ /*=========================================*/
+		
+		System.out.println(agent.getName());
 
-	@Override
-	public void action() {
-		LOGGER.info("Send ACL Messages to all distributors agents.");
-		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
-		
-		myAgent.addBehaviour(new ParallelSearchTitleBehaviour(event, distributors));
-		
-		for (DFAgentDescription distributor : distributors) {
-			AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.REQUEST, (String) event.getParameter(0), distributor.getName());
+		// Récupération de la liste des distributeurs auprès du DF
+		DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(agent,
+				AgentTypes.AGENT_DISTRIBUTEUR.getValue());
+
+		// Si on en a au moins 1, on envoie la requête
+		if (distributors.length > 0) {
+			LOGGER.info("Send an ACL Message to " + distributors.length + " distributors agents.");
+
+			// On envoie en parallèle un requête à chaque distributeur
+			ParallelBehaviour par = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
+			this.addSubBehaviour(par);
+
+			for (DFAgentDescription distributor : distributors) {
+
+				par.addSubBehaviour(new OneShotBehaviour() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void action() {
+						ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
+						aclMessage.addReceiver(distributor.getName());
+						aclMessage.setContent((String) event.getParameter(0));
+						aclMessage.setConversationId(UUID.randomUUID().toString());
+
+						System.out.println("ConversationID: " + aclMessage.getConversationId());
+
+						// On créé un template pour filter les messages de retour
+						MessageTemplate responseTemplate = MessageTemplate.and(
+								MessageTemplate.MatchPerformative(ACLMessage.INFORM),
+								MessageTemplate.MatchConversationId(aclMessage.getConversationId()));
+
+						myAgent.send(aclMessage);
+
+						ACLMessage response;
+						long startTime = System.currentTimeMillis();
+						while (System.currentTimeMillis()-startTime < 5000) {
+							response = myAgent.receive(responseTemplate);
+							if (response != null) {
+								JSONObject result = new JSONObject();
+								result.put("distributeur", response.getSender());
+								result.put("resultats", response.getContent());
+								results.add(result);
+								break;
+							}
+						}
+					}
+
+				});
+			}
+
+			// On traite les résultats obtenus auprès des différents distributeurs
+			this.addSubBehaviour(new OneShotBehaviour() {
+				
+				private static final long serialVersionUID = 1L;
+
+				public void action() {
+					for(JSONObject result : results) {
+						response.put(result);
+					}
+					System.out.println("Agent " + myAgent.getName() + " got results from " + results.size() + " distributors.");
+					event.notifyProcessed(response.toString());
+				}
+			});
 		}
-		finished = true;
-	}
 
-	@Override
-	public boolean done() {
-		return finished;
 	}
 }
+
+//
+//@Override
+//public void action() {
+//	DFAgentDescription[] distributors = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_DISTRIBUTEUR.getValue());
+//	
+//	if(distributors.length > 0) {
+//		LOGGER.info("Send an ACL Message to all distributors agents.");
+//		
+//		// Création des behaviours "receiver" pour écouter les réponses des distributeurs
+//		myAgent.addBehaviour(new ParallelSearchTitleBehaviour(event, distributors));
+//		
+//		for (DFAgentDescription distributor : distributors) {
+//			AgentAndACLMessageUtils.sendMessage(myAgent, ACLMessage.REQUEST, (String) event.getParameter(0), distributor.getName());
+//		}
+//	} else {
+//		LOGGER.info("No distributors agents found.");
+//	}
+//	finished = true;
+//}
+//
+//@Override
+//public boolean done() {
+//	return finished;
+//}

@@ -8,7 +8,6 @@ public class AcceptProposalBehaviour extends SimpleBehaviour {
 
 	private static final long serialVersionUID = 1L;
 	
-	@SuppressWarnings("unused")
 	private Event event;
 
 	public AcceptProposalBehaviour(Event event) {
@@ -27,5 +26,4 @@ public class AcceptProposalBehaviour extends SimpleBehaviour {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

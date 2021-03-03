@@ -16,33 +16,17 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+
 public class AgentInternaute extends Agent {
 
-	private static final long serialVersionUID = -1271454263303780513L;
-
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getLogger(AgentInternaute.class.getName());
 
-	
-	
-	
-	
-	
-	
 	private String name;
-	// TODO : fix it
-	@SuppressWarnings("unused")
+
 	private ProfileService profileService;
 	private String service = AgentTypes.AGENT_INTERNAUTE.getValue();
 	private AID AID = new AID();
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * Setup method of agent

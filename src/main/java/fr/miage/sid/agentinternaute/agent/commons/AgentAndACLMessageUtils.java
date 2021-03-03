@@ -26,21 +26,21 @@ public class AgentAndACLMessageUtils {
 	/**
 	 * Method searchAgents : to search an other agent by name.
 	 * 
-	 * @param serviceName The name of the other agent to search.
+	 * @param serviceType The name of the other agent to search.
 	 * @return Return an array of DFAgentDescription. 
 	 */
-	public static DFAgentDescription[] searchAgents(Agent agent, String serviceName) {
+	public static DFAgentDescription[] searchAgents(Agent agent, String serviceType) {
 		// On créé le portrait robot de l'objet Jade que l'on cherche 
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(serviceName);
+		sd.setType(serviceType);
 		dfd.addServices(sd);
 		
-		// On essaie de récupérer les agents qui match auprès du Directory Facilitator
+		// On essaie de récupérer les agents qui matchent auprès du Directory Facilitator
 		try {
 			return DFService.search(agent, dfd);
 		} catch (FIPAException e) {
-			LOGGER.severe("Can't search the agent : " + serviceName);
+			LOGGER.severe("Can't search the agent : " + serviceType);
 			e.printStackTrace();
 			return null;
 		}

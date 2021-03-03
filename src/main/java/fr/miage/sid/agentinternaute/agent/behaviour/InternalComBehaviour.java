@@ -8,9 +8,10 @@ import jade.util.Event;
 
 public class InternalComBehaviour extends CyclicBehaviour {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private static final Logger LOGGER = Logger.getLogger(InternalComBehaviour.class.getName());
 	
-	private static final long serialVersionUID = 7707849724284945599L;
 
 	public InternalComBehaviour(AgentInternaute agentInternaute) {
 		super(agentInternaute);
@@ -32,7 +33,7 @@ public class InternalComBehaviour extends CyclicBehaviour {
 			if(event.getType() == 0) {
 				myAgent.addBehaviour(new RateBehaviour(event));
 			} else if(event.getType() == 1) {
-				myAgent.addBehaviour(new SearchTitleBehaviour(event));
+				myAgent.addBehaviour(new SearchTitleBehaviour(myAgent, event));
 			} else if(event.getType() == 2) {
 				myAgent.addBehaviour(new SearchFiltersBehaviour(event));
 			} else if(event.getType() == 3) {

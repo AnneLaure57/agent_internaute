@@ -4,15 +4,15 @@ import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.util.Event;
 
-public class RateBehaviour extends SimpleBehaviour {
+public class RateBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 5457637194175352400L;
-	private boolean finished = false;
 	private Event event;
 
 	public RateBehaviour(Event event) {
@@ -50,11 +50,5 @@ public class RateBehaviour extends SimpleBehaviour {
 		} finally {
 			event.notifyProcessed(response.toString());
 		}
-		finished = true;
-	}
-
-	@Override
-	public boolean done() {
-		return finished;
 	}
 }

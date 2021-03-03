@@ -6,10 +6,8 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Satisfaction {
 	
-	@SuppressWarnings("unused")
-	private static final Logger LOGGER = Logger.getLogger(Satisfaction.class.getName());
+	//private static final Logger LOGGER = Logger.getLogger(Satisfaction.class.getName());
 	
-	@SuppressWarnings("unused")
 	public String satisfactionCalcul(Profile profile) {
 		
 		//TODO review calcul  vérifier qui va en haut et qui va en bas

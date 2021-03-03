@@ -28,12 +28,6 @@ public class InternalComService {
 	/**
 	 * Send a stringified json message to our own agents, using a jade event and O2A
 	 * and, wait for agent response
-	 * 
-	 * @param eventType
-	 * @param jsonString
-	 * @param agentName
-	 * @param timeout
-	 * @return
 	 */
 	private String sendToAgent(int eventType, String jsonString, String agentName, int timeout) {
 		AgentController agentController;
@@ -86,13 +80,11 @@ public class InternalComService {
 			searchMessage.put("user_profile", userProfile);
 		}
 
-		System.out.println(searchMessage.toString());
 		String agentName = profile.getName();
 		
-		String temp = sendToAgent(1, searchMessage.toString(), agentName, 15);
-		System.out.println("Tu es là : InternalComService !");
-		System.out.println(temp);
-		return temp;
+		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + searchMessage.toString() );
+		
+		return sendToAgent(1, searchMessage.toString(), agentName, 10);
 	}
 
 	public String sendRatingsToAgent(String agentName, Purchase purchase) {
@@ -132,6 +124,8 @@ public class InternalComService {
 			}
 			message.put("realisateurs", directors);
 		}
+		
+		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + message.toString() );		
 
 		// Send it to the agent
 		return sendToAgent(0, message.toString(), agentName, 10);
