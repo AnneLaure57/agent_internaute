@@ -6,6 +6,7 @@ public class Satisfaction {
 	
 	public String satisfactionCalcul(Profile profile) {
 		
+		@SuppressWarnings("unused")
 		String satisfation = null;
 		
 		// ratio time

@@ -1,12 +1,8 @@
 package fr.miage.sid.agentinternaute.strategy;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import fr.miage.sid.agentinternaute.dto.OfferDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Econome {

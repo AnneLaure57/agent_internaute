@@ -46,7 +46,7 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 
 				par.addSubBehaviour(new OneShotBehaviour() {
 
-					private static final long serialVersionUID = 1L;
+					private static final long serialVersionUID = -4359660041047869386L;
 
 					@Override
 					public void action() {
@@ -67,9 +67,8 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 						while (System.currentTimeMillis()-startTime < 5000) {
 							response = myAgent.receive(responseTemplate);
 							if (response != null) {
-								JSONObject result = new JSONObject();
-								result.put("distributeur", response.getSender());
-								result.put("resultats", response.getContent());
+								JSONObject result = new JSONObject(response.getContent());
+								result.put("distributeur", response.getSender().getName());
 								results.add(result);
 								break;
 							}
@@ -82,14 +81,14 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 			// On traite les résultats obtenus auprès des différents distributeurs
 			this.addSubBehaviour(new OneShotBehaviour() {
 				
-				private static final long serialVersionUID = 1L;
+				private static final long serialVersionUID = 458952544055578744L;
 
 				public void action() {
 					for(JSONObject result : results) {
 						response.put(result);
 					}
 					System.out.println("Agent " + myAgent.getName() + " got results from " + results.size() + " distributors.");
-					event.notifyProcessed(response.toString());
+					event.notifyProcessed(response);
 				}
 			});
 		}

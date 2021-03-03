@@ -3,6 +3,7 @@ package fr.miage.sid.agentinternaute.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -29,20 +30,20 @@ public class InternalComService {
 	 * Send a stringified json message to our own agents, using a jade event and O2A
 	 * and, wait for agent response
 	 */
-	private String sendToAgent(int eventType, String jsonString, String agentName, int timeout) {
+	private Object sendToAgent(int eventType, String jsonString, String agentName, int timeout) {
 		AgentController agentController;
 		try {
 			agentController = JadeAgentContainer.getInstance().getAgentContainer().getAgent(agentName);
 			Event event = new Event(eventType, this, jsonString);
 			agentController.putO2AObject(event, AgentController.ASYNC);
-			return (String) event.waitUntilProcessed(timeout * 1000);
+			return event.waitUntilProcessed(timeout * 1000);
 		} catch (ControllerException | InterruptedException e) {
 			System.err.println("Failed to send object to " + agentName + " : " + e.getMessage());
 			return null;
 		}
 	}
 
-	public String sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
+	public JSONArray sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
 
 		// Construct JSON message
 		JSONObject searchMessage = new JSONObject();
@@ -84,10 +85,10 @@ public class InternalComService {
 		
 		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + searchMessage.toString() );
 		
-		return sendToAgent(1, searchMessage.toString(), agentName, 10);
+		return (JSONArray) sendToAgent(1, searchMessage.toString(), agentName, 10);
 	}
 
-	public String sendRatingsToAgent(String agentName, Purchase purchase) {
+	public JSONArray sendRatingsToAgent(String agentName, Purchase purchase) {
 
 		// Construct JSON message
 		JSONObject message = new JSONObject();
@@ -128,15 +129,15 @@ public class InternalComService {
 		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + message.toString() );		
 
 		// Send it to the agent
-		return sendToAgent(0, message.toString(), agentName, 10);
+		return (JSONArray) sendToAgent(0, message.toString(), agentName, 10);
 	}
 
-	public String sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {
+	public JSONObject sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {
 		// Construct JSON message
 		JSONObject message = new JSONObject();
 		// TODO
 
 		// Send it to the agent
-		return sendToAgent(3, message.toString(), agentName, 10);
+		return (JSONObject) sendToAgent(3, message.toString(), agentName, 10);
 	}
 }

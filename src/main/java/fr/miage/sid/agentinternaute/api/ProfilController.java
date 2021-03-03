@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +59,25 @@ public class ProfilController {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	@GetMapping(value = "/strategies")
+	public ResponseEntity<?> getStrategies() {
+		LOGGER.info("GET on /profile/strategies");
+		JSONArray strategies = new JSONArray();
+		JSONObject strategy1 =  new JSONObject();
+		strategy1.put("name", "Econome");
+		strategy1.put("description", "Veut dépenser le moins possible");
+		strategies.put(strategy1);
+		JSONObject strategy2 =  new JSONObject();
+		strategy2.put("name", "Exigent");
+		strategy2.put("description", "Veut des nouveautés pas cher");
+		strategies.put(strategy2);
+		JSONObject strategy3 =  new JSONObject();
+		strategy3.put("name", "Streamer");
+		strategy3.put("description", "Ne consomme qu'en streaming");
+		strategies.put(strategy3);
+		return ResponseEntity.ok(strategies.toString());
 	}
 
 	@PostMapping
