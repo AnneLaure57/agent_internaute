@@ -29,20 +29,20 @@ public class InternalComService {
 	 * Send a stringified json message to our own agents, using a jade event and O2A
 	 * and, wait for agent response
 	 */
-	private String sendToAgent(int eventType, String jsonString, String agentName, int timeout) {
+	private JSONObject sendToAgent(int eventType, String jsonString, String agentName, int timeout) {
 		AgentController agentController;
 		try {
 			agentController = JadeAgentContainer.getInstance().getAgentContainer().getAgent(agentName);
 			Event event = new Event(eventType, this, jsonString);
 			agentController.putO2AObject(event, AgentController.ASYNC);
-			return (String) event.waitUntilProcessed(timeout * 1000);
+			return (JSONObject) event.waitUntilProcessed(timeout * 1000);
 		} catch (ControllerException | InterruptedException e) {
 			System.err.println("Failed to send object to " + agentName + " : " + e.getMessage());
 			return null;
 		}
 	}
 
-	public String sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
+	public JSONObject sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
 
 		// Construct JSON message
 		JSONObject searchMessage = new JSONObject();
@@ -87,7 +87,7 @@ public class InternalComService {
 		return sendToAgent(1, searchMessage.toString(), agentName, 10);
 	}
 
-	public String sendRatingsToAgent(String agentName, Purchase purchase) {
+	public JSONObject sendRatingsToAgent(String agentName, Purchase purchase) {
 
 		// Construct JSON message
 		JSONObject message = new JSONObject();
@@ -131,7 +131,7 @@ public class InternalComService {
 		return sendToAgent(0, message.toString(), agentName, 10);
 	}
 
-	public String sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {
+	public JSONObject sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {
 		// Construct JSON message
 		JSONObject message = new JSONObject();
 		// TODO

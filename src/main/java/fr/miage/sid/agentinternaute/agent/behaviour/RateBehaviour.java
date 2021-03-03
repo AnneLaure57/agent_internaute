@@ -48,7 +48,7 @@ public class RateBehaviour extends OneShotBehaviour {
 			response.put("status", "An exception occured " + ex.getMessage());
 			ex.printStackTrace();
 		} finally {
-			event.notifyProcessed(response.toString());
+			event.notifyProcessed(response);
 		}
 	}
 }

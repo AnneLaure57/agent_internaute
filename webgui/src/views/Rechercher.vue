@@ -5,51 +5,180 @@
   >
     <!-- Recherche -->
     <div class="d-flex ma-5 justify-space-between" style="width: 80%">
-      <v-card width="45%">
-        <v-card-title>Rechercher un titre spécifique</v-card-title>
+      <v-card width="35%">
+        <div class="d-flex align-center justify-space-between">
+          <v-card-title>Rechercher un titre spécifique</v-card-title>
+          <v-card-actions>
+            <v-btn
+              rounded
+              xlarge
+              color="primary"
+              class="mx-3"
+              :disabled="(!movies1 && !tv_shows1 && !musics1) || searchfield == null || searchfield.length == 0"
+              @click="searchTitle()"
+            >
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </div>
+
         <v-card-text class="d-flex flex-wrap py-2">
           <v-text-field
             class="mr-8"
             v-model="searchfield"
             placeholder="Saisissez un ou plusieurs mots-clés"
-            append-outer-icon="mdi-magnify"
-            @click:append-outer="search(searchfield, movies, tv_shows, musics)"
+            clearable
           ></v-text-field>
           <div class="d-flex">
             <v-checkbox
-              v-model="movies"
+              v-model="movies1"
               label="Films"
               class="mx-4"
             ></v-checkbox>
             <v-checkbox
-              v-model="tv_shows"
+              v-model="tv_shows1"
               label="Séries"
               class="mx-4"
             ></v-checkbox>
             <v-checkbox
-              v-model="musics"
+              v-model="musics1"
               label="Musique"
               class="mx-4"
             ></v-checkbox>
           </div>
         </v-card-text>
-        <v-card-actions v-if="error">
-          <span class="subtitle-2 red--text mx-2 pa-0">
-            Vous devez choisir au moins un type de media
-          </span>
-        </v-card-actions>
       </v-card>
 
       <div class="d-flex align-center justify-center">
         <span class="title">ou</span>
       </div>
 
-      <v-card width="45%">
-        <v-card-title>Rechercher par filtre</v-card-title>
-        <v-card-text class="d-flex">
-          <!-- toto -->
+      <v-card width="55%">
+        <div class="d-flex align-center justify-space-between">
+          <v-card-title>Je sais pas trop, un truc comme ça ...</v-card-title>
+          <v-card-actions>
+            <v-btn
+              rounded
+              xlarge
+              color="primary"
+              class="mx-3"
+              :disabled="!movies2 && !tv_shows2 && !musics2"
+              @click="searchFilters()"
+            >
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </div>
+
+        <v-card-text class="d-flex align-center justify-space-between mb-3">
+          <div class="d-flex flex-column">
+            <v-checkbox
+              v-model="movies2"
+              label="Films"
+              class="mx-4 my-0"
+              dense
+            ></v-checkbox>
+            <v-checkbox
+              v-model="tv_shows2"
+              label="Séries"
+              class="mx-4 my-0"
+              dense
+            ></v-checkbox>
+            <v-checkbox
+              v-model="musics2"
+              label="Musique"
+              class="mx-4 my-0"
+              dense
+            ></v-checkbox>
+          </div>
+
+          <div class="d-flex flex-column flex-grow-1 ml-12 mr-3 mt-0 pt-0">
+            <div class="d-flex align-baseline mt-0 mb-3" v-if="musics2">
+              <span class="subtitle-1 mr-4" style="min-width: 100px"
+                >Genres musicaux:</span
+              >
+              <v-autocomplete
+                v-model="selected_music_genres"
+                :items="music_genres"
+                item-text="name"
+                multiple
+                hide-details
+                return-object
+                dense
+                clearable
+              >
+              </v-autocomplete>
+            </div>
+
+            <div class="d-flex align-baseline mt-0 mb-3" v-if="movies2 || tv_shows2">
+              <span class="subtitle-1 mr-4" style="min-width: 100px"
+                >Genres:</span
+              >
+              <v-autocomplete
+                v-model="selected_video_genres"
+                :items="video_genres"
+                item-text="name"
+                multiple
+                hide-details
+                return-object
+                dense
+                clearable
+              >
+              </v-autocomplete>
+            </div>
+
+            <div class="d-flex align-baseline  mt-0 mb-3" v-if="musics2">
+              <span class="subtitle-1 mr-4" style="min-width: 100px"
+                >Artistes:</span
+              >
+              <v-autocomplete
+                v-model="selected_artists"
+                :items="artists"
+                item-text="name"
+                multiple
+                hide-details
+                return-object
+                dense
+                clearable
+              >
+              </v-autocomplete>
+            </div>
+
+            <div class="d-flex align-baseline mt-0 mb-3" v-if="movies2 || tv_shows2">
+              <span class="subtitle-1 mr-4" style="min-width: 100px"
+                >Avec:</span
+              >
+              <v-autocomplete
+                v-model="selected_actors"
+                :items="actors"
+                item-text="name"
+                multiple
+                hide-details
+                return-object
+                dense
+                clearable
+              >
+              </v-autocomplete>
+            </div>
+
+            <div class="d-flex align-baseline mt-0" v-if="movies2 || tv_shows2">
+              <span class="subtitle-1 mr-4" style="min-width: 100px"
+                >Réalisé par:</span
+              >
+              <v-autocomplete
+                v-model="selected_directors"
+                :items="directors"
+                item-text="name"
+                multiple
+                hide-details
+                return-object
+                dense
+                clearable
+              >
+              </v-autocomplete>
+            </div>
+          </div>
         </v-card-text>
-        <v-card-actions></v-card-actions>
       </v-card>
     </div>
 
@@ -156,13 +285,26 @@ export default {
   data() {
     return {
       searchfield: "",
-      movies: true,
-      tv_shows: false,
-      musics: false,
+      movies1: true,
+      tv_shows1: false,
+      musics1: false,
+      movies2: true,
+      tv_shows2: false,
+      musics2: false,
       purchases: [],
       results: [],
       newPurchase: null,
       error: false,
+      selected_video_genres: [],
+      video_genres: [],
+      selected_directors: [],
+      directors: [],
+      selected_actors: [],
+      actors: [],
+      selected_music_genres: [],
+      music_genres: [],
+      selected_artists: [],
+      artists: [],
     };
   },
 
@@ -173,24 +315,43 @@ export default {
   mounted() {
     if (this.profile == null) this.$router.push({ name: "login" });
     this.getPurchases();
+    this.getAllArtists();
+    this.getAllDirectors();
+    this.getAllActors();
+    this.getAllMusicGenres();
+    this.getAllVideoGenres();
   },
 
   methods: {
-    search() {
-      if (!this.movies && !this.tv_shows && !this.musics) {
-        this.error = true;
-      } else {
-        let newSearch = {
-          searchField: this.searchfield,
-          movies: this.movies,
-          tvShows: this.tv_shows,
-          musics: this.musics,
-          profileId: this.profile.id,
-        };
-        this.$axios.post("/search", newSearch).then((response) => {
-          this.results = response.data;
-        });
-      }
+    searchTitle() {
+      let newSearch = {
+        searchField: this.searchfield,
+        movies: this.movies1,
+        tvShows: this.tv_shows1,
+        musics: this.musics1,
+        profileId: this.profile.id,
+      };
+      this.$axios.post("/search", newSearch).then((response) => {
+        this.results = response.data;
+      });
+    },
+
+    searchFilters() {
+      let newSearch = {
+        searchField: this.searchfield,
+        movies: this.movies2,
+        tvShows: this.tv_shows2,
+        musics: this.musics2,
+        selected_video_genres: this.selected_video_genres,
+        selected_music_genres: this.selected_music_genres,
+        selected_artists: this.selected_artists,
+        selected_actors: this.selected_actors,
+        selected_directors: this.selected_directors,
+        profileId: this.profile.id,
+      };
+      this.$axios.post("/search/filters", newSearch).then((response) => {
+        this.results = response.data;
+      });
     },
 
     buy(result) {
@@ -238,6 +399,52 @@ export default {
           console.log(error);
         }
       );
+    },
+
+    // Data from db
+    getAllDirectors() {
+      this.$axios.get("/db/directors").then((response) => {
+        this.directors = response.data;
+      });
+    },
+
+    getAllActors() {
+      this.$axios.get("/db/actors").then((response) => {
+        this.actors = response.data;
+      });
+    },
+
+    getAllArtists() {
+      this.$axios.get("/db/artists").then((response) => {
+        this.artists = response.data;
+        this.selected_artists = this.artists.filter((obj) =>
+          this.profile.preferedMusicArtists.includes(obj.id)
+        );
+      });
+    },
+
+    getAllVideoGenres() {
+      this.$axios.get("/db/video_genres").then((response) => {
+        this.video_genres = response.data;
+        this.video_genres.forEach(
+          (genre) =>
+            (genre["selected"] = this.profile.preferedVideoGenres.includes(
+              genre.id
+            ))
+        );
+      });
+    },
+
+    getAllMusicGenres() {
+      this.$axios.get("/db/music_genres").then((response) => {
+        this.music_genres = response.data;
+        this.music_genres.forEach(
+          (genre) =>
+            (genre["selected"] = this.profile.preferedMusicGenres.includes(
+              genre.id
+            ))
+        );
+      });
     },
   },
 };

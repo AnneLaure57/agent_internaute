@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONObject;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,21 +40,12 @@ public class PurchaseController {
 	private final PurchaseService service;
 	private final ProfileService serviceProfile;
 	private final InternalComService agentService;
-
-//	@GetMapping
-//    public Iterable<Purchase> getAllHistory(@RequestParam(defaultValue = "0") int page,
-//                                            @RequestParam(defaultValue = "20") int size) {
-//		LOGGER.info("GET on /purchases?page=0&size=20");
-//
-//        return service.findPaged(page, size);
-//    }
 	
 	@GetMapping(value = "/{id}") 
 	public ResponseEntity<?> getPurchasesProfile(@PathVariable Integer id) {
 	LOGGER.info("GET on /purchases with profile id");
 	
 	List<Purchase> purchases = service.findPurchasesProfile(id);
-	System.out.println("length : "+ purchases.toArray().length);
 		return  ResponseEntity.ok(purchases);
 	}
 			
@@ -65,10 +57,10 @@ public class PurchaseController {
 		Optional<Profile> profile = serviceProfile.getProfileById(p.getProfileId());
 		if(profile.isPresent()) {			
 			// Send to distributor
-			String response = agentService.sendAcceptProposalToAgent(profile.get().getName(), p);
+			JSONObject response = agentService.sendAcceptProposalToAgent(profile.get().getName(), p);
 			
 			// To remove later, for dev purpose
-			response = "{status: \"ok\"}";
+			response = new JSONObject("status", "ok");
 				
 			if(response != null) { // TO IMPROVE
 				// Persist infos

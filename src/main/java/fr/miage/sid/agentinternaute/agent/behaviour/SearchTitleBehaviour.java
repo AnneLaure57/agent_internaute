@@ -67,9 +67,8 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 						while (System.currentTimeMillis()-startTime < 5000) {
 							response = myAgent.receive(responseTemplate);
 							if (response != null) {
-								JSONObject result = new JSONObject();
-								result.put("distributeur", response.getSender());
-								result.put("resultats", response.getContent());
+								JSONObject result = new JSONObject(response.getContent());
+								result.put("distributeur", response.getSender().getName());
 								results.add(result);
 								break;
 							}
@@ -89,7 +88,7 @@ public class SearchTitleBehaviour extends SequentialBehaviour {
 						response.put(result);
 					}
 					System.out.println("Agent " + myAgent.getName() + " got results from " + results.size() + " distributors.");
-					event.notifyProcessed(response.toString());
+					event.notifyProcessed(response);
 				}
 			});
 		}

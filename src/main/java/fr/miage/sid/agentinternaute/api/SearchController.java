@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -56,7 +57,7 @@ public class SearchController {
 				System.out.println("Controleur -> recherche : " + newSearch);
 				
 				// Send request to internaute agent
-				String response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				JSONObject response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
 				if(response != null) {
 					return ResponseEntity.status(200).body(response.toString());
 				}

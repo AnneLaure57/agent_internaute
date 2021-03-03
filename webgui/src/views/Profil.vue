@@ -25,35 +25,58 @@
             <v-text-field
               v-model="profile.age"
               suffix="ans"
-              style="max-width: 100px"
+              style="max-width: 55px"
             ></v-text-field>
           </div>
 
           <div style="max-width: 25%">
             <h4>Sexe</h4>
             <v-radio-group v-model="profile.sex" row>
-              <v-radio label="Femme" value="woman"></v-radio>
-              <v-radio label="Homme" value="man"></v-radio>
-              <v-radio label="Indéterminé" value="whoknows"></v-radio>
+              <v-radio label="F" value="woman"></v-radio>
+              <v-radio label="H" value="man"></v-radio>
+              <v-radio label="?" value="whoknows"></v-radio>
             </v-radio-group>
           </div>
 
           <div style="max-width: 300px">
-            <h4>Budget mensuel maximum</h4>
+            <h4>Budget max</h4>
             <v-text-field
               v-model="profile.maxBudget"
-              suffix="€"
+              suffix="€/mois"
               style="max-width: 100px"
             ></v-text-field>
           </div>
 
           <div style="max-width: 300px">
-            <h4>Temps consommation moyen mensuel</h4>
+            <h4>Consommation moyenne</h4>
             <v-text-field
               v-model="profile.averageConsumptionTime"
-              suffix="heures"
-              style="max-width: 100px"
+              suffix="heures/mois"
+              style="max-width: 120px"
             ></v-text-field>
+          </div>
+
+          <div>
+            <h4>Stratégie</h4>
+            <v-select
+              v-model="profile.strategy"
+              :items="strategies"
+              item-text="name"
+              style="max-width: 200px"
+              required
+            >
+              <template v-slot:item="{ item }">
+                <span class="mr-1" :key="item.id">
+                  {{ item.name }} : {{ item.description }}
+                </span>
+              </template>
+
+              <template v-slot:selection="{ item }">
+                <span class="mr-1" :key="item.id">
+                  {{ item.name }}
+                </span>
+              </template>
+            </v-select>
           </div>
         </v-card-text>
       </div>
@@ -321,6 +344,7 @@ export default {
       artists: [],
       snackbar: false,
       snackbar_status_ok: false,
+      strategies: [],
     };
   },
 
@@ -336,6 +360,7 @@ export default {
       this.getAllActors();
       this.getAllMusicGenres();
       this.getAllVideoGenres();
+      this.getStrategies();
     }
   },
 
@@ -343,6 +368,12 @@ export default {
     getProfile() {
       this.$axios.get("/profil/" + this.profile.id).then((response) => {
         this.$store.commit("setProfile", response.data);
+      });
+    },
+
+    getStrategies() {
+      this.$axios.get("/profil/strategies").then((response) => {
+        this.strategies = response.data;
       });
     },
 
