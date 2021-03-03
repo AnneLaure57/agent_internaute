@@ -48,7 +48,7 @@ public class RatingsController {
 				service.updatePurchase(purchase);
 
 				// Send to erepute
-				JSONArray response = agentService.sendRatingsToAgent(agentName, purchase);
+				JSONObject response = agentService.sendRatingsToAgent(agentName, purchase);
 				return ResponseEntity.ok().body(response);
 			} else {
 				return ResponseEntity.notFound().build();

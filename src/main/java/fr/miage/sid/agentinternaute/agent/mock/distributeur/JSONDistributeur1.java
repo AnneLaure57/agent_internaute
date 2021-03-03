@@ -56,13 +56,7 @@ public class JSONDistributeur1 {
 		subscription2.put("id", "35415");
 		subscription2.put("duree", 35);
 		subscription2.put("prix", 20.35);
-		
-		/* ========================================= Abo 3  ============================================== */ /*=========================================*/
-		
-		subscription3.put("id", "34489");
-		subscription3.put("duree", 35);
-		subscription3.put("prix", 28.35);
-		
+			
 		/* ========================================= Movies ============================================== */ /*=========================================*/
 					
 		JSONArray movies = new JSONArray();
@@ -120,6 +114,7 @@ public class JSONDistributeur1 {
 		movie2.put("titre", "Rox et Rouky");
 		movie2.put("description", "Rox le renard et Rouky le chien sont les meilleurs amis du monde. Mais cette amitié est menacée lorsque le ma?tre de Rouky devient chasseur...");
 		movie2.put("dateSortie", 1981);
+		movie1.put("note", 4.5);
 		
 		JSONArray genres2 = new JSONArray();
 		JSONObject genre21 = new JSONObject();

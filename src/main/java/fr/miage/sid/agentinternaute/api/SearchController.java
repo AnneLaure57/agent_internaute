@@ -53,29 +53,27 @@ public class SearchController {
 			
 			if(profile.isPresent()) {
 				String title = newSearch.getSearchField();
-				Boolean movies = newSearch.getMovies();
-				Boolean musics = newSearch.getMusics();
-				Boolean tv_shows = newSearch.getTvShows();
+				boolean movies = newSearch.getMovies();
+				boolean musics = newSearch.getMusics();
+				boolean tv_shows = newSearch.getTvShows();
+				
 				System.out.println("Controleur -> recherche : " + newSearch);
 				
 				// Send request to internaute agent
-				
-				// Ligne de claire qu'on dois garder à la fin 
-				//JSONArray response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
-				
-				
-				JSONDistributeur1 js = new JSONDistributeur1();
-				org.json.JSONObject res = JSONDistributeur1.searchTitleJSONresponse();
-				
-				System.out.println("DIST 1 :");
-				  Econome s = new Econome();
-				  org.json.JSONObject newRes = s.economeResponse(res, profile.get());
+				JSONObject response = serviceInternal.sendSearchTitleToAgent(title, movies, musics,tv_shows, profile.get());
 
-				  res.put("best_result",newRes);
-				
-				  System.out.println("Merde :" + res.toString());
-				if(res != null) {
-					return ResponseEntity.status(200).body(res.toString());
+//				JSONDistributeur1 js = new JSONDistributeur1();
+//				org.json.JSONObject res = JSONDistributeur1.searchTitleJSONresponse();
+//				
+//				System.out.println("DIST 1 :");
+//				  Econome s = new Econome();
+//				  org.json.JSONObject newRes = s.economeResponse(res, profile.get());
+//
+//				  res.put("best_result",newRes);
+//				
+//				  System.out.println("Merde :" + res.toString());
+				if(response != null) {
+					return ResponseEntity.status(200).body(response.toString());
 				}
 				return ResponseEntity.notFound().build();
 			}
