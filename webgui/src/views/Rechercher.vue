@@ -14,7 +14,11 @@
               xlarge
               color="primary"
               class="mx-3"
-              :disabled="(!movies1 && !tv_shows1 && !musics1) || searchfield == null || searchfield.length == 0"
+              :disabled="
+                (!movies1 && !tv_shows1 && !musics1) ||
+                  searchfield == null ||
+                  searchfield.length == 0
+              "
               @click="searchTitle()"
             >
               <v-icon>mdi-magnify</v-icon>
@@ -110,7 +114,10 @@
               </v-autocomplete>
             </div>
 
-            <div class="d-flex align-baseline mt-0 mb-3" v-if="movies2 || tv_shows2">
+            <div
+              class="d-flex align-baseline mt-0 mb-3"
+              v-if="movies2 || tv_shows2"
+            >
               <span class="subtitle-1 mr-4" style="min-width: 100px"
                 >Genres:</span
               >
@@ -144,7 +151,10 @@
               </v-autocomplete>
             </div>
 
-            <div class="d-flex align-baseline mt-0 mb-3" v-if="movies2 || tv_shows2">
+            <div
+              class="d-flex align-baseline mt-0 mb-3"
+              v-if="movies2 || tv_shows2"
+            >
               <span class="subtitle-1 mr-4" style="min-width: 100px"
                 >Avec:</span
               >
@@ -182,6 +192,32 @@
       </v-card>
     </div>
 
+    <!-- Abonnements -->
+    <div style="width: 80%" class="d-flex ma-5">
+      <h2 v-if="subscriptions.length > 0">Abonnements</h2>
+    </div>
+
+    <div style="width: 80%" class="d-flex justify-space-between">
+      <v-card
+        v-for="subscription in subscriptions"
+        :key="subscription.id"
+        style="width: 20%"
+      >
+        <v-card-title>{{ subscription.prix }} € / mois</v-card-title>
+        <v-card-subtitle
+          >Engagement de {{ subscription.duree }} jours</v-card-subtitle
+        >
+        <v-card-text class="d-flex justify-space-between">{{
+          subscription.distributeur
+        }}</v-card-text>
+        <v-card-actions class="d-flex justify-center ma-2">
+          <v-btn color="primary" min-width="150px" @click="buy(result, true)"
+            >S'abonner</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </div>
+
     <!-- Results -->
     <div style="width: 80%" class="d-flex ma-5">
       <h2 v-if="results.length > 0">Résultats</h2>
@@ -197,7 +233,7 @@
         <v-img
           contain
           max-height="200px"
-          max-width="200px"
+          max-width="150px"
           width="150px"
           src="../assets/img/default.png"
         ></v-img>
@@ -230,9 +266,7 @@
             </div>
             <div>
               <span class="subtitle-2">Distributeur: </span
-              ><span
-                >{{ result.distributeur }}</span
-              >
+              ><span>{{ result.distributeur }}</span>
             </div>
           </div>
           <div>
@@ -257,7 +291,7 @@
           <v-btn
             outlined
             color="primary"
-            @click="buy(result)"
+            @click="buy(result, false)"
             :disabled="!result.prix"
             min-width="150px"
             >{{
@@ -266,8 +300,9 @@
                 : "Pas d'achat"
             }}</v-btn
           >
-          <v-btn color="primary" min-width="150px" @click="subscribe(result)"
-            >S'abonner</v-btn
+
+          <v-chip color="primary" label>
+            Disponible avec abonnement</v-chip
           >
         </div>
       </v-card-text>
@@ -354,7 +389,8 @@ export default {
       });
     },
 
-    buy(result) {
+    buy(result, subscribe) {
+      console.log(subscribe);
       let newPurchase = {
         prix: result.prix,
         itemType: result.itemType,
@@ -385,8 +421,6 @@ export default {
         }
       );
     },
-
-    subscribe() {},
 
     getPurchases() {
       this.$axios.get("/purchases/" + this.profile.id).then(
