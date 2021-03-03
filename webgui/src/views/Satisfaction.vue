@@ -21,7 +21,7 @@
 <script>
 	import { mapState } from "vuex";
 	export default {
-		name: "Login",
+		name: "Satisfaction",
 
 		data() {
 			return {
@@ -34,25 +34,11 @@
 		},
 
 		mounted() {
-			if (this.profile != null) this.$router.push({ name: "rechercher" });
-		},
-
-		methods: {
-			goToRegister() {
-				this.$router.push({ name: "register" });
-			},
-
-			connexion() {
-				this.$axios.get("/profil?name=" + this.login).then(
-					(response) => {
-						this.$store.commit("setProfile", response.data);
-						this.$router.push({ name: "rechercher" });
-					},
-					() => {
-						this.snackbar = true;
-					}
-				);
-			},
-		},
+            this.$axios.get("/satisfaction/" + this.profile.id).then( (response) => {
+                console.log(response);
+            }, () => {
+                this.satisfactions = [];
+            });
+		}
 	};
 </script>
