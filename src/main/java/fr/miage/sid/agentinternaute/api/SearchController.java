@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-<<<<<<< HEAD
-=======
 import org.json.JSONArray;
->>>>>>> 6cf03c898267f98d20ef027517394445d6e898d6
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -62,11 +59,23 @@ public class SearchController {
 				System.out.println("Controleur -> recherche : " + newSearch);
 				
 				// Send request to internaute agent
+				
+				// Ligne de claire qu'on dois garder à la fin 
+				//JSONArray response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
+				
+				
+				JSONDistributeur1 js = new JSONDistributeur1();
+				org.json.JSONObject res = JSONDistributeur1.searchTitleJSONresponse();
+				
+				System.out.println("DIST 1 :");
+				  Econome s = new Econome();
+				  org.json.JSONObject newRes = s.economeResponse(res, profile.get());
 
-				JSONArray response = serviceInternal.sendSearchTitleToAgent(title,movies,musics,tv_shows, profile.get());
-				if(response != null) {
-					return ResponseEntity.status(200).body(response.toString());
-
+				  res.put("best_result",newRes);
+				
+				  System.out.println("Merde :" + res.toString());
+				if(res != null) {
+					return ResponseEntity.status(200).body(res.toString());
 				}
 				return ResponseEntity.notFound().build();
 			}

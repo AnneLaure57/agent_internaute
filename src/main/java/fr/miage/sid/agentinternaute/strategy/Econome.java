@@ -11,10 +11,8 @@ public class Econome {
 	
 		boolean pref = profil.isPreferDownloadsForVideos();
 	
-		// C'est ce qui est bon avec l'agent distributeur
-		JSONObject json = new JSONObject(response);
-		JSONArray oeuvres = json.getJSONArray("oeuvres");
-		JSONArray offres = json.getJSONArray("abonnements");
+		JSONArray oeuvres = response.getJSONArray("oeuvres");
+		JSONArray offres = response.getJSONArray("abonnements");
 		
 		
 		// Si il prefère le téléchargement 
