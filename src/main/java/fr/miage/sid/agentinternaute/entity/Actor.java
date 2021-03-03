@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Actor implements Serializable  {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2590514568103788939L;
 
 	@Id
 	@GenericGenerator(name="generator", strategy="increment")

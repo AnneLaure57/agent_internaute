@@ -19,7 +19,7 @@ public class Streamer {
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
 		
-		//First Step => get the list subcribe
+		//First Step => get the list of subcribes
 		for(int i=0; i<subscribes.length(); i++){
 			//get the subscribe
 			JSONObject subscribe = (JSONObject) subscribes.get(i);
@@ -64,13 +64,16 @@ public class Streamer {
 	}
 	
 	//method main
-	// Not final verison
 	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
 		OfferDTO result = null;
 		// check the preferences of the user profile
 		if (profil.isPreferDownloadsForVideos() == false) {
 			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
 			result = compareOffers(response);
+		} else {
+			//If no case -> force to set download call the method
+			profil.setPreferDownloadsForVideos(false);
+			streamerStrategy(profil, response);
 		}
 		//return result into JSONObject
 		JSONObject jsonResult = new JSONObject(result);
