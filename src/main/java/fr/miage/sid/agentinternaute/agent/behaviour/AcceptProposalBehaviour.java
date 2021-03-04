@@ -61,5 +61,6 @@ public class AcceptProposalBehaviour extends OneShotBehaviour {
 		} finally {
 			event.notifyProcessed(response);
 		}
+	}
 
 }
