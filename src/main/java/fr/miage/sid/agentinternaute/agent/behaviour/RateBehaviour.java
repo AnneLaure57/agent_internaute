@@ -1,5 +1,7 @@
 package fr.miage.sid.agentinternaute.agent.behaviour;
 
+import java.util.UUID;
+
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
@@ -7,6 +9,7 @@ import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import jade.util.Event;
 
 public class RateBehaviour extends OneShotBehaviour {
@@ -21,25 +24,34 @@ public class RateBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
+		
+		JSONObject response = new JSONObject();
 
 		// Send message to e-reputation agent
 		DFAgentDescription ereput = AgentAndACLMessageUtils.searchAgents(myAgent, AgentTypes.AGENT_E_REPUTATION.getValue())[0];
-		
-		// L'objet envoyé dans l'event est le premier paramètre, c'est notre json "stringifié"
-		System.out.println((String) event.getParameter(0));
-		
-		// json pour la réponse
-		JSONObject response = new JSONObject();
 		
 		try {
 			if(ereput != null) {
 				ACLMessage aclMessage = new ACLMessage(ACLMessage.INFORM);
 				aclMessage.addReceiver(ereput.getName());		
 				aclMessage.setContent((String) event.getParameter(0)); 
+				aclMessage.setConversationId(UUID.randomUUID().toString());
+
+				// On créé un template pour filter les messages de retour
+				MessageTemplate responseTemplate = MessageTemplate.and(
+						MessageTemplate.MatchPerformative(ACLMessage.INFORM),
+						MessageTemplate.MatchConversationId(aclMessage.getConversationId()));
 				myAgent.send(aclMessage);
 				
-				// On retourne le status ok car l'agent e-réputation ne nous renvoie rien
-				response.put("status", "ok");
+				ACLMessage resp;
+				long startTime = System.currentTimeMillis();
+				while (System.currentTimeMillis()-startTime < 5000) {
+					resp = myAgent.receive(responseTemplate);
+					if (resp != null) {
+						response.put("status", resp.getContent());
+						break;
+					}
+				}
 			} else {
 				response.put("status", "No erepute agent found :(");
 			}

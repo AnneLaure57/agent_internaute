@@ -133,6 +133,7 @@ public class InternalComService {
 	}
 
 	public JSONObject sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {
+		
 		// Construct JSON message
 		JSONObject message = new JSONObject();
 		// TODO
