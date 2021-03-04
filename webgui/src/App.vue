@@ -16,7 +16,7 @@
 
       <div class="d-flex align-centermx-12" v-if="profile">
         <v-icon color="primary" class="mx-4">mdi-currency-eur</v-icon>
-        <span>{{ profile.currentExpenses }} / {{ profile.maxBudget }} €</span>
+        <span> {{ (profile.currentExpenses).toFixed(2) }} / {{ profile.maxBudget }} €</span>
       </div>
       <v-spacer></v-spacer>
 
