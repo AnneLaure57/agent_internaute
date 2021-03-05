@@ -201,7 +201,7 @@
       <v-card
         v-for="subscription in subscriptions"
         :key="subscription.id"
-        style="width: 20%"
+        style="width: 22%"
       >
         <v-card-title>{{ subscription.prix }} € / mois</v-card-title>
         <v-card-subtitle
@@ -373,19 +373,19 @@ export default {
 
     searchFilters() {
       let newSearch = {
-        searchField: this.searchfield,
         movies: this.movies2,
         tvShows: this.tv_shows2,
         musics: this.musics2,
-        selected_video_genres: this.selected_video_genres,
-        selected_music_genres: this.selected_music_genres,
-        selected_artists: this.selected_artists,
-        selected_actors: this.selected_actors,
-        selected_directors: this.selected_directors,
+        selectedVideoGenres: this.selected_video_genres,
+        selectedMusicGenres: this.selected_music_genres,
+        selectedArtists: this.selected_artists,
+        selectedActors: this.selected_actors,
+        selectedDirectors: this.selected_directors,
         profileId: this.profile.id,
       };
-      this.$axios.post("/search/filters", newSearch).then((response) => {
-        this.results = response.data;
+      this.$axios.post("/search?filter=true", newSearch).then((response) => {
+        this.results = response.data.oeuvres;
+        this.subscriptions = response.data.abonnements;
       });
     },
 

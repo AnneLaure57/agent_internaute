@@ -59,7 +59,7 @@
           <div>
             <h4>Stratégie</h4>
             <v-select
-              v-model="profile.strategy"
+              v-model="strategy"
               :items="strategies"
               item-text="name"
               style="max-width: 200px"
@@ -344,6 +344,7 @@ export default {
       artists: [],
       snackbar: false,
       snackbar_status_ok: false,
+      strategy: "",
       strategies: [],
     };
   },
@@ -362,6 +363,8 @@ export default {
       this.getAllVideoGenres();
       this.getStrategies();
     }
+
+    this.strategy = this.profile.strategy;
   },
 
   methods: {
@@ -388,6 +391,8 @@ export default {
       this.profile.preferedMusicGenres = this.music_genres
         .filter((obj) => obj.selected)
         .map((obj) => obj.id);
+
+      this.profile.strategy = this.strategy;
   
       this.$axios.put("/profil/" + this.profile.id, this.profile).then(
         (response) => {
