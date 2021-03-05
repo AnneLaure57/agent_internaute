@@ -181,7 +181,9 @@ public class InternalComService {
 
 		// Construct JSON message
 		JSONObject message = new JSONObject();
-		// TODO
+		message.put("distributor", p.getDistributeur());
+		message.put("id", p.getId());
+		message.put("prix", p.getPrix());
 
 		// Send it to the agent
 		return (JSONObject) sendToAgent(3, message.toString(), agentName, 10);

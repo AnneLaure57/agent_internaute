@@ -37,7 +37,7 @@ public class InternalComBehaviour extends CyclicBehaviour {
 			} else if(event.getType() == 2) {
 				myAgent.addBehaviour(new SearchFiltersBehaviour(myAgent, event));
 			} else if(event.getType() == 3) {
-				myAgent.addBehaviour(new AcceptProposalBehaviour(event));
+				myAgent.addBehaviour(new AcceptProposalBehaviour(myAgent, event));
 			} else {
 				LOGGER.warning("Wrong event type was sent !");
 			}
