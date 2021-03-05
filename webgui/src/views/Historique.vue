@@ -59,9 +59,7 @@
             <div>
               <span class="subtitle-2">Distributeur: </span
               ><span
-                v-for="distributor in purchase.distributor"
-                :key="distributor.id"
-                >{{ distributor.nom }}</span
+                >{{ purchase.distributeurId }}</span
               >
             </div>
           </div>

@@ -48,9 +48,15 @@ public class PurchaseService {
 		repo.save(purchase);
 
 		// Update profile time and money
-		profile.setCurrentConsumptionTime(profile.getCurrentConsumptionTime() + 1.5); // + 1h30
-		profile.setCurrentExpenses(profile.getCurrentExpenses() + purchase.getPrice()); // + prix de l'oeuvre ou de
-																						// l'abonnement
+		profile.setCurrentConsumptionTime(profile.getCurrentConsumptionTime() + 1.5); // + 1h30, les distributeurs ne nous envoient pas la durée de l'oeuvre pour l'instant
+		
+		System.out.println(p.getSubscriptionId() + " " + p.getSubscriptionPrice());
+		
+		if(p.getSubscriptionPrice() != null) {
+			profile.setCurrentExpenses(profile.getCurrentExpenses() + p.getSubscriptionPrice()); // + prix de l'abonnement
+		} else {
+			profile.setCurrentExpenses(profile.getCurrentExpenses() + p.getPrix()); // + prix de l'oeuvre
+		}
 		profileRepo.save(profile);
 
 		return purchase;

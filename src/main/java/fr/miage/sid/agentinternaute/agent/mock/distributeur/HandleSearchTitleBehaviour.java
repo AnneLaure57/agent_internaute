@@ -47,7 +47,8 @@ public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 				}
 				
 				if (JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) ||
-						JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_FILTER.getValue())) {
+						JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_FILTER.getValue()) ||
+						JSON.getString("request").equals(ACLMessageTypes.ACCEPT_PROPOSAL.getValue())) {
 					LOGGER.info("=============================================================");
 					LOGGER.info("Réception d'une requête pour l'agent" + myAgent.getName());
 					LOGGER.info("=============================================================");

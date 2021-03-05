@@ -30,7 +30,8 @@ public class PurchaseDTO {
 	private ArrayList<Director> realisateurs;
 	private ArrayList<Artist> artistes;
 	private Integer profileId;
-	private Object subscription;
+	private Integer subscriptionId;
+	private Integer subscriptionPrice;
 	
 	public static Comparator<PurchaseDTO> ComparatorDate = new Comparator<PurchaseDTO>() {
 		@Override

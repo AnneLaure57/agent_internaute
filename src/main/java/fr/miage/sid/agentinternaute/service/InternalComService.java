@@ -181,6 +181,7 @@ public class InternalComService {
 
 		// Construct JSON message
 		JSONObject message = new JSONObject();
+		message.put("request", ACLMessageTypes.ACCEPT_PROPOSAL.getValue());
 		message.put("distributor", p.getDistributeur());
 		message.put("id", p.getId());
 		message.put("prix", p.getPrix());

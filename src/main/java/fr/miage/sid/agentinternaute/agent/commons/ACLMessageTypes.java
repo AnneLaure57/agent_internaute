@@ -9,7 +9,8 @@ package fr.miage.sid.agentinternaute.agent.commons;
 public enum ACLMessageTypes {
 	REQUEST_SEARCH_TITLE ("search-title"),
 	REQUEST_SEARCH_FILTER("search-filter"),
-	REQUEST_PURCHASE ("purchase");
+	REQUEST_PURCHASE("purchase"), 
+	ACCEPT_PROPOSAL("accept"), ;
 	
 	private final String value;
 	

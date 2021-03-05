@@ -211,11 +211,30 @@
           subscription.distributeur
         }}</v-card-text>
         <v-card-actions class="d-flex justify-center ma-2">
-          <v-btn v-if="subscription.prix == 0" color="info">Deja abonné</v-btn>
-          <v-btn v-else-if="anotherSubscription(subscription, subscriptions)" color="pink">Non disponible</v-btn>
-          <v-btn v-else :color="selectedSubscription ? (selectedSubscription.id == subscription.id ? 'error' : 'primary') : 'primary'" min-width="150px" @click="setSubscription(subscription)"
-            > {{ selectedSubscription ? (selectedSubscription.id == subscription.id ? 'Désélectionner' : 'Sélectionner') : 'Sélectionner' }} </v-btn
+          <v-btn v-if="subscription.prix == 0 || subscription.free" color="info"
+            >Deja abonné</v-btn
           >
+          <!-- <v-btn v-else-if="subscription.free" color="pink">Non disponible</v-btn> -->
+          <v-btn
+            v-else
+            :color="
+              selectedSubscription
+                ? selectedSubscription.id == subscription.id
+                  ? 'error'
+                  : 'primary'
+                : 'primary'
+            "
+            min-width="150px"
+            @click="setSubscription(subscription)"
+          >
+            {{
+              selectedSubscription
+                ? selectedSubscription.id == subscription.id
+                  ? "Désélectionner"
+                  : "Sélectionner"
+                : "Sélectionner"
+            }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -302,10 +321,22 @@
                 : "Pas d'achat"
             }}</v-btn
           >
-
-          <v-chip color="primary" label>
-            Disponible avec abonnement</v-chip
+          <v-btn
+            v-if="
+              (selectedSubscription &&
+                selectedSubscription.distributeur &&
+                result.distributeur == selectedSubscription.distributeur) ||
+                freeDistributeurs.includes(result.distributeur)
+            "
+            color="success"
+            @click="buy(result, true)"
           >
+            Visionner avec Abonnement
+          </v-btn>
+          <v-chip color="primary" label>Disponible avec abonnement</v-chip>
+        </div>
+        <div v-else class="d-flex flex-column justify-space-around ml-12 mr-4">
+          <v-chip color="primary" label>Déjà visionné</v-chip>
         </div>
       </v-card-text>
     </v-card>
@@ -320,6 +351,8 @@ export default {
   data() {
     return {
       selectedSubscription: null,
+      freeSubscriptions: [],
+      freeDistributeurs: [],
       searchfield: "",
       movies1: true,
       tv_shows1: false,
@@ -347,8 +380,6 @@ export default {
 
   computed: {
     ...mapState(["profile"]),
-
-
   },
 
   mounted() {
@@ -362,25 +393,38 @@ export default {
   },
 
   methods: {
-    anotherSubscription (subscription, subscriptions) {
-      subscriptions.forEach(sub => {
-        if (sub.id == subscription.id) {
-          console.log(sub);
-          return true;
+    anotherSubscription() {
+      this.freeSubscriptions = [];
+      this.freeDistributeurs = [];
+
+      this.subscriptions.forEach((sub) => {
+        if (sub.prix == 0) {
+          this.freeDistributeurs.push(sub.distributeur);
+          this.freeSubscriptions.push(sub);
+          // this.selectedSubscription = sub;
         }
+        sub.free = false;
       });
-      subscriptions.forEach(sub => {
-        if (sub.prix == 0 && sub.distributeur == subscription.distributeur) {
-          return true;
-        }
+
+      this.subscriptions.forEach((sub) => {
+        this.freeSubscriptions.forEach((subscription) => {
+          if (sub.distributeur == subscription.distributeur) {
+            sub.free = true;
+          }
+        });
       });
+      console.log(this.subscriptions);
+      console.log(this.freeSubscriptions);
     },
 
-    setSubscription (subscription) {
-      if (this.selectedSubscription == null) {
+    setSubscription(subscription) {
+      if (
+        this.selectedSubscription == null ||
+        this.selectedSubscription == {}
+      ) {
         this.selectedSubscription = subscription;
       } else if (this.selectedSubscription.id == subscription.id) {
-        this.selectedSubscription = null;
+        this.selectedSubscription = {};
       } else {
         this.selectedSubscription = subscription;
       }
@@ -399,6 +443,7 @@ export default {
       this.$axios.post("/search", newSearch).then((response) => {
         this.results = response.data.oeuvres;
         this.subscriptions = response.data.abonnements;
+        this.anotherSubscription();
       });
     },
 
@@ -417,6 +462,7 @@ export default {
       this.$axios.post("/search?filter=true", newSearch).then((response) => {
         this.results = response.data.oeuvres;
         this.subscriptions = response.data.abonnements;
+        this.anotherSubscription();
       });
     },
 
@@ -437,8 +483,16 @@ export default {
         realisateurs: result.realisateurs,
         artistes: result.artistes,
         profileId: this.profile.id,
-        subscription: this.selectedSubscription ? this.selectedSubscription : {}
+        subscription: this.selectedSubscription
+          ? this.selectedSubscription
+          : {},
       };
+
+      if (subscribe) {
+        newPurchase.subscriptionId = this.selectedSubscription.id;
+        newPurchase.subscriptionPrice = this.selectedSubscription.prix;
+      }
+
       // Ajout dans le tableau des purchases pour cacher les boutons
       this.purchases.push(result.id);
 
