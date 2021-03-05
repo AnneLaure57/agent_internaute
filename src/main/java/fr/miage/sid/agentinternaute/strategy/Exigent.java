@@ -12,11 +12,10 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 public class Exigent {
 
 	//method compareOffers
-	private OfferDTO compareOffers(JSONObject response) {
+	private ArrayList<OfferDTO> compareOffers(JSONObject response) {
 		//String subscribe = json.getString("abonnements");
 		//System.out.println("notre json" + response);
 		
-		JSONArray subscribes = response.getJSONArray("abonnements");
 		JSONArray artworks = response.getJSONArray("oeuvres");
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
@@ -48,19 +47,30 @@ public class Exigent {
 		//sort by release date and price
 		Collections.sort(offers, OfferDTO.ComparatorDatPrice);
 		
-		//return the last element, with the most recent date
-		return offers.get(offers.size() - 1);
+		return offers;
 	}
-		
+	
 	//method main
 		public JSONObject exigentStrategy(Profile profil, JSONObject response) {
-			OfferDTO result = null;
+			ArrayList<OfferDTO> result = null;
 
 			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
 			result = compareOffers(response);
+			
 			//return result into JSONObject
-			JSONObject jsonResult = new JSONObject(result);
-			return jsonResult;
+			JSONArray sortedOeuvres = new JSONArray();
+			
+			// On remet les objets dans le JSONArray
+			for (int i = 0; i < result.size(); i++) {
+				sortedOeuvres.put(result.get(i));
+			}
+			
+			JSONArray subscribes = response.getJSONArray("abonnements");
+			
+			JSONObject sorted = new JSONObject();
+			sorted.put("oeuvres", sortedOeuvres);
+			sorted.put("abonnements", subscribes);
+			
+			return sorted;
 		}
-
 }

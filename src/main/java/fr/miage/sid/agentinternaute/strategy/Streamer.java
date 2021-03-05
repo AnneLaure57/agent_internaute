@@ -12,9 +12,10 @@ import fr.miage.sid.agentinternaute.entity.Profile;
 public class Streamer {
 	
 	//method compareOffers
-	private OfferDTO compareOffers(JSONObject response) {
+	private ArrayList<OfferDTO> compareOffers(JSONObject response) {
 		//String subscribe = json.getString("abonnements");
 		//System.out.println("notre json" + response);
+		JSONArray artworks = response.getJSONArray("oeuvres");
 		JSONArray subscribes = response.getJSONArray("abonnements");
 		
 		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
@@ -42,13 +43,15 @@ public class Streamer {
 		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
 		
 		//System.out.println("offres " + offers.get(0));
-		return offers.get(0);
+		System.out.println(offers);
+		return offers;
 	}
 	
 	//method main
-	// Not final verison
+	// Not final version
 	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
-		OfferDTO result = null;
+		ArrayList<OfferDTO> result = null;
+		
 		// check the preferences of the user profile
 		if (profil.isPreferDownloadsForVideos() == false) {
 			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
@@ -57,9 +60,22 @@ public class Streamer {
 			profil.setPreferDownloadsForVideos(false);
 			streamerStrategy(profil, response);
 		}
+		
 		//return result into JSONObject
-		JSONObject jsonResult = new JSONObject(result);
-		return jsonResult;
+		JSONArray sortedSubscribes = new JSONArray();
+		
+		// On remet les objets dans le JSONArray
+		for (int i = 0; i < result.size(); i++) {
+			sortedSubscribes.put(result.get(i));
+		}
+		
+		JSONArray oeuvres = response.getJSONArray("oeuvres");
+		
+		JSONObject sorted = new JSONObject();
+		sorted.put("oeuvres", oeuvres);
+		sorted.put("abonnements", sortedSubscribes);
+		
+		return sorted;
 	}
 	
 }

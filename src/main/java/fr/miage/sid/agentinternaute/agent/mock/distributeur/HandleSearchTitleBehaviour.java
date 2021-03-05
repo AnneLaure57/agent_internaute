@@ -46,9 +46,10 @@ public class HandleSearchTitleBehaviour extends CyclicBehaviour {
 					LOGGER.severe("It missing the main key : 'request'.");
 				}
 				
-				if (JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue())) {
+				if (JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue()) ||
+						JSON.getString("request").equals(ACLMessageTypes.REQUEST_SEARCH_FILTER.getValue())) {
 					LOGGER.info("=============================================================");
-					LOGGER.info("Ce distributeur vous répond : " + myAgent.getName());
+					LOGGER.info("Réception d'une requête pour l'agent" + myAgent.getName());
 					LOGGER.info("=============================================================");
 					
 					// Création d'une Mock réponse
