@@ -203,7 +203,7 @@
         :key="subscription.id"
         style="width: 22%"
       >
-        <v-card-title>{{ subscription.prix }} € / mois</v-card-title>
+        <v-card-title>{{ subscription.prix }} €</v-card-title>
         <v-card-subtitle
           >Engagement de {{ subscription.duree }} jours</v-card-subtitle
         >
