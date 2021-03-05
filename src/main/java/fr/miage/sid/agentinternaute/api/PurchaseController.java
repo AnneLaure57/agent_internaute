@@ -54,17 +54,13 @@ public class PurchaseController {
 	@Transactional
     public ResponseEntity<?> create(@RequestBody PurchaseDTO p) {
 		LOGGER.info("POST on /purchases for profile " + p.getProfileId());
-		LOGGER.info("**************************************************");
-		LOGGER.info(p.getSubscription().toString());
+		
 		Optional<Profile> profile = serviceProfile.getProfileById(p.getProfileId());
 		if(profile.isPresent()) {			
 			// Send to distributor
 			JSONObject response = agentService.sendAcceptProposalToAgent(profile.get().getName(), p);
-			
-			// To remove later, for dev purpose
-			response = new JSONObject("status", "ok");
 				
-			if(response != null) { // TO IMPROVE
+			if(response != null) {
 				// Persist infos
 				Purchase savedPurchase = service.createPurchase(p, profile.get());
 				URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("")

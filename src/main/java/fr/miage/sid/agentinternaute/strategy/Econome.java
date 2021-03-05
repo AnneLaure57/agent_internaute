@@ -41,7 +41,7 @@ public class Econome {
 					valA = a.getDouble(KEY_NAME);
 					valB = b.getDouble(KEY_NAME);					
 				} catch (JSONException e) {
-					LOGGER.severe("Cannot sort JSONArray");
+					//LOGGER.warning("Cannot sort JSONArray");
 				}
 				
 				if(valA == null) valA = 1000000.0;
@@ -78,7 +78,7 @@ public class Econome {
 					valA = a.getDouble(KEY_NAME);
 					valB = b.getDouble(KEY_NAME);
 				} catch (JSONException e) {
-					LOGGER.warning("Cannot sort JSONArray");
+					//LOGGER.warning("Cannot sort JSONArray");
 				}
 
 				return valA.compareTo(valB);

@@ -46,7 +46,7 @@ public class JSONDistributeur1 {
 
 		subscription1.put("id", "35871");
 		subscription1.put("duree", 70);
-		subscription1.put("prix", 0.00);
+		subscription1.put("prix", 60.00);
 		
 		/* ========================================= Abo 2  ============================================== */ /*=========================================*/
 		
