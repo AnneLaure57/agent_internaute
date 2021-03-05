@@ -5,9 +5,9 @@ import fr.miage.sid.agentinternaute.service.ProfileService;
 
 public class Satisfaction {
 	
-	private ProfileService service;
+//	private ProfileService service;
 	
-	public String satisfactionCalcul(Profile profile) {
+	public final String satisfactionCalcul(Profile profile) {
 		
 		@SuppressWarnings("unused")
 		String satisfation = null;
