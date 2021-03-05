@@ -19,16 +19,17 @@ public class AcceptProposalBehaviour extends OneShotBehaviour {
 	private Event event;
 	private AID distributor;
 
-	public AcceptProposalBehaviour(AID distributor, Event event) {
+	public AcceptProposalBehaviour(Event event) {
 		super();
 		this.event = event;
-		this.distributor = distributor;
 	}
 
 	@Override
 	public void action() {
 
 		JSONObject response = new JSONObject();
+		
+		// We must get distributor from message
 		
 		try {
 			if(distributor != null) {

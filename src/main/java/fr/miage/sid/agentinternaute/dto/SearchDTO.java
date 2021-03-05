@@ -1,5 +1,11 @@
 package fr.miage.sid.agentinternaute.dto;
 
+import java.util.ArrayList;
+
+import fr.miage.sid.agentinternaute.entity.Actor;
+import fr.miage.sid.agentinternaute.entity.Artist;
+import fr.miage.sid.agentinternaute.entity.Director;
+import fr.miage.sid.agentinternaute.entity.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +20,10 @@ public class SearchDTO {
 	private Boolean movies;
 	private Boolean musics;
 	private Boolean tvShows;
+	
+	private ArrayList<Genre> selectedVideoGenres;
+	private ArrayList<Integer> selectedMusicGenres;
+	private ArrayList<Artist> selectedArtists;
+	private ArrayList<Actor> selectedActors;
+	private ArrayList<Director> selectedDirectors;
 }

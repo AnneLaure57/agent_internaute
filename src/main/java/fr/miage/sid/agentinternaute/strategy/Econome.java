@@ -1,69 +1,100 @@
 package fr.miage.sid.agentinternaute.strategy;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.logging.Logger;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Econome {
 
+	private static final Logger LOGGER = Logger.getLogger(Econome.class.getName());
+	private static final String KEY_NAME = "prix";
+
 	public JSONObject economeResponse(JSONObject response, Profile profil) {
-	
-		boolean pref = profil.isPreferDownloadsForVideos();
-	
+
+		////////////////////// Oeuvres
+		
 		JSONArray oeuvres = response.getJSONArray("oeuvres");
-		JSONArray offres = response.getJSONArray("abonnements");
-		
-		
-		// Si il prefère le téléchargement 
-		if(pref) {
-			System.out.println("L'utilisateur préfère le téléchargement");
-			return( this.getMinPrix(oeuvres));
-			
-		}else {
-			JSONObject choixOeuvre = this.getMinPrix(oeuvres);
-			JSONObject choixOffre = this.getMinPrix(offres);
-			
-			if (choixOeuvre.getDouble("prix") >= choixOffre.getDouble("prix")) {
-				return choixOffre;
-			}
-			else {
-				return choixOeuvre;
-			}
+		JSONArray sortedOeuvres = new JSONArray();
+
+		// On met les oeuvres du JSONArray dans une liste
+		List<JSONObject> jsonValues = new ArrayList<JSONObject>();
+		for (int i = 0; i < oeuvres.length(); i++) {
+			jsonValues.add(oeuvres.getJSONObject(i));
 		}
-			
-	}
-	
-	public JSONObject getMinPrix(JSONArray elements) {
-		
-		JSONObject choix = new JSONObject();
-		Double prix_min = 0.0;
-		int index_choix = 0;
-		int j = 0;
-		
-		for (int i = 0; i < elements.length(); i++) {
-			JSONObject element = (JSONObject) elements.get(i);
-			// Première itération
-			if( element.has("prix")) {
-				if(i == j) {
-					prix_min = element.getDouble("prix");
-					index_choix = i;
-				} else {
-					
-					if (prix_min > element.getDouble("prix")) {
-						prix_min = element.getDouble("prix");
-						index_choix = i;
-					}	
-					
+
+		// On trie
+		Collections.sort(jsonValues, new Comparator<JSONObject>() {
+
+			@Override
+			public int compare(JSONObject a, JSONObject b) {
+				Double valA = null, valB = null;
+
+				try {
+					valA = a.getDouble(KEY_NAME);
+					valB = b.getDouble(KEY_NAME);					
+				} catch (JSONException e) {
+//					LOGGER.severe("Cannot sort JSONArray");
 				}
-			} else {
-				j++;
+				
+				if(valA == null) valA = 1000000.0;
+				if(valB == null) valB = 1000000.0;
+
+				return valA.compareTo(valB);
 			}
+		});
+
+		// On remet les objets dans le JSONArray
+		for (int i = 0; i < oeuvres.length(); i++) {
+			sortedOeuvres.put(jsonValues.get(i));
 		}
 		
-		choix = elements.getJSONObject(index_choix);
-		
-		return choix;
+		////////////////////// Abonnements
+
+		JSONArray offres = response.getJSONArray("abonnements");
+		JSONArray sortedSubscriptions = new JSONArray();
+
+		// On met les oeuvres du JSONArray dans une liste
+		List<JSONObject> jsonValues2 = new ArrayList<JSONObject>();
+		for (int i = 0; i < offres.length(); i++) {
+			jsonValues2.add(offres.getJSONObject(i));
+		}
+
+		// On trie
+		Collections.sort(jsonValues2, new Comparator<JSONObject>() {
+
+			@Override
+			public int compare(JSONObject a, JSONObject b) {
+				Double valA = null, valB = null;
+
+				try {
+					valA = a.getDouble(KEY_NAME);
+					valB = b.getDouble(KEY_NAME);
+				} catch (JSONException e) {
+					//LOGGER.warning("Cannot sort JSONArray");
+				}
+
+				return valA.compareTo(valB);
+			}
+		});
+
+		// On remet les objets dans le JSONArray
+		for (int i = 0; i < offres.length(); i++) {
+			sortedSubscriptions.put(jsonValues2.get(i));
+		}
+
+		// On remet tout ensemble
+		JSONObject sorted = new JSONObject();
+		sorted.put("oeuvres", sortedOeuvres);
+		sorted.put("abonnements", sortedSubscriptions);
+
+		return sorted;
 	}
-	
 }

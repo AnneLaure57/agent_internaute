@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.miage.sid.agentinternaute.agent.mock.distributeur.JSONDistributeur1;
@@ -47,46 +48,42 @@ public class SearchController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> search(@RequestBody SearchDTO newSearch) {
+	public ResponseEntity<?> search(@RequestBody SearchDTO newSearch, 
+			@RequestParam(value = "filter", required = false, defaultValue = "false") String filter) {
 		LOGGER.info("GET on /search");
 		if (newSearch != null) {
 			
 			Optional<Profile> profile = profileService.getProfileById(newSearch.getProfileId());
 			
 			if(profile.isPresent()) {
-				String title = newSearch.getSearchField();
-				boolean movies = newSearch.getMovies();
-				boolean musics = newSearch.getMusics();
-				boolean tv_shows = newSearch.getTvShows();
-				
-				System.out.println("Controleur -> recherche : " + newSearch);
-				
+				JSONObject response = null;
 				// Send request to internaute agent
-				JSONObject response = serviceInternal.sendSearchTitleToAgent(title, movies, musics,tv_shows, profile.get());
-				
-				JSONObject newRes = null ;
-				if(profile.get().getStrategy().equals("Econome")) {
-					 Econome e = new Econome();
-					 newRes = e.economeResponse(response, profile.get());
-					 System.out.println("je suis l'econome" + newRes.toString());
+				if(filter.equals("false")) {					
+					response = serviceInternal.sendSearchTitleToAgent(newSearch, profile.get());
+				} else {
+					response = serviceInternal.sendSearchFiltersToAgent(newSearch, profile.get());
 				}
-				
-				if(profile.get().getStrategy().equals("Exigent")) {
-					Exigent e = new Exigent();
-					newRes = e.exigentStrategy(profile.get(), response);
-					System.out.println("je suis l'exigent" + newRes.toString());
-				}
-				
-				if(profile.get().getStrategy().equals("Streamer")) {
-					Streamer s = new Streamer();
-					newRes = s.streamerStrategy(profile.get(), response);	
-					System.out.println("je suis streamer" + newRes.toString());
-				}
-				
-				response.put("best_result",newRes);
 				
 				if(response != null) {
-					return ResponseEntity.status(200).body(response.toString());
+					JSONObject newRes = null ;
+					if(profile.get().getStrategy().equals("Econome")) {
+						 Econome e = new Econome();
+						 newRes = e.economeResponse(response, profile.get());
+					}
+					
+					if(profile.get().getStrategy().equals("Exigent")) {
+						Exigent e = new Exigent();
+						newRes = e.exigentStrategy(profile.get(), response);
+					}
+					
+					if(profile.get().getStrategy().equals("Streamer")) {
+						Streamer s = new Streamer();
+						newRes = s.streamerStrategy(profile.get(), response);
+					}
+					
+					if(response != null) {
+						return ResponseEntity.status(200).body(newRes.toString());
+					}
 				}
 				return ResponseEntity.notFound().build();
 			}

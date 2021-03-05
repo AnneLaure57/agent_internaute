@@ -98,7 +98,6 @@ public class AgentEReputation extends Agent {
 						LOGGER.info(content);
 						LOGGER.info("=============================================================");
 						
-
 						JSONObject response = new JSONObject();
 						response.put("status", "ok");
 

@@ -91,11 +91,14 @@
       </v-card-text>
     </v-card>
 
-    <v-dialog v-model="dlg_ratings" width="600px" persistent v-if="editPurchase">
+    <v-dialog
+      v-model="dlg_ratings"
+      width="600px"
+      persistent
+      v-if="editPurchase"
+    >
       <v-card>
-        <v-card-title
-          >{{ editPurchase.titre }}</v-card-title
-        >
+        <v-card-title>{{ editPurchase.titre }}</v-card-title>
         <v-card-text>
           <div class="d-flex flex-wrap align-center">
             <h4 class="primary--text">Note générale de l'oeuvre</h4>
@@ -280,14 +283,14 @@ export default {
       this.$axios.post("/ratings", this.editPurchase).then(
         (response) => {
           this.getPurchases();
-          this.dlg_ratings = false;
           console.log(response.data);
         },
         (error) => {
-          this.dlg_ratings = false;
           console.log(error);
         }
       );
+      
+      this.dlg_ratings = false;
     },
   },
 };

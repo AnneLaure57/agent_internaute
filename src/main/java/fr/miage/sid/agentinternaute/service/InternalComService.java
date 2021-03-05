@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import fr.miage.sid.agentinternaute.agent.JadeAgentContainer;
 import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.dto.PurchaseDTO;
+import fr.miage.sid.agentinternaute.dto.SearchDTO;
 import fr.miage.sid.agentinternaute.entity.Actor;
 import fr.miage.sid.agentinternaute.entity.Artist;
 import fr.miage.sid.agentinternaute.entity.Director;
@@ -43,49 +44,93 @@ public class InternalComService {
 		}
 	}
 
-	public JSONObject sendSearchTitleToAgent(String title, Boolean movies, Boolean musics, Boolean tv_shows, Profile profile) {
+	private JSONObject getJSONPreferences(Profile profile) {
+		JSONObject userProfile = new JSONObject();
+
+		userProfile.put("name", profile.getName());
+		userProfile.put("age", Integer.toString(profile.getAge()));
+		userProfile.put("sex", profile.getSex());
+
+		userProfile.put("prefered_actors", profile.getPreferedActors().toString());
+		userProfile.put("prefered_directors", profile.getPreferedDirectors().toString());
+		userProfile.put("prefered_musics_artists", profile.getPreferedMusicArtists().toString());
+		userProfile.put("prefered_musics_genres", profile.getPreferedMusicGenres().toString());
+		userProfile.put("prefered_videos_genres", profile.getPreferedVideoGenres().toString());
+
+		return userProfile;
+	}
+
+	public JSONObject sendSearchTitleToAgent(SearchDTO searchParam, Profile profile) {
 
 		// Construct JSON message
 		JSONObject searchMessage = new JSONObject();
-		
-		// we need it to say what we want	
+
+		// we need it to say what we want
 		searchMessage.put("request", ACLMessageTypes.REQUEST_SEARCH_TITLE.getValue());
 
 		// what we search
-		searchMessage.put("title", title);
+		searchMessage.put("title", searchParam.getSearchField());
 
 		// tv_shows, musics etc.
 		ArrayList<String> checkTypes = new ArrayList<String>();
-		if (movies)
+		if (searchParam.getMovies())
 			checkTypes.add(MOVIES);
-		if (musics)
+		if (searchParam.getMusics())
 			checkTypes.add(MUSICS);
-		if (tv_shows)
+		if (searchParam.getTvShows())
 			checkTypes.add(TV_SHOWS);
 		searchMessage.put("types", Arrays.toString(checkTypes.toArray()));
 
 		// send our profile
 		if (profile != null) {
-			JSONObject userProfile = new JSONObject();
-
-			userProfile.put("name", profile.getName());
-			userProfile.put("age", Integer.toString(profile.getAge()));
-			userProfile.put("sex", profile.getSex());
-
-			userProfile.put("prefered_actors", profile.getPreferedActors().toString());
-			userProfile.put("prefered_directors", profile.getPreferedDirectors().toString());
-			userProfile.put("prefered_musics_artists", profile.getPreferedMusicArtists().toString());
-			userProfile.put("prefered_musics_genres", profile.getPreferedMusicGenres().toString());
-			userProfile.put("prefered_videos_genres", profile.getPreferedVideoGenres().toString());
-
+			JSONObject userProfile = getJSONPreferences(profile);
 			searchMessage.put("user_profile", userProfile);
 		}
 
 		String agentName = profile.getName();
-		
-		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + searchMessage.toString() );
-		
+
+		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : "
+				+ searchMessage.toString());
+
 		return (JSONObject) sendToAgent(1, searchMessage.toString(), agentName, 10);
+	}
+
+	public JSONObject sendSearchFiltersToAgent(SearchDTO searchParam, Profile profile) {
+		// Construct JSON message
+		JSONObject searchMessage = new JSONObject();
+
+		// we need it to say what we want
+		searchMessage.put("request", ACLMessageTypes.REQUEST_SEARCH_FILTER.getValue());
+
+		// tv_shows, musics etc.
+		ArrayList<String> checkTypes = new ArrayList<String>();
+		if (searchParam.getMovies())
+			checkTypes.add(MOVIES);
+		if (searchParam.getMusics())
+			checkTypes.add(MUSICS);
+		if (searchParam.getTvShows())
+			checkTypes.add(TV_SHOWS);
+		searchMessage.put("types", Arrays.toString(checkTypes.toArray()));
+		
+		// filters
+		searchMessage.put("selected_video_genres", searchParam.getSelectedVideoGenres());
+		searchMessage.put("selected_music_genres", searchParam.getMusics());
+		searchMessage.put("selected_artists", searchParam.getSelectedArtists());
+		searchMessage.put("selected_actors", searchParam.getSelectedActors());
+		searchMessage.put("selected_directors", searchParam.getSelectedDirectors());
+
+		// send our profile
+		if (profile != null) {
+			JSONObject userProfile = getJSONPreferences(profile);
+			searchMessage.put("user_profile", userProfile);
+		}
+
+		String agentName = profile.getName();
+
+		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : "
+				+ searchMessage.toString());
+
+		return (JSONObject) sendToAgent(2, searchMessage.toString(), agentName, 10);
 	}
 
 	public JSONObject sendRatingsToAgent(String agentName, Purchase purchase) {
@@ -125,15 +170,16 @@ public class InternalComService {
 			}
 			message.put("realisateurs", directors);
 		}
-		
-		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : " + message.toString() );		
+
+		System.out.println("InternalComService -> envoi de la requête à l'agent internaute " + agentName + " : "
+				+ message.toString());
 
 		// Send it to the agent
 		return (JSONObject) sendToAgent(0, message.toString(), agentName, 10);
 	}
 
 	public JSONObject sendAcceptProposalToAgent(String agentName, PurchaseDTO p) {
-		
+
 		// Construct JSON message
 		JSONObject message = new JSONObject();
 		// TODO
