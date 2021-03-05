@@ -211,8 +211,10 @@
           subscription.distributeur
         }}</v-card-text>
         <v-card-actions class="d-flex justify-center ma-2">
-          <v-btn color="primary" min-width="150px" @click="buy(result, true)"
-            >S'abonner</v-btn
+          <v-btn v-if="subscription.prix == 0" color="info">Deja abonné</v-btn>
+          <v-btn v-else-if="anotherSubscription(subscription, subscriptions)" color="pink">Non disponible</v-btn>
+          <v-btn v-else :color="selectedSubscription ? (selectedSubscription.id == subscription.id ? 'error' : 'primary') : 'primary'" min-width="150px" @click="setSubscription(subscription)"
+            > {{ selectedSubscription ? (selectedSubscription.id == subscription.id ? 'Désélectionner' : 'Sélectionner') : 'Sélectionner' }} </v-btn
           >
         </v-card-actions>
       </v-card>
@@ -317,6 +319,7 @@ export default {
 
   data() {
     return {
+      selectedSubscription: null,
       searchfield: "",
       movies1: true,
       tv_shows1: false,
@@ -344,6 +347,8 @@ export default {
 
   computed: {
     ...mapState(["profile"]),
+
+
   },
 
   mounted() {
@@ -357,6 +362,32 @@ export default {
   },
 
   methods: {
+    anotherSubscription (subscription, subscriptions) {
+      subscriptions.forEach(sub => {
+        if (sub.id == subscription.id) {
+          console.log(sub);
+          return true;
+        }
+      });
+      subscriptions.forEach(sub => {
+        if (sub.prix == 0 && sub.distributeur == subscription.distributeur) {
+          return true;
+        }
+      });
+    },
+
+    setSubscription (subscription) {
+      if (this.selectedSubscription == null) {
+        this.selectedSubscription = subscription;
+      } else if (this.selectedSubscription.id == subscription.id) {
+        this.selectedSubscription = null;
+      } else {
+        this.selectedSubscription = subscription;
+      }
+      console.log(subscription);
+      console.log(this.selectedSubscription);
+    },
+
     searchTitle() {
       let newSearch = {
         searchField: this.searchfield,
@@ -406,6 +437,7 @@ export default {
         realisateurs: result.realisateurs,
         artistes: result.artistes,
         profileId: this.profile.id,
+        subscription: this.selectedSubscription ? this.selectedSubscription : {}
       };
       // Ajout dans le tableau des purchases pour cacher les boutons
       this.purchases.push(result.id);
