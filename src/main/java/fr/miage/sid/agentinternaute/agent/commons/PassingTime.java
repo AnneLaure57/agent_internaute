@@ -79,5 +79,5 @@ public class PassingTime {
 			LOGGER.info(currentDate + " est égale à " + date2);
 		}
 	    return newDiff;
-	} 
+	}
 }

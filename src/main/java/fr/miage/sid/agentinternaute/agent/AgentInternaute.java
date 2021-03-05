@@ -72,12 +72,11 @@ public class AgentInternaute extends Agent {
 		addBehaviour(new TickerBehaviour(this, timerTickerBehaviour) {
 			private static final long serialVersionUID = 9192646164357857629L;
 			protected void onTick() {
-				Long newDiff = PassingTime.checkDate(tStart);
-				// if the difference calculated equal 30 days = 1 month
-				if (newDiff == TimeUnit.DAYS.toMillis(30)) {
-					//check the satisfaction
-					//s.satisfactionCalcul(name);
-				}
+//				Long newDiff = PassingTime.checkDate(tStart);
+//				// if the difference calculated equal 30 days = 1 month
+//				if (newDiff == TimeUnit.DAYS.toMillis(30)) {
+//					//check the satisfaction
+//				}
 			}
 		});
 	}
