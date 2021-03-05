@@ -2,80 +2,79 @@ package fr.miage.sid.agentinternaute.strategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.miage.sid.agentinternaute.dto.OfferDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Streamer {
-	
-	//method compareOffers
-	private ArrayList<OfferDTO> compareOffers(JSONObject response) {
-		//String subscribe = json.getString("abonnements");
-		//System.out.println("notre json" + response);
-		JSONArray artworks = response.getJSONArray("oeuvres");
-		JSONArray subscribes = response.getJSONArray("abonnements");
+
+	// method compareOffers
+	private JSONArray compareOffers(JSONObject response) {
 		
-		ArrayList<OfferDTO> offers = new ArrayList<OfferDTO>(); 
-		
-		//First Step => get the list of subcribes
-		for(int i=0; i<subscribes.length(); i++){
-			//get the subscribe
-			JSONObject subscribe = (JSONObject) subscribes.get(i);
-			
-			// Get id
-			Long subID = Long.valueOf(subscribe.getString("id"));
-			
-			//Get price
-            Double subPrice = subscribe.getDouble("prix");
-            
-            //Get duration
-            Integer subDur = subscribe.getInt("duree");
-            OfferDTO offer = new OfferDTO(subID, subDur, subPrice);
-            
-            //on ajoute dans la liste des offres
-            offers.add(offer);  
-        }
-		
-		//sort by duration and price
-		Collections.sort(offers, OfferDTO.ComparatorDurPrice);
-		
-		//System.out.println("offres " + offers.get(0));
-		System.out.println(offers);
-		return offers;
-	}
-	
-	//method main
-	// Not final version
-	public JSONObject streamerStrategy (Profile profil, JSONObject response) {
-		ArrayList<OfferDTO> result = null;
-		
-		// check the preferences of the user profile
-		if (profil.isPreferDownloadsForVideos() == false) {
-			// compare offers with the string message from distributors (can be change it necessary to JSON) or List<ResultDTO>
-			result = compareOffers(response);
-		} else {
-			profil.setPreferDownloadsForVideos(false);
-			streamerStrategy(profil, response);
+		JSONArray offres = response.getJSONArray("abonnements");
+		JSONArray sortedSubscriptions = new JSONArray();
+
+		// On met les oeuvres du JSONArray dans une liste
+		List<JSONObject> jsonValues = new ArrayList<JSONObject>();
+		for (int i = 0; i < offres.length(); i++) {
+			jsonValues.add(offres.getJSONObject(i));
 		}
-		
-		//return result into JSONObject
-		JSONArray sortedSubscribes = new JSONArray();
-		
+
+		// On trie
+		Collections.sort(jsonValues, new Comparator<JSONObject>() {
+
+			@Override
+			public int compare(JSONObject a, JSONObject b) {
+				Integer durationA = 0, durationB = 0;
+				Double priceA = 10000000.0, priceB = 10000000.0;
+
+				try {
+					durationA = a.getInt("duree");
+					durationB = b.getInt("duree");
+					priceA = a.getDouble("prix");
+					priceB = b.getDouble("prix");
+				} catch (JSONException e) {
+					// LOGGER.severe("Cannot sort JSONArray");
+				}
+
+				if (durationA == durationB) {
+					// sort by price
+					return priceA.compareTo(priceB);
+				} else {
+					// sort by duration
+					return durationB.compareTo(durationA);
+				}
+			}
+		});
+
 		// On remet les objets dans le JSONArray
-		for (int i = 0; i < result.size(); i++) {
-			sortedSubscribes.put(result.get(i));
+		for (int i = 0; i < offres.length(); i++) {
+			sortedSubscriptions.put(jsonValues.get(i));
 		}
-		
+
+		return sortedSubscriptions;
+	}
+
+	// method main
+	// Not final version
+	public JSONObject streamerStrategy(Profile profil, JSONObject response) {
+		JSONArray result = null;
+
+		// return result into JSONObject
 		JSONArray oeuvres = response.getJSONArray("oeuvres");
-		
+		JSONArray sortedSubscriptions = compareOffers(response);
+
 		JSONObject sorted = new JSONObject();
 		sorted.put("oeuvres", oeuvres);
-		sorted.put("abonnements", sortedSubscribes);
-		
+		sorted.put("abonnements", sortedSubscriptions);
+
 		return sorted;
 	}
-	
+
 }

@@ -16,8 +16,6 @@ public class Exigent {
 
 	// method compareOffers
 	private JSONArray compareOffers(JSONObject response) {
-		// String subscribe = json.getString("abonnements");
-		// System.out.println("notre json" + response);
 
 		JSONArray oeuvres = response.getJSONArray("oeuvres");
 		JSONArray sortedOeuvres = new JSONArray();
@@ -42,14 +40,14 @@ public class Exigent {
 					priceA = a.getDouble("prix");
 					priceB = b.getDouble("prix");
 				} catch (JSONException e) {
-//							LOGGER.severe("Cannot sort JSONArray");
+					// LOGGER.severe("Cannot sort JSONArray");
 				}
 
 				if (releaseA == releaseB) {
 					// sort by price
 					return priceA.compareTo(priceB);
 				} else {
-					// sort by duration
+					// sort by release date
 					return releaseB.compareTo(releaseA);
 				}
 			}

@@ -393,6 +393,11 @@ export default {
         .map((obj) => obj.id);
 
       this.profile.strategy = this.strategy;
+
+      if(this.strategy == "Streamer") {
+        this.profile.preferDownloadsForVideos = false;
+        this.profile.preferDownloadsForMusics = false;
+      }
   
       this.$axios.put("/profil/" + this.profile.id, this.profile).then(
         (response) => {
