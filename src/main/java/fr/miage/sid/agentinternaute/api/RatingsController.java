@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

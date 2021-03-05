@@ -49,12 +49,11 @@ public class PurchaseController {
 		return  ResponseEntity.ok(purchases);
 	}
 			
+	@SuppressWarnings("unused")
 	@PostMapping
 	@Transactional
     public ResponseEntity<?> create(@RequestBody PurchaseDTO p) {
 		LOGGER.info("POST on /purchases for profile " + p.getProfileId());
-		LOGGER.info("**************************************************");
-		LOGGER.info("**************************************************");
 		LOGGER.info("**************************************************");
 		LOGGER.info(p.getSubscription().toString());
 		Optional<Profile> profile = serviceProfile.getProfileById(p.getProfileId());

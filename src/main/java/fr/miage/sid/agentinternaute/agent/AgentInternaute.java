@@ -1,7 +1,5 @@
 package fr.miage.sid.agentinternaute.agent;
 
-import java.net.URI;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;

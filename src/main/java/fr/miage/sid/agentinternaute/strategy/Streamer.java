@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.miage.sid.agentinternaute.dto.OfferDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Streamer {
 
+	private static final Logger LOGGER = Logger.getLogger(Streamer.class.getName());
 	// method compareOffers
 	private JSONArray compareOffers(JSONObject response) {
 		
@@ -40,7 +41,7 @@ public class Streamer {
 					priceA = a.getDouble("prix");
 					priceB = b.getDouble("prix");
 				} catch (JSONException e) {
-					// LOGGER.severe("Cannot sort JSONArray");
+					 LOGGER.severe("Cannot sort JSONArray");
 				}
 
 				if (durationA == durationB) {

@@ -3,7 +3,6 @@ package fr.miage.sid.agentinternaute.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 

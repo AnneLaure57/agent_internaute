@@ -1,15 +1,10 @@
 package fr.miage.sid.agentinternaute.agent.mock.ereputation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
 
-import fr.miage.sid.agentinternaute.agent.commons.ACLMessageTypes;
 import fr.miage.sid.agentinternaute.agent.commons.AgentAndACLMessageUtils;
 import fr.miage.sid.agentinternaute.agent.commons.AgentTypes;
 import jade.core.AID;
@@ -88,7 +83,6 @@ public class AgentEReputation extends Agent {
 
 					// On récupère le JSON
 					String content = message.getContent();
-					JSONObject JSON = new JSONObject(content);
 
 					// Logique métier
 					if (message.getPerformative() == ACLMessage.INFORM) {

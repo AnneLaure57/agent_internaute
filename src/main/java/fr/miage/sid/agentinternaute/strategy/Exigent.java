@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.miage.sid.agentinternaute.dto.OfferDTO;
 import fr.miage.sid.agentinternaute.entity.Profile;
 
 public class Exigent {

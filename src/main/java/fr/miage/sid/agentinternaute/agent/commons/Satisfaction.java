@@ -1,7 +1,5 @@
 package fr.miage.sid.agentinternaute.agent.commons;
 
-import java.util.Optional;
-
 import fr.miage.sid.agentinternaute.entity.Profile;
 import fr.miage.sid.agentinternaute.service.ProfileService;
 
